@@ -1,0 +1,36 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "explorer.compactFolders": false,
+    "editor.rulers": [120],
+    "editor.insertSpaces": false,
+    "editor.renderLineHighlight": "gutter",
+    "eslint.validate": ["javascript", "typescript"],
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "cSpell.words": [
+        "basen",
+        "Biryani",
+        "brandrao",
+        "camelcase",
+        "clsx",
+        "commitlint",
+        "embla",
+        "hocs",
+        "kotai",
+        "liftus",
+        "luana",
+        "lucide",
+        "madalena",
+        "navs",
+        "noopen",
+        "nosniff",
+        "primor",
+        "SAMEORIGIN",
+        "sonarjs",
+        "startfy",
+        "typeform",
+        "wmiler"
+    ]
+}

@@ -1,0 +1,8 @@
+build
+coverage
+.github
+.husky
+assets
+node_modules
+/postman
+.next

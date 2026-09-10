@@ -1,0 +1,10 @@
+/node_modules
+/build
+/coverage
+/dist
+/.vscode
+/.github
+/.next
+/.husky
+/public
+/next.config.js

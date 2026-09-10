@@ -1,0 +1,7 @@
+{
+    "extends": ["@commitlint/config-conventional"],
+    "parserPreset": {
+        "parserOpts": {}
+    },
+    "rules": {}
+}

@@ -1,0 +1,56 @@
+{
+    "extends": [
+        "next/core-web-vitals",
+        "next/typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:tailwindcss/recommended",
+        "prettier",
+        "plugin:import/typescript"
+    ],
+    "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import-helpers"],
+    "rules": {
+        "camelcase": "error",
+        "no-debugger": "warn",
+        "no-use-before-define": "off",
+        "react/no-unescaped-entities": "off",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@next/next/no-img-element": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "jsx-a11y/anchor-is-valid": [
+            "error",
+            {
+                "components": ["Link"],
+                "specialLink": ["hrefLeft", "hrefRight"],
+                "aspects": ["invalidHref", "preferButton"]
+            }
+        ],
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [["/^react/", "module"], ["/^@//"], ["parent", "sibling", "index"]],
+                "alphabetize": { "order": "asc", "ignoreCase": true }
+            }
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".ts", ".tsx"]
+            }
+        },
+        "tailwindcss": {
+            "config": "./tailwind.config.js",
+            "removeDuplicates": true
+        }
+    }
+}
