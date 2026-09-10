@@ -22,9 +22,9 @@ function Contact({ title, text, buttontext }: ContactProps) {
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4 sm:justify-normal">
                         <div className="justify-end lg:flex">
-                          <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
-                            <Link href="/auth">{buttontext}</Link>
-                        </InteractiveHoverButton>
+                            <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
+                                <Link href="/auth">{buttontext}</Link>
+                            </InteractiveHoverButton>
                         </div>
                     </div>
                 </div>

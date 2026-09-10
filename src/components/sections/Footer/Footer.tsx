@@ -6,7 +6,7 @@ function Footer({ rights }: FooterProps) {
             {/* Copyright and Social Media Links */}
             <div className="container mx-auto">
                 <div className="flex flex-wrap items-center justify-center border-t border-l-color-malachite py-16">
-                    <div className='text-white'>© Desenvolvido por Code Creative. Todos os direitos reservados</div>
+                    <div className="text-white">© Desenvolvido por Code Creative. Todos os direitos reservados</div>
                 </div>
             </div>
         </section>
