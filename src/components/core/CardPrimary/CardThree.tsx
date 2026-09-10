@@ -7,7 +7,7 @@ import { CardProps } from '@/components/core/CardPrimary/Card.types'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 
-function CardThree({ text, icon, title, desc, titleApp, progress, progressvalue, progressvalueX }: CardProps) {
+function CardThree({ text, title, desc, titleApp, progress, progressvalue, progressvalueX }: CardProps) {
     return (
         <div className="rounded-2xl border-2 border-color-blue bg-white drop-shadow-2xl transition-transform hover:scale-105 lg:flex-col">
             <div className="flex flex-col gap-8 p-6">
