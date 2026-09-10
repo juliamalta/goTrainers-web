@@ -43,7 +43,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                             <>
                                 Seu próximo aluno pode estar
                                 <br />
-                               <span className='text-color-malachite font-bold'>procurando por você agora. </span>
+                                <span className="font-bold text-color-malachite">procurando por você agora. </span>
                             </>
                         }
                         text="Crie seu site profissional hoje mesmo e mostre ao mundo o verdadeiro valor do seu trabalho."
