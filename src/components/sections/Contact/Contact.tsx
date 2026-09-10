@@ -1,9 +1,5 @@
 'use client'
-
-import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
-import { FaWhatsapp } from 'react-icons/fa'
-
 import { InteractiveHoverButton } from '@/components/magicui/Interactive-HoverButton'
 import { ContactProps } from '@/components/sections/Contact/Contact.types'
 
@@ -19,7 +15,7 @@ function Contact({ title, text, buttontext }: ContactProps) {
                             </h1>
                         </div>
                         <div className="items-center">
-                            <p className="text-center text-sm font-normal text-color-boulder sm:text-base lg:text-base">
+                            <p className="text-center text-sm font-normal text-color-clay sm:text-base lg:text-base">
                                 {text}
                             </p>
                         </div>

@@ -20,6 +20,8 @@ const buttonVariants = cva(
 
                 herobuttonsecondary:
                     'bg-[#1E2020] border-[#1E2020] hover:text-color-flamingo rounded-xl border-2 text-white hover:text-color-malachite hover:border-color-malachite',
+                buttoncard:
+                    'hover:bg-[#1E2020] hover:border-color-malachite hover:text-color-malachite rounded-xl border-2 text-color-malachite text-white border-white',
             },
             size: {
                 default: 'h-10 px-4 py-2',

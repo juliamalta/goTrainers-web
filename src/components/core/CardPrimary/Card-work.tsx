@@ -23,7 +23,7 @@ function CardWork({ title, description, img, tag, link, buttonText }: CardWorkPr
                     </div>
                     {link && (
                         <div>
-                            <Button variant="herobuttonsecondary" asChild className="w-full rounded-lg">
+                            <Button variant="buttoncard" asChild className="w-full rounded-lg">
                                 <Link href={link!}>{buttonText!}</Link>
                             </Button>
                         </div>
