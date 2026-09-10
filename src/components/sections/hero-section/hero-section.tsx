@@ -37,7 +37,7 @@ export function HeroSection({ title, desc, button1text, button2text, titlePrimar
                 <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
                     <div className="flex w-full flex-col gap-3 sm:flex-row">
                         <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
-                            <Link href="https://wa.me/5531996398460">{button1text}</Link>
+                            <Link href="/auth">{button1text}</Link>
                         </InteractiveHoverButton>
 
                         <Button variant="herobuttonsecondary" size="hero" asChild className="rounded-2xl text-sm">

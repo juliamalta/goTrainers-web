@@ -3,6 +3,8 @@ import { HeroSection } from '@/components/sections/hero-section'
 import { FaStar, FaUsers } from 'react-icons/fa6'
 import { CiTimer } from 'react-icons/ci'
 import Cards3 from '@/components/sections/Cards/Cards3'
+import Contact from '@/components/sections/Contact/Contact'
+
 
 export default function Home() {
     return (
@@ -97,7 +99,19 @@ export default function Home() {
                         buttonText: 'Visualizar template',
                     },
                 ]}
+                
             />
+            <Contact
+                        title={
+                            <>
+                                Seu próximo aluno pode estar
+                                <br />
+                                <span className="font-bold text-color-malachite">procurando por você agora. </span>
+                            </>
+                        }
+                        text="Crie seu site profissional hoje mesmo e mostre ao mundo o verdadeiro valor do seu trabalho."
+                        buttontext="Criar meu site"
+                    />
         </main>
     )
 }

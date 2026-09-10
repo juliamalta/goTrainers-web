@@ -38,17 +38,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 {children}
 
                 <div className="bg-cover bg-center">
-                    <Contact
-                        title={
-                            <>
-                                Seu próximo aluno pode estar
-                                <br />
-                                <span className="font-bold text-color-malachite">procurando por você agora. </span>
-                            </>
-                        }
-                        text="Crie seu site profissional hoje mesmo e mostre ao mundo o verdadeiro valor do seu trabalho."
-                        buttontext="Criar meu site"
-                    />
                     <Footer rights="© 2026 Code Creative. Todos os direitos reservados." />
                 </div>
             </body>
