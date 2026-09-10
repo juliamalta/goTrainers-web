@@ -69,7 +69,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                                                 <NavigationMenuLink asChild>
                                                     <Link
                                                         href={link}
-                                                        className="hover:text-color-boulder text-base text-white">
+                                                        className="text-base text-white hover:text-color-boulder">
                                                         {text}
                                                     </Link>
                                                 </NavigationMenuLink>
@@ -85,7 +85,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                     <div className="hidden justify-end lg:flex">
                         <Link
                             href="#contato"
-                            className="hover:text-color-studio pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-full bg-color-denim px-5 py-3 text-sm font-semibold text-white transition hover:bg-white sm:w-fit sm:text-base 2xl:text-base">
+                            className="bg-color-denim pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-full px-5 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-color-studio sm:w-fit sm:text-base 2xl:text-base">
                             <span className="whitespace-nowrap text-sm">Fale conosco</span>
                         </Link>
                     </div>
@@ -131,7 +131,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                                 <li key={`nav-mobile-${index}`}>
                                     {isLastItem ? (
                                         <Button
-                                            className="rounded-md bg-color-denim px-6 py-2 text-white hover:bg-color-denim"
+                                            className="bg-color-denim hover:bg-color-denim rounded-md px-6 py-2 text-white"
                                             onClick={() => (window.location.href = link)}>
                                             {text}
                                         </Button>
@@ -146,7 +146,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                                                 const el = document.getElementById(id)
                                                 if (el) el.scrollIntoView({ behavior: 'smooth' })
                                             }}
-                                            className="hover:bg-color-studio block rounded-md px-4 py-3 font-medium text-gray-300 hover:text-white">
+                                            className="block rounded-md px-4 py-3 font-medium text-gray-300 hover:bg-color-studio hover:text-white">
                                             {text}
                                         </Link>
                                     )}

@@ -7,7 +7,9 @@ import { CardSectionProps } from '@/components/sections/Cards/Cards.types'
 
 function Card1({ cards, title, desc }: CardSectionProps) {
     return (
-        <section id="Serviços" className="bg-color-woodsmoke border-[1px] border-color-malachite rounded-2xl m-8 py-24 sm:pb-24">
+        <section
+            id="Serviços"
+            className="m-8 rounded-2xl border-[1px] border-color-malachite bg-color-woodsmoke py-24 sm:pb-24">
             <div className="container mx-auto flex flex-col items-center justify-center gap-12">
                 <div className="w-full">
                     <p className="text-center text-4xl font-semibold text-white">{title}</p>

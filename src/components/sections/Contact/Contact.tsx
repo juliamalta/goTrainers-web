@@ -10,7 +10,7 @@ import { ContactProps } from '@/components/sections/Contact/Contact.types'
 function Contact({ title, text, buttontext }: ContactProps) {
     return (
         <section>
-            <div className="flex flex-col py-6 sm:flex-row bg-color-codgray">
+            <div className="flex flex-col bg-color-codgray py-6 sm:flex-row">
                 <div className="mx-auto flex flex-col items-center justify-center gap-5 p-5 py-24 sm:p-8 lg:p-16">
                     <div className="flex flex-col items-center justify-center gap-8 lg:w-full">
                         <div>
@@ -26,9 +26,9 @@ function Contact({ title, text, buttontext }: ContactProps) {
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4 sm:justify-normal">
                         <div className="justify-end lg:flex">
-                             <InteractiveHoverButton className="border-color-malachite bg-color-malachite rounded-2xl text-center text-sm text-black hover:text-white">
-                                        <Link href="https://wa.me/5531996398460"> {buttontext}</Link>
-                                    </InteractiveHoverButton>
+                            <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
+                                <Link href="https://wa.me/5531996398460"> {buttontext}</Link>
+                            </InteractiveHoverButton>
                         </div>
                     </div>
                 </div>

@@ -9,22 +9,21 @@ function CardWork({ title, description, img, tag, link, buttonText }: CardWorkPr
                 <Image src={img!} alt="img" width={501} height={323} className="size-full object-cover" />
             </div>
             <div className="flex flex-col gap-4 px-10 py-7">
-              
                 <div className="flex flex-col gap-4">
                     <p className="text-2xl font-semibold text-white">{title}</p>
                     <p className="text-color-clay">{description}</p>
-                      <div className="flex gap-2">
-                    {tag.map((t, i) => (
-                        <div
-                            className="border-color-clay flex h-5 items-center justify-center whitespace-nowrap rounded-sm border px-3 py-3"
-                            key={i}>
-                            <p className="text-color-clay text-center">{t}</p>
-                        </div>
-                    ))}
-                </div>
+                    <div className="flex gap-2">
+                        {tag.map((t, i) => (
+                            <div
+                                className="flex h-5 items-center justify-center whitespace-nowrap rounded-sm border border-color-clay px-3 py-3"
+                                key={i}>
+                                <p className="text-center text-color-clay">{t}</p>
+                            </div>
+                        ))}
+                    </div>
                     {link && (
                         <div>
-                            <Button variant="herobuttonsecondary" asChild className="rounded-lg w-full">
+                            <Button variant="herobuttonsecondary" asChild className="w-full rounded-lg">
                                 <Link href={link!}>{buttonText!}</Link>
                             </Button>
                         </div>

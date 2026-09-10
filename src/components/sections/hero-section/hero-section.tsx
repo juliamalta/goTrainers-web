@@ -7,19 +7,9 @@ import { InteractiveHoverButton } from '@/components/magicui/Interactive-HoverBu
 import { HeroProps } from '@/components/sections/hero-section/hero-section.types'
 import { Button } from '@/components/ui/button'
 
-export function HeroSection({
-    title,
-    desc,
-    button1text,
-    button2text,
-    titlePrimary,
-    tag,
-}: HeroProps) {
+export function HeroSection({ title, desc, button1text, button2text, titlePrimary, tag }: HeroProps) {
     return (
-        <section
-            id="inicio"
-            className="relative mx-auto overflow-hidden px-2 py-24 sm:py-24"
-        >
+        <section id="inicio" className="relative mx-auto overflow-hidden px-2 py-24 sm:py-24">
             {/* Background com opacidade */}
             <div
                 className="absolute inset-0 bg-cover bg-center opacity-30"
@@ -33,57 +23,35 @@ export function HeroSection({
                 <div className="flex">
                     <HyperText
                         style={{
-                            backgroundColor:
-                                'color-mix(in srgb, var(--malachite-500) 10%, transparent)',
+                            backgroundColor: 'color-mix(in srgb, var(--malachite-500) 10%, transparent)',
                         }}
-                        className="text-color-malachite rounded-2xl px-4 text-base font-semibold"
-                    >
+                        className="rounded-2xl px-4 text-base font-semibold text-color-malachite">
                         {titlePrimary}
                     </HyperText>
                 </div>
 
-                <h1 className="font-regular w-full text-3xl text-white md:text-6xl lg:w-2/3">
-                    {title}
-                </h1>
+                <h1 className="font-regular w-full text-3xl text-white md:text-6xl lg:w-2/3">{title}</h1>
 
-                <p className="text-md text-color-clay sm:text-base lg:w-2/5">
-                    {desc}
-                </p>
+                <p className="text-md text-color-clay sm:text-base lg:w-2/5">{desc}</p>
 
                 <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
                     <div className="flex w-full flex-col gap-3 sm:flex-row">
-                        <InteractiveHoverButton
-                            className="border-color-malachite bg-color-malachite rounded-2xl text-center text-sm text-black hover:text-white"
-                        >
-                            <Link href="https://wa.me/5531996398460">
-                                {button1text}
-                            </Link>
+                        <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
+                            <Link href="https://wa.me/5531996398460">{button1text}</Link>
                         </InteractiveHoverButton>
 
-                        <Button
-                            variant="herobuttonsecondary"
-                            size="hero"
-                            asChild
-                            className="rounded-2xl text-sm"
-                        >
-                            <Link href="#trabalho">
-                                {button2text}
-                            </Link>
+                        <Button variant="herobuttonsecondary" size="hero" asChild className="rounded-2xl text-sm">
+                            <Link href="#trabalho">{button2text}</Link>
                         </Button>
                     </div>
                 </div>
 
                 <div className="flex w-full flex-col gap-8 sm:flex-row">
                     {tag.map((tags, index) => (
-                        <div
-                            key={index}
-                            className="flex items-center gap-2"
-                        >
+                        <div key={index} className="flex items-center gap-2">
                             {tags.icon}
 
-                            <p className="text-md text-white">
-                                {tags.text}
-                            </p>
+                            <p className="text-md text-white">{tags.text}</p>
                         </div>
                     ))}
                 </div>

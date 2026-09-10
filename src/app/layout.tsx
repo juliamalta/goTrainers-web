@@ -35,22 +35,20 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en" className="scroll-smooth">
             <body className={cn('min-h-screen bg-background antialiased', plusJakartaSans.className)}>
-                
-                
                 {children}
 
-                <div className="bg-cover bg-center" >
-                   <Contact
-    title={
-        <>
-            Seu próximo aluno pode estar
-            <br />
-            procurando por você agora.
-        </>
-    }
-    text="Crie seu site profissional hoje mesmo e mostre ao mundo o verdadeiro valor do seu trabalho."
-    buttontext="Criar meu site"
-/>
+                <div className="bg-cover bg-center">
+                    <Contact
+                        title={
+                            <>
+                                Seu próximo aluno pode estar
+                                <br />
+                                procurando por você agora.
+                            </>
+                        }
+                        text="Crie seu site profissional hoje mesmo e mostre ao mundo o verdadeiro valor do seu trabalho."
+                        buttontext="Criar meu site"
+                    />
                     <Footer rights="© 2026 Code Creative. Todos os direitos reservados." />
                 </div>
             </body>
