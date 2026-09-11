@@ -12,7 +12,7 @@ function CardWork({ title, description, img, tag, link, buttonText }: CardWorkPr
                 <div className="flex flex-col gap-4">
                     <p className="text-2xl font-semibold text-white">{title}</p>
                     <div className="flex gap-2">
-                        {tag.map((t, i) => (
+                        {tag!.map((t, i) => (
                             <div
                                 className="flex h-5 items-center justify-center whitespace-nowrap rounded-sm border border-color-clay px-3 py-3"
                                 key={i}>
