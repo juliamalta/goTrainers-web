@@ -22,10 +22,10 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
     return (
         <>
             <NavigationHeader2
-              user={{
-    name: user?.name || 'Usuário',
-    email: user?.email || '',
-}}
+                user={{
+                    name: user?.name || 'Usuário',
+                    email: user?.email || '',
+                }}
             />
 
             {children}
