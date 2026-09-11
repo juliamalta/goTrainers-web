@@ -85,8 +85,8 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                     <div className="hidden justify-end lg:flex">
                         <Link
                             href="#contato"
-                            className="bg-color-denim pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-full px-5 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-color-studio sm:w-fit sm:text-base 2xl:text-base">
-                            <span className="whitespace-nowrap text-sm">Fale conosco</span>
+                            className="pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-2xl bg-color-malachite px-5 py-3 text-sm font-semibold text-black transition hover:bg-color-codgray hover:text-white sm:w-fit sm:text-base 2xl:text-base">
+                            <span className="whitespace-nowrap text-sm">Entrar</span>
                         </Link>
                     </div>
                 </div>

@@ -11,7 +11,6 @@ function CardWork({ title, description, img, tag, link, buttonText }: CardWorkPr
             <div className="flex flex-col gap-4 px-10 py-7">
                 <div className="flex flex-col gap-4">
                     <p className="text-2xl font-semibold text-white">{title}</p>
-                    <p className="text-color-clay">{description}</p>
                     <div className="flex gap-2">
                         {tag.map((t, i) => (
                             <div
@@ -21,6 +20,8 @@ function CardWork({ title, description, img, tag, link, buttonText }: CardWorkPr
                             </div>
                         ))}
                     </div>
+                    <p className="text-color-clay">{description}</p>
+
                     {link && (
                         <div>
                             <Button variant="buttoncard" asChild className="rounded-lg">

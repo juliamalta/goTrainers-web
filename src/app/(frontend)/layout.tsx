@@ -1,16 +1,10 @@
 import type { Metadata } from 'next'
-
-// eslint-disable-next-line camelcase
 import { Space_Grotesk, Plus_Jakarta_Sans, Manrope } from 'next/font/google'
 
 import '../globals.css'
 
-import { Footer } from '@/components/sections/Footer'
 import { configs } from '@/configs'
 import { cn } from '@/lib/utils'
-import Contact from '@/components/sections/Contact/Contact'
-import NavigationHeader from '@/components/sections/Navigations'
-import LogoImage from '../../public/images/logo.png'
 
 const spaceGrotesk = Space_Grotesk({
     subsets: ['latin'],
@@ -33,14 +27,8 @@ type RootLayoutProps = React.PropsWithChildren
 
 export default function RootLayout({ children }: RootLayoutProps) {
     return (
-        <html lang="en" className="scroll-smooth">
-            <body className={cn('min-h-screen bg-background antialiased', plusJakartaSans.className)}>
-                {children}
-
-                <div className="bg-cover bg-center">
-                    <Footer rights="© 2026 Code Creative. Todos os direitos reservados." />
-                </div>
-            </body>
+        <html lang="pt-BR" className="scroll-smooth">
+            <body className={cn('min-h-screen bg-background antialiased', plusJakartaSans.className)}>{children}</body>
         </html>
     )
 }

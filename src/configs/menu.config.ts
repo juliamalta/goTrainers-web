@@ -8,11 +8,7 @@ export const menuConfig = [
         link: '#sobre',
     },
     {
-        text: 'Serviços',
+        text: 'Templates',
         link: '#serviços',
-    },
-    {
-        text: 'Projetos',
-        link: '#trabalho',
     },
 ]
