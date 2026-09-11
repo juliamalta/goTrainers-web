@@ -7,13 +7,13 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Users } from './src/collections/Users'
 
 export default buildConfig({
-  secret: process.env.PAYLOAD_SECRET || 'dev-secret',
+    secret: process.env.PAYLOAD_SECRET || 'dev-secret',
 
-  editor: lexicalEditor(),
+    editor: lexicalEditor(),
 
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URL || '',
-  }),
+    db: mongooseAdapter({
+        url: process.env.DATABASE_URL || '',
+    }),
 
-  collections: [Users],
+    collections: [Users],
 })
