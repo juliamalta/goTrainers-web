@@ -1,9 +1,9 @@
-import { Cards1 } from '@/components/sections/Cards'
 import { HeroSection } from '@/components/sections/hero-section'
 import { FaStar, FaUsers } from 'react-icons/fa6'
 import { CiTimer } from 'react-icons/ci'
 import Cards3 from '@/components/sections/Cards/Cards3'
 import Contact from '@/components/sections/Contact/Contact'
+import Cards1 from '@/components/sections/Cards/Cards1'
 
 export default function Home() {
     return (

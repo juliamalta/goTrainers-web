@@ -1,7 +1,10 @@
+import React from 'react'
+
 export type CardProps = {
     titleApp?: string
+    icon?: React.JSX.Element
     text?: string
-    title: string | React.ReactNode
+    title?: string | React.ReactNode
     desc?: string
     number?: string
     img?: string
@@ -10,13 +13,15 @@ export type CardProps = {
     progressvalue?: string
     progressvalueX?: number
     tag?: string[]
+    name?: string
+    featured?: boolean
 }
 
 export type CardWorkProps = {
-    title: string
+    title?: string
     img?: string
     description?: string
-    tag: string[]
+    tag?: string[]
     link?: string
     buttonText?: string
 }

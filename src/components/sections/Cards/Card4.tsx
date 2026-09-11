@@ -34,7 +34,7 @@ function Cards4({ cards, title, desc, titlePrimary }: CardSectionProps) {
                             <div key={index} className="h-full">
                                 <CardTemplate
                                     tag={card.tag ?? []}
-                                    title={card.title}
+                                    title={card.title!}
                                     description={card.desc}
                                     img={card.img}
                                     link={card.link}
