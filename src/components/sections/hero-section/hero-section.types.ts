@@ -1,5 +1,6 @@
+import type React from 'react'
 export type tagsData = {
-    icon: JSX.Element
+    icon: React.JSX.Element
     text: string
 }
 export type HeroProps = {

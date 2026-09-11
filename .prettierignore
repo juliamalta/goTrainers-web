@@ -6,3 +6,4 @@ assets
 node_modules
 /postman
 .next
+src/app/(payload)/admin/importMap.js
