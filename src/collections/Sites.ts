@@ -8,7 +8,7 @@ export const Sites: CollectionConfig = {
     },
 
     access: {
-       read: ({ req }) => {
+        read: ({ req }) => {
             if (!req.user) {
                 return {
                     published: {
