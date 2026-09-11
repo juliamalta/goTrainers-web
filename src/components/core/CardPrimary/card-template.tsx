@@ -10,7 +10,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText }: CardWo
         <div className="flex h-full flex-col overflow-hidden rounded-2xl">
             {/* Imagem */}
             <div className="h-72 overflow-hidden sm:h-80">
-                <Image src={img!} alt={title} width={501} height={323} className="size-full object-cover" />
+                <Image src={img!} alt={title!} width={501} height={323} className="size-full object-cover" />
             </div>
 
             {/* Conteúdo */}
@@ -18,7 +18,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText }: CardWo
                 <div className="flex flex-1 flex-col gap-4">
                     <p className="text-2xl font-semibold text-white">{title}</p>
                     <div className="flex flex-wrap gap-2">
-                        {tag.map((t, i) => (
+                        {tag!.map((t, i) => (
                             <div
                                 className="flex min-h-5 items-center justify-center whitespace-nowrap rounded-sm border border-color-clay px-3 py-1"
                                 key={i}>
