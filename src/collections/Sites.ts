@@ -1,5 +1,4 @@
-import type { CollectionConfig } from 'payload'
-
+import type { CollectionConfig, Where } from 'payload'
 export const Sites: CollectionConfig = {
     slug: 'sites',
 
@@ -9,22 +8,20 @@ export const Sites: CollectionConfig = {
     },
 
     access: {
-        read: ({ req }) => {
-            // Visitante só pode acessar sites publicados
+       read: ({ req }) => {
             if (!req.user) {
                 return {
                     published: {
                         equals: true,
                     },
-                }
+                } as Where
             }
 
-            // Usuário logado vê apenas os próprios sites
             return {
                 user: {
                     equals: req.user.id,
                 },
-            }
+            } as Where
         },
 
         create: ({ req }) => Boolean(req.user),
