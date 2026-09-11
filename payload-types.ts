@@ -219,11 +219,6 @@ export interface Site {
         title: string;
         desc: string;
         text: string;
-        number: string;
-        /**
-         * Use uma cor hexadecimal.
-         */
-        iconBgColor: string;
         featured: boolean;
         id?: string | null;
       }[];
@@ -252,8 +247,6 @@ export interface Site {
       cards: {
         name: string;
         text: string;
-        icon: 'star' | 'users';
-        iconBgColor: string;
         id?: string | null;
       }[];
     };
@@ -441,8 +434,6 @@ export interface SitesSelect<T extends boolean = true> {
                     title?: T;
                     desc?: T;
                     text?: T;
-                    number?: T;
-                    iconBgColor?: T;
                     featured?: T;
                     id?: T;
                   };
@@ -470,8 +461,6 @@ export interface SitesSelect<T extends boolean = true> {
                 | {
                     name?: T;
                     text?: T;
-                    icon?: T;
-                    iconBgColor?: T;
                     id?: T;
                   };
             };

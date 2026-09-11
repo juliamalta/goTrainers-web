@@ -359,29 +359,6 @@ export const Sites: CollectionConfig = {
                                 },
 
                                 {
-                                    name: 'number',
-                                    type: 'text',
-                                    required: true,
-                                    label: 'Número',
-
-                                    admin: {
-                                        placeholder: 'Exemplo: 01',
-                                    },
-                                },
-
-                                {
-                                    name: 'iconBgColor',
-                                    type: 'text',
-                                    required: true,
-                                    label: 'Cor do ícone',
-
-                                    admin: {
-                                        placeholder: 'Exemplo: #D1FAE5',
-                                        description: 'Use uma cor hexadecimal.',
-                                    },
-                                },
-
-                                {
                                     name: 'featured',
                                     type: 'checkbox',
                                     required: true,
@@ -544,35 +521,6 @@ export const Sites: CollectionConfig = {
                                     admin: {
                                         placeholder:
                                             'Exemplo: Comecei sem muita confiança e hoje consigo treinar com muito mais segurança.',
-                                    },
-                                },
-
-                                {
-                                    name: 'icon',
-                                    type: 'select',
-                                    required: true,
-                                    label: 'Ícone',
-
-                                    options: [
-                                        {
-                                            label: 'Estrela',
-                                            value: 'star',
-                                        },
-                                        {
-                                            label: 'Usuários',
-                                            value: 'users',
-                                        },
-                                    ],
-                                },
-
-                                {
-                                    name: 'iconBgColor',
-                                    type: 'text',
-                                    required: true,
-                                    label: 'Cor do ícone',
-
-                                    admin: {
-                                        placeholder: 'Exemplo: #D1FAE5',
                                     },
                                 },
                             ],
