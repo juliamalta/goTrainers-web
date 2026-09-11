@@ -1,0 +1,46 @@
+
+:root {
+  --bg-secondary: #1A1C1C;
+  --madalena-blue-light: #318fbb;
+  --madalena-bg: #0C0F0F;
+  --madalena-text: #BACBB9;
+  --madalena-border: #1A1C1C;
+}
+
+body {
+  background: #0C0F0F;
+}
+
+.nav {
+  background: var(--bg-secondary);
+}
+
+.nav a {
+  color: #0C0F0F;
+}
+
+.nav a:hover {
+  color: #0C0F0F;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+input,
+textarea,
+select {
+  background-color: #0C0F0F;
+  color: #BACBB9;
+  border-radius: 8px;
+}
+
+
+button[type='submit'] {
+  background-color: var(--bg-secondary);
+  border-color: var(--bg-secondary);
+  color: #ffffff;
+}
+
+button[type='submit']:hover {
+  background-color: var(--madalena-blue-light);
+  border-color: var(--madalena-blue-light);
+  color: #ffffff;
+}

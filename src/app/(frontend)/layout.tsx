@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 // eslint-disable-next-line camelcase
 import { Space_Grotesk, Plus_Jakarta_Sans, Manrope } from 'next/font/google'
 
-import './globals.css'
+import '../globals.css'
 
 import { Footer } from '@/components/sections/Footer'
 import { configs } from '@/configs'
