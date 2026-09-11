@@ -1,8 +1,5 @@
 import { getPayload } from 'payload'
 import config from '@/../payload.config'
-
-import DashboardHeader from '@/components/dashboard/DahboardHeader'
-
 import { headers } from 'next/headers'
 import Cards3 from '@/components/sections/Cards/Cards3'
 import Cards4 from '@/components/sections/Cards/Card4'
