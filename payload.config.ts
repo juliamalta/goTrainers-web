@@ -5,6 +5,8 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 import { Users } from './src/collections/Users'
+import { Media } from '@/collections/Media'
+import { Sites } from '@/collections/Sites'
 
 export default buildConfig({
     secret: process.env.PAYLOAD_SECRET || 'dev-secret',
@@ -15,5 +17,5 @@ export default buildConfig({
         url: process.env.DATABASE_URL || '',
     }),
 
-    collections: [Users],
+    collections: [Users, Media, Sites],
 })
