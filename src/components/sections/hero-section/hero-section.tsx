@@ -47,7 +47,7 @@ export function HeroSection({ title, desc, button1text, button2text, titlePrimar
                 </div>
 
                 <div className="flex w-full flex-col gap-8 sm:flex-row">
-                    {tag.map((tags, index) => (
+                    {tag!.map((tags, index) => (
                         <div key={index} className="flex items-center gap-2">
                             {tags.icon}
 

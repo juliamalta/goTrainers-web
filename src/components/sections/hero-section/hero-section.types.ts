@@ -10,5 +10,5 @@ export type HeroProps = {
     button1text: string
     button2text?: string
     img?: string
-    tag: tagsData[]
+    tag?: tagsData[]
 }

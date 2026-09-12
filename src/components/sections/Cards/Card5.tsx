@@ -19,10 +19,8 @@ function Cards5({ cards, title, desc }: CardSectionProps) {
                             desc={card.desc}
                             key={index}
                             featured={!card.featured}
-                            number={card.number}
                             title={card.title}
                             text={card.text}
-                            iconBgColor={card.iconBgColor}
                         />
                     ))}
                 </div>

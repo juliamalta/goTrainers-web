@@ -12,13 +12,7 @@ function Cards2({ cards, title, desc }: CardSectionProps) {
                 </div>
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
                     {cards!.map((card, index) => (
-                        <CardSecondary
-                            key={index}
-                            name={card.name}
-                            icon={card.icon}
-                            text={card.text}
-                            iconBgColor={card.iconBgColor}
-                        />
+                        <CardSecondary key={index} name={card.name} text={card.text} />
                     ))}
                 </div>
             </div>

@@ -18,6 +18,7 @@ export function HeroSection1({ title, desc, button1text, button2text, titlePrima
                         {/* TAG */}
                         <div className="flex">
                             <HyperText
+                                key={titlePrimary}
                                 style={{
                                     backgroundColor: 'color-mix(in srgb, var(--malachite-500) 10%, transparent)',
                                 }}

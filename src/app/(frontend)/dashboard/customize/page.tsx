@@ -1,5 +1,6 @@
 import { headers } from 'next/headers'
 import { getPayload } from 'payload'
+
 import config from '@payload-config'
 
 import CustomizeSite from '@/components/dashboard/CustomizeSite'
@@ -47,15 +48,6 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
             templateName={selectedTemplate.name}
             templateImage={selectedTemplate.image}
             userName={user?.name || ''}
-            welcomeText="Vamos começar?"
-            title="Configure seu site"
-            subtitle="Preencha as informações abaixo. Elas aparecerão no seu site profissional."
-            selectedTemplateText="Template selecionado"
-            changeTemplateText="Trocar template"
-            previewTitle="Preview"
-            previewSubtitle="Veja como seu site ficará."
-            previewDeviceText="Desktop"
-            footerText="Você poderá editar essas informações depois, diretamente pelo seu painel."
         />
     )
 }
