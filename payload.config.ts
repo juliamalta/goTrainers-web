@@ -1,12 +1,11 @@
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
+import { Media } from './src/collections/Media'
+import { Sites } from './src/collections/Sites'
 import { Users } from './src/collections/Users'
-import { Media } from '@/collections/Media'
-import { Sites } from '@/collections/Sites'
 
 export default buildConfig({
     secret: process.env.PAYLOAD_SECRET || 'dev-secret',
@@ -18,4 +17,16 @@ export default buildConfig({
     }),
 
     collections: [Users, Media, Sites],
+
+    plugins: [
+        vercelBlobStorage({
+            enabled: true,
+
+            collections: {
+                media: true,
+            },
+
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+        }),
+    ],
 })
