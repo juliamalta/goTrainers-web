@@ -15,6 +15,58 @@ interface CustomizeSiteProps {
     templateName: string
     templateImage: string
     userName: string
+    site?: Site | null
+}
+
+type Site = {
+    id: string
+    name?: string | null
+    slug?: string | null
+    template1?: {
+        hero?: {
+            titlePrimary?: string | null
+            title?: string | null
+            titleHighlight?: string | null
+            desc?: string | null
+            button1text?: string | null
+            button1url?: string | null
+            img?: string | { id?: string; url?: string | null } | null
+        } | null
+        metrics?: Array<{ number?: string | null; text?: string | null }> | null
+        services?: {
+            title?: string | null
+            desc?: string | null
+            cards?: Array<{
+                title?: string | null
+                desc?: string | null
+                text?: string | null
+                featured?: boolean | null
+            }> | null
+        } | null
+        about?: {
+            img?: string | { id?: string; url?: string | null } | null
+            title?: string | null
+            desc?: string | null
+            features?: Array<{ title?: string | null }> | null
+        } | null
+        testimonials?: {
+            title?: string | null
+            desc?: string | null
+            cards?: Array<{ name?: string | null; text?: string | null }> | null
+        } | null
+        contact?: {
+            title?: string | null
+            titleHighlight?: string | null
+            text?: string | null
+            buttontext?: string | null
+            buttonurl?: string | null
+        } | null
+        whatsapp?: {
+            enabled?: boolean | null
+            phone?: string | null
+            message?: string | null
+        } | null
+    } | null
 }
 
 interface Template1Data {
@@ -77,6 +129,78 @@ interface Template1Data {
     }
 }
 
+function getMediaUrl(media: string | { id?: string; url?: string | null } | null | undefined, fallback: string) {
+    if (typeof media === 'object' && media?.url) {
+        return media.url
+    }
+
+    return fallback
+}
+
+function createInitialData(site: Site | null | undefined, templateImage: string): Template1Data {
+    const template1 = site?.template1
+
+    return {
+        hero: {
+            titlePrimary: template1?.hero?.titlePrimary || '',
+            title: template1?.hero?.title || '',
+            titleHighlight: template1?.hero?.titleHighlight || '',
+            desc: template1?.hero?.desc || '',
+            button1text: template1?.hero?.button1text || '',
+            button1url: template1?.hero?.button1url || '#contato',
+            img: getMediaUrl(template1?.hero?.img, templateImage),
+        },
+
+        metrics: [0, 1, 2, 3].map((index) => ({
+            number: template1?.metrics?.[index]?.number || '',
+            text: template1?.metrics?.[index]?.text || '',
+        })),
+
+        services: {
+            title: template1?.services?.title || '',
+            desc: template1?.services?.desc || '',
+            cards: [0, 1, 2].map((index) => ({
+                title: template1?.services?.cards?.[index]?.title || '',
+                desc: template1?.services?.cards?.[index]?.desc || '',
+                text: template1?.services?.cards?.[index]?.text || '',
+                featured: template1?.services?.cards?.[index]?.featured || false,
+            })),
+        },
+
+        about: {
+            img: getMediaUrl(template1?.about?.img, templateImage),
+            title: template1?.about?.title || '',
+            desc: template1?.about?.desc || '',
+            features: [0, 1, 2, 3].map((index) => ({
+                title: template1?.about?.features?.[index]?.title || '',
+            })),
+        },
+
+        testimonials: {
+            title: template1?.testimonials?.title || '',
+            desc: template1?.testimonials?.desc || '',
+            cards: [0, 1, 2, 3].map((index) => ({
+                name: template1?.testimonials?.cards?.[index]?.name || '',
+                text: template1?.testimonials?.cards?.[index]?.text || '',
+            })),
+        },
+
+        contact: {
+            title: template1?.contact?.title || '',
+            titleHighlight: template1?.contact?.titleHighlight || '',
+            text: template1?.contact?.text || '',
+            buttontext: template1?.contact?.buttontext || '',
+            buttonurl: template1?.contact?.buttonurl || '',
+        },
+
+        whatsapp: {
+            enabled: template1?.whatsapp?.enabled ?? true,
+            phone: template1?.whatsapp?.phone || '',
+            message: template1?.whatsapp?.message || '',
+        },
+    }
+}
+
 const steps = [
     {
         title: 'Informações',
@@ -112,7 +236,7 @@ const steps = [
     },
 ]
 
-export default function CustomizeSite({ templateName, templateImage, userName }: CustomizeSiteProps) {
+export default function CustomizeSite({ templateName, templateImage, userName, site }: CustomizeSiteProps) {
     const [step, setStep] = React.useState(0)
     const [publishing, setPublishing] = React.useState(false)
     const [publishMessage, setPublishMessage] = React.useState('')
@@ -122,8 +246,8 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
     const previewSectionRefs = React.useRef<Array<HTMLDivElement | null>>([])
     const [previewScale, setPreviewScale] = React.useState(1)
 
-    const [siteName, setSiteName] = React.useState(userName || '')
-    const [slug, setSlug] = React.useState('')
+    const [siteName, setSiteName] = React.useState(site?.name || userName || '')
+    const [slug, setSlug] = React.useState(site?.slug || '')
 
     const [heroImageFile, setHeroImageFile] = React.useState<File | null>(null)
     const [aboutImageFile, setAboutImageFile] = React.useState<File | null>(null)
@@ -134,108 +258,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
     const [heroImageAlt, setHeroImageAlt] = React.useState('Imagem principal do site')
     const [aboutImageAlt, setAboutImageAlt] = React.useState('Foto sobre o profissional')
 
-    const [data, setData] = React.useState<Template1Data>({
-        hero: {
-            titlePrimary: '',
-            title: '',
-            titleHighlight: '',
-            desc: '',
-            button1text: '',
-            button1url: '#contato',
-            img: templateImage,
-        },
-
-        metrics: [
-            {
-                number: '',
-                text: '',
-            },
-            {
-                number: '',
-                text: '',
-            },
-            {
-                number: '',
-                text: '',
-            },
-            {
-                number: '',
-                text: '',
-            },
-        ],
-
-        services: {
-            title: '',
-            desc: '',
-
-            cards: [
-                {
-                    title: '',
-                    desc: '',
-                    text: '',
-                    featured: false,
-                },
-                {
-                    title: '',
-                    desc: '',
-                    text: '',
-                    featured: false,
-                },
-                {
-                    title: '',
-                    desc: '',
-                    text: '',
-                    featured: false,
-                },
-            ],
-        },
-
-        about: {
-            img: templateImage,
-            title: '',
-            desc: '',
-
-            features: [{ title: '' }, { title: '' }, { title: '' }, { title: '' }],
-        },
-
-        testimonials: {
-            title: '',
-            desc: '',
-
-            cards: [
-                {
-                    name: '',
-                    text: '',
-                },
-                {
-                    name: '',
-                    text: '',
-                },
-                {
-                    name: '',
-                    text: '',
-                },
-                {
-                    name: '',
-                    text: '',
-                },
-            ],
-        },
-
-        contact: {
-            title: '',
-            titleHighlight: '',
-            text: '',
-            buttontext: '',
-            buttonurl: '',
-        },
-
-        whatsapp: {
-            enabled: true,
-            phone: '',
-            message: '',
-        },
-    })
+    const [data, setData] = React.useState<Template1Data>(() => createInitialData(site, templateImage))
 
     // ============================================================
     // PREVIEW — TAMANHO E FOCO

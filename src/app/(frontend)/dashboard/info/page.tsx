@@ -1,15 +1,127 @@
 'use client'
 
-import { FiArrowUpRight, FiBarChart2, FiEdit3, FiExternalLink, FiGlobe, FiSettings, FiUser } from 'react-icons/fi'
-
+import {
+    FiArrowUpRight,
+    FiBarChart2,
+    FiEdit3,
+    FiExternalLink,
+    FiGlobe,
+    FiSettings,
+    FiTrash2,
+    FiUser,
+} from 'react-icons/fi'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+
+type Site = {
+    id: string
+    name: string
+    slug: string
+    template: string
+    published: boolean
+    updatedAt?: string
+}
 
 export default function DashboardInfo() {
     const router = useRouter()
 
+    const [site, setSite] = useState<Site | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        async function loadSite() {
+            try {
+                setLoading(true)
+                setError('')
+
+                const response = await fetch('/api/sites?limit=1', {
+                    method: 'GET',
+                    credentials: 'include',
+                    cache: 'no-store',
+                })
+
+                if (!response.ok) {
+                    throw new Error('Não foi possível carregar o site.')
+                }
+
+                const data = await response.json()
+
+                const userSite = data?.docs?.[0] ?? null
+
+                setSite(userSite)
+            } catch (err) {
+                console.error(err)
+                setError('Não foi possível carregar os dados do seu site.')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadSite()
+    }, [])
+
+    const siteUrl = site ? `/template1/${site.slug}` : '/'
+
+    const templateName = site?.template === 'template-1' ? 'Template 1' : site?.template || '—'
+
+    const status = site?.published ? 'Online' : 'Rascunho'
+
+    const formattedDate = site?.updatedAt
+        ? new Intl.DateTimeFormat('pt-BR', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+          }).format(new Date(site.updatedAt))
+        : '—'
+
+    function handleViewSite() {
+        if (!site) return
+
+        window.open(siteUrl, '_blank')
+    }
+
+    function handleEditSite() {
+        if (!site) return
+
+        router.push(`/dashboard/customize?template=${site.template}`)
+    }
+
+    async function handleDeleteSite() {
+        if (!site) return
+
+        const confirmed = window.confirm(
+            `Tem certeza que deseja excluir o site "${site.name}"? Esta ação não pode ser desfeita.`
+        )
+
+        if (!confirmed) return
+
+        try {
+            setLoading(true)
+            setError('')
+
+            const response = await fetch(`/api/sites/${site.id}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            })
+
+            const result = await response.json().catch(() => null)
+
+            if (!response.ok) {
+                throw new Error(result?.errors?.[0]?.message || result?.message || 'Não foi possível excluir o site.')
+            }
+
+            setSite(null)
+        } catch (err) {
+            console.error(err)
+
+            setError(err instanceof Error ? err.message : 'Não foi possível excluir o site.')
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <main className="min-h-screen bg-[#151817] text-white">
-            {/* CONTENT */}
             <div className="mx-auto max-w-[1400px] px-6 py-10 lg:px-10">
                 {/* TITLE */}
                 <div className="mb-10">
@@ -19,6 +131,13 @@ export default function DashboardInfo() {
 
                     <p className="mt-2 text-zinc-500">Gerencie seu site e acompanhe seus resultados.</p>
                 </div>
+
+                {/* ERROR */}
+                {error && (
+                    <div className="mb-6 rounded-xl border border-red-500/20 bg-red-500/5 p-4 text-sm text-red-400">
+                        {error}
+                    </div>
+                )}
 
                 {/* SITE CARD */}
                 <section className="mb-8 overflow-hidden rounded-2xl border border-white/5 bg-[#0d0f0e]">
@@ -32,30 +151,48 @@ export default function DashboardInfo() {
                                 <div>
                                     <p className="text-xs text-zinc-500">MEU SITE</p>
 
-                                    <h2 className="text-lg font-semibold">Meu site Fitness</h2>
+                                    <h2 className="text-lg font-semibold">
+                                        {loading ? 'Carregando...' : site?.name || 'Nenhum site'}
+                                    </h2>
                                 </div>
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <span className="h-2 w-2 rounded-full bg-[#00e676]" />
+                                <span
+                                    className={`h-2 w-2 rounded-full ${
+                                        site?.published ? 'bg-[#00e676]' : 'bg-yellow-500'
+                                    }`}
+                                />
 
-                                <span className="text-sm text-[#00e676]">Publicado</span>
+                                <span className={`text-sm ${site?.published ? 'text-[#00e676]' : 'text-yellow-500'}`}>
+                                    {loading ? 'Carregando...' : status}
+                                </span>
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-3 sm:flex-row">
                             <button
-                                onClick={() => router.push('/')}
-                                className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/5">
+                                onClick={handleViewSite}
+                                disabled={!site || !site.published || loading}
+                                className="flex items-center justify-center gap-2 rounded-xl border border-white/10 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-40">
                                 Ver meu site
                                 <FiExternalLink size={16} />
                             </button>
 
                             <button
-                                onClick={() => router.push('/dashboard/customize?template=fitness')}
-                                className="flex items-center justify-center gap-2 rounded-xl bg-[#00e676] px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90">
+                                onClick={handleEditSite}
+                                disabled={!site || loading}
+                                className="flex items-center justify-center gap-2 rounded-xl bg-[#00e676] px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">
                                 <FiEdit3 size={16} />
                                 Editar site
+                            </button>
+
+                            <button
+                                onClick={handleDeleteSite}
+                                disabled={!site || loading}
+                                className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 px-5 py-3 text-sm font-medium text-red-400 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-40">
+                                <FiTrash2 size={16} />
+                                Excluir site
                             </button>
                         </div>
                     </div>
@@ -65,19 +202,21 @@ export default function DashboardInfo() {
                         <div className="border-b border-white/5 p-6 sm:border-b-0 sm:border-r">
                             <p className="text-xs text-zinc-500">TEMPLATE</p>
 
-                            <p className="mt-2 font-medium">Fitness</p>
+                            <p className="mt-2 font-medium">{loading ? '—' : templateName}</p>
                         </div>
 
                         <div className="border-b border-white/5 p-6 sm:border-b-0 sm:border-r">
                             <p className="text-xs text-zinc-500">STATUS</p>
 
-                            <p className="mt-2 font-medium text-[#00e676]">Online</p>
+                            <p className={`mt-2 font-medium ${site?.published ? 'text-[#00e676]' : 'text-yellow-500'}`}>
+                                {loading ? '—' : status}
+                            </p>
                         </div>
 
                         <div className="p-6">
                             <p className="text-xs text-zinc-500">ÚLTIMA ATUALIZAÇÃO</p>
 
-                            <p className="mt-2 font-medium">Agora mesmo</p>
+                            <p className="mt-2 font-medium">{loading ? '—' : formattedDate}</p>
                         </div>
                     </div>
                 </section>
@@ -87,25 +226,30 @@ export default function DashboardInfo() {
                     <StatCard
                         icon={<FiBarChart2 size={20} />}
                         title="Visualizações"
-                        value="1.248"
-                        description="+12% este mês"
+                        value="—"
+                        description="Analytics ainda não configurado"
                     />
 
-                    <StatCard icon={<FiUser size={20} />} title="Visitantes" value="846" description="+8% este mês" />
+                    <StatCard
+                        icon={<FiUser size={20} />}
+                        title="Visitantes"
+                        value="—"
+                        description="Analytics ainda não configurado"
+                    />
 
                     <StatCard
                         icon={<FiArrowUpRight size={20} />}
                         title="Cliques WhatsApp"
-                        value="126"
-                        description="+18% este mês"
+                        value="—"
+                        description="Analytics ainda não configurado"
                     />
 
                     <StatCard
                         icon={<FiGlobe size={20} />}
                         title="Status do site"
-                        value="Online"
-                        description="Tudo funcionando"
-                        success
+                        value={loading ? '—' : status}
+                        description={site?.published ? 'Seu site está publicado' : 'Seu site ainda não está publicado'}
+                        success={Boolean(site?.published)}
                     />
                 </section>
 
@@ -122,7 +266,7 @@ export default function DashboardInfo() {
                                 icon={<FiEdit3 size={18} />}
                                 title="Editar meu site"
                                 description="Alterar conteúdo e aparência"
-                                onClick={() => router.push('/dashboard/customize?template=fitness')}
+                                onClick={handleEditSite}
                             />
 
                             <ActionButton
@@ -153,19 +297,16 @@ export default function DashboardInfo() {
                             <FiBarChart2 size={22} className="text-[#00e676]" />
                         </div>
 
-                        <div className="mt-8 flex h-48 items-end gap-3">
-                            {[35, 48, 42, 65, 58, 78, 70, 92, 82, 100, 88, 96].map((height, index) => (
-                                <div key={index} className="flex flex-1 flex-col items-center gap-2">
-                                    <div
-                                        className="w-full rounded-t-md bg-[#00e676]/70 transition hover:bg-[#00e676]"
-                                        style={{
-                                            height: `${height}%`,
-                                        }}
-                                    />
+                        <div className="mt-8 flex h-48 items-center justify-center rounded-xl border border-dashed border-white/5">
+                            <div className="text-center">
+                                <FiBarChart2 size={28} className="mx-auto mb-3 text-zinc-700" />
 
-                                    <span className="text-[10px] text-zinc-600">{index + 1}</span>
-                                </div>
-                            ))}
+                                <p className="text-sm text-zinc-500">Nenhum dado de analytics ainda</p>
+
+                                <p className="mt-1 text-xs text-zinc-700">
+                                    Os dados aparecerão aqui quando o analytics estiver configurado.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </section>
