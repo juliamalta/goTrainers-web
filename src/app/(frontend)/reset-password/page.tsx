@@ -1,11 +1,11 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
+import { FormEvent, Suspense, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { FiArrowLeft, FiLock } from 'react-icons/fi'
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
     const router = useRouter()
     const searchParams = useSearchParams()
 
@@ -68,7 +68,7 @@ export default function ResetPasswordPage() {
         <main className="flex min-h-screen items-center justify-center bg-[#151817] px-6 text-white">
             <div className="w-full max-w-md">
                 <Link
-                    href="/auth"
+                    href="/login"
                     className="mb-8 inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-white">
                     <FiArrowLeft size={16} />
                     Voltar para login
@@ -136,5 +136,18 @@ export default function ResetPasswordPage() {
                 </div>
             </div>
         </main>
+    )
+}
+
+export default function ResetPasswordPage() {
+    return (
+        <Suspense
+            fallback={
+                <main className="flex min-h-screen items-center justify-center bg-[#151817] text-white">
+                    <p className="text-sm text-zinc-500">Carregando...</p>
+                </main>
+            }>
+            <ResetPasswordForm />
+        </Suspense>
     )
 }
