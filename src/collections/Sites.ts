@@ -107,7 +107,7 @@ export const Sites: CollectionConfig = {
             admin: {
                 position: 'sidebar',
                 placeholder: 'Exemplo: lucas-andrade',
-                description: 'Endereço usado para acessar o site. Exemplo: /template1/lucas-andrade',
+                description: 'Endereço usado para acessar o site. Exemplo: /personal/lucas-andrade',
             },
         },
 

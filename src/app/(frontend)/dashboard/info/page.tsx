@@ -61,7 +61,7 @@ export default function DashboardInfo() {
         loadSite()
     }, [])
 
-    const siteUrl = site ? `/template1/${site.slug}` : '/'
+    const siteUrl = site ? `/personal/${site.slug}` : '/'
 
     const templateName = site?.template === 'template-1' ? 'Template 1' : site?.template || '—'
 
