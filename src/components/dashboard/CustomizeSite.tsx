@@ -352,6 +352,19 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     const [aboutImageFile, setAboutImageFile] = React.useState<File | null>(null)
 
     /**
+     * Guarda o ID da mídia que já está salva no Payload.
+     *
+     * Se o usuário alterar somente textos, esses IDs continuam iguais
+     * e nenhuma imagem precisa ser enviada novamente.
+     *
+     * Só ficam null quando o usuário escolhe uma imagem nova. Nesse caso,
+     * o upload é feito no handleFinish e o novo ID passa a ser o salvo.
+     */
+    const [heroImageId, setHeroImageId] = React.useState<string | null>(() => getMediaId(site?.template1?.hero?.img))
+
+    const [aboutImageId, setAboutImageId] = React.useState<string | null>(() => getMediaId(site?.template1?.about?.img))
+
+    /**
      * IMPORTANTE:
      * Agora o preview começa com a imagem existente do site.
      * Se não existir, usa a imagem padrão do template.
@@ -728,7 +741,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
         const previewUrl = URL.createObjectURL(file)
 
         if (type === 'hero') {
+            // A partir daqui existe uma imagem nova aguardando upload.
             setHeroImageFile(file)
+            setHeroImageId(null)
 
             setHeroImagePreview((current) => {
                 if (current.startsWith('blob:')) {
@@ -738,7 +753,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 return previewUrl
             })
         } else {
+            // A partir daqui existe uma imagem nova aguardando upload.
             setAboutImageFile(file)
+            setAboutImageId(null)
 
             setAboutImagePreview((current) => {
                 if (current.startsWith('blob:')) {
@@ -859,31 +876,71 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             }
 
             // ========================================================
-            // VERIFICAR SE JÁ EXISTE SITE
+            // LOCALIZAR O SITE DO USUÁRIO
+            // ========================================================
+            //
+            // REGRA PRINCIPAL:
+            // O usuário só pode ter UM site.
+            //
+            // Se ele já possui um site, sempre atualizamos aquele site.
+            // Nunca criamos outro apenas porque o slug foi alterado.
+            //
+            // O site só poderá ser criado novamente depois que o anterior
+            // for realmente excluído.
             // ========================================================
 
-            const searchParams = new URLSearchParams()
+            let existingSite = site || null
 
-            searchParams.set('where[slug][equals]', cleanSlug)
+            // Primeiro procuramos pelo usuário, e NÃO pelo slug.
+            // Isso impede que trocar o endereço do site crie um segundo site.
+            const userSiteParams = new URLSearchParams()
+            userSiteParams.set('where[user][equals]', String(user.id))
+            userSiteParams.set('limit', '1')
 
-            searchParams.set('limit', '1')
-
-            const existingResponse = await fetch(`/api/sites?${searchParams.toString()}`, {
+            const userSiteResponse = await fetch(`/api/sites?${userSiteParams.toString()}`, {
                 method: 'GET',
                 credentials: 'include',
                 cache: 'no-store',
             })
 
-            if (!existingResponse.ok) {
-                throw new Error('Não foi possível verificar o site.')
+            if (!userSiteResponse.ok) {
+                throw new Error('Não foi possível verificar se você já possui um site.')
             }
 
-            const existingResult = await existingResponse.json()
+            const userSiteResult = await userSiteResponse.json()
+            const siteOwnedByUser = userSiteResult?.docs?.[0] || null
 
-            const existingSite = existingResult?.docs?.[0] || null
+            if (siteOwnedByUser?.id) {
+                existingSite = siteOwnedByUser
+            }
 
-            if (existingSite?.user?.id && existingSite.user.id !== user.id) {
-                throw new Error('Esse endereço já está sendo usado por outro usuário.')
+            // ========================================================
+            // VERIFICAR CONFLITO DE SLUG
+            // ========================================================
+            //
+            // Podemos alterar o slug do próprio site.
+            // Mas não podemos pegar o slug de outro usuário.
+            // ========================================================
+
+            const slugParams = new URLSearchParams()
+            slugParams.set('where[slug][equals]', cleanSlug)
+            slugParams.set('limit', '1')
+
+            const slugResponse = await fetch(`/api/sites?${slugParams.toString()}`, {
+                method: 'GET',
+                credentials: 'include',
+                cache: 'no-store',
+            })
+
+            if (!slugResponse.ok) {
+                throw new Error('Não foi possível verificar o endereço do site.')
+            }
+
+            const slugResult = await slugResponse.json()
+            const siteWithSlug = slugResult?.docs?.[0] || null
+
+            if (siteWithSlug?.id && String(siteWithSlug.id) !== String(existingSite?.id || '')) {
+                throw new Error('Esse endereço já está sendo usado por outro site.')
             }
 
             // ========================================================
@@ -892,15 +949,15 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             //
             // REGRA:
             //
-            // 1. Se escolheu imagem nova:
-            //    faz upload.
+            // 1. Se escolheu imagem nova: faz upload.
             //
-            // 2. Se não escolheu imagem nova e já existe imagem:
-            //    mantém a imagem existente.
+            // 2. Se não escolheu imagem nova e já existe imagem: mantém
+            //    exatamente o mesmo ID da mídia no Payload.
             //
-            // 3. Se é um site novo e não existe imagem:
-            //    usa a imagem padrão do template.
+            // 3. Se não existe site/imagem: usa a imagem padrão do template.
             //
+            // Assim, alterar textos, preços, opções, links etc. NÃO exige
+            // reenviar a imagem.
             // ========================================================
 
             let heroMediaId: string
@@ -913,18 +970,22 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             if (heroImageFile) {
                 // Usuário escolheu uma imagem nova.
                 heroMediaId = await uploadMedia(heroImageFile, heroImageAlt)
+                setHeroImageId(heroMediaId)
+            } else if (heroImageId) {
+                // Usuário não escolheu uma imagem nova.
+                // Mantém a mídia que já está salva.
+                heroMediaId = heroImageId
             } else {
-                // Não escolheu imagem nova.
+                // Site novo sem imagem.
                 const existingHeroMediaId = getMediaId(existingSite?.template1?.hero?.img)
 
                 if (existingHeroMediaId) {
-                    // Mantém a imagem que já estava salva.
                     heroMediaId = existingHeroMediaId
+                    setHeroImageId(heroMediaId)
                 } else {
-                    // Site novo sem imagem: usa a imagem do template.
                     const heroFile = await createTemplateImageFile()
-
                     heroMediaId = await uploadMedia(heroFile, heroImageAlt)
+                    setHeroImageId(heroMediaId)
                 }
             }
 
@@ -935,19 +996,21 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             if (aboutImageFile) {
                 // Usuário escolheu uma imagem nova.
                 aboutMediaId = await uploadMedia(aboutImageFile, aboutImageAlt)
+                setAboutImageId(aboutMediaId)
+            } else if (aboutImageId) {
+                // Usuário não escolheu uma imagem nova.
+                // Mantém a mídia que já está salva.
+                aboutMediaId = aboutImageId
             } else {
-                // Não escolheu imagem nova.
                 const existingAboutMediaId = getMediaId(existingSite?.template1?.about?.img)
 
                 if (existingAboutMediaId) {
-                    // Mantém a imagem que já estava salva.
                     aboutMediaId = existingAboutMediaId
+                    setAboutImageId(aboutMediaId)
                 } else {
-                    /**
-                     * Se não existe imagem de "Sobre", usamos a
-                     * mesma imagem do Hero.
-                     */
+                    // Se não existe imagem de Sobre, usamos a mesma do Hero.
                     aboutMediaId = heroMediaId
+                    setAboutImageId(aboutMediaId)
                 }
             }
 
@@ -1059,13 +1122,14 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             let response: Response
 
             if (existingSite?.id) {
-                /**
-                 * SITE JÁ EXISTE
-                 *
-                 * PATCH atualiza os textos e mantém os IDs
-                 * das imagens existentes quando não houve
-                 * upload de uma nova imagem.
-                 */
+                // ----------------------------------------------------
+                // SITE JÁ EXISTE
+                // ----------------------------------------------------
+                //
+                // Sempre usamos PATCH no site existente.
+                // Isso vale mesmo se o usuário tiver alterado o slug.
+                // Portanto, editar nunca cria um segundo site.
+                // ----------------------------------------------------
                 response = await fetch(`/api/sites/${existingSite.id}`, {
                     method: 'PATCH',
 
@@ -1078,9 +1142,14 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                     body: JSON.stringify(payloadData),
                 })
             } else {
-                /**
-                 * SITE NOVO
-                 */
+                // ----------------------------------------------------
+                // NENHUM SITE EXISTE
+                // ----------------------------------------------------
+                //
+                // Só chegamos aqui quando o usuário realmente não
+                // possui nenhum site. Depois que esse site existir,
+                // as próximas personalizações sempre cairão no PATCH.
+                // ----------------------------------------------------
                 response = await fetch('/api/sites', {
                     method: 'POST',
 
@@ -1111,7 +1180,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             setPublishMessage('Seu site foi publicado com sucesso!')
 
             window.setTimeout(() => {
-                window.location.href = `/template1/${cleanSlug}`
+                window.location.href = `/personal/${cleanSlug}`
             }, 1200)
         } catch (error) {
             console.error('Erro ao publicar site:', error)
@@ -1253,7 +1322,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                     <p className="text-sm font-medium text-white">Seu endereço</p>
 
                                     <p className="mt-2 text-sm text-color-clay">
-                                        /template1/
+                                        /personal/
                                         {slug || 'seu-endereco'}
                                     </p>
                                 </div>

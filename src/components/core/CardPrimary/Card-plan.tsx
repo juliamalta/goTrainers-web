@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 function CardPlan({ text, title, desc, featured, price, option, link }: CardProps) {
     return (
         <div
-            className={`relative flex min-h-[360px] flex-col rounded-xl bg-black/25 shadow-sm transition-transform hover:scale-105 ${
+            className={`relative flex h-fit flex-col rounded-xl bg-black/25 shadow-sm transition-transform hover:scale-105 ${
                 featured ? 'border-2 border-color-malachite' : 'border border-transparent'
             }`}>
             {featured && (
@@ -14,7 +14,7 @@ function CardPlan({ text, title, desc, featured, price, option, link }: CardProp
                 </span>
             )}
 
-            <div className="flex h-full w-full flex-col gap-5 rounded-lg p-5 2xl:p-8">
+            <div className="flex w-full flex-col gap-5 rounded-lg p-5 2xl:p-8">
                 {/* DESCRIÇÃO */}
                 <div className="flex flex-col gap-2">
                     {desc && <p className="text-sm text-color-malachite">{desc}</p>}
@@ -27,7 +27,7 @@ function CardPlan({ text, title, desc, featured, price, option, link }: CardProp
 
                 {/* PREÇO */}
                 {price && (
-                    <div className="mt-auto">
+                    <div>
                         <p className="text-3xl font-semibold text-white">{price}</p>
                     </div>
                 )}
