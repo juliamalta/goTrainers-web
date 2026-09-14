@@ -91,7 +91,7 @@ export default function Home() {
                     },
                     {
                         title: 'Template 3 — CLEAN',
-                        img: '/images/templates.png',
+                        img: '/images/template3.png',
                         tag: ['Saúde e Postura', 'Clean White'],
                         desc: 'Minimalista, leve e direto ao ponto. Fundo claro, muito espaço em branco, tipografia moderna e foco humanizado no profissional e no bem-estar.',
                         link: '/templates/clean',
