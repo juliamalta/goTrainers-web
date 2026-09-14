@@ -1,21 +1,28 @@
 'use client'
+
 import * as React from 'react'
 
 import { CardPrimary } from '@/components/core/CardPrimary'
-import { BlurFade } from '@/components/magicui/blur-fade'
 import { CardSectionProps } from '@/components/sections/Cards/Cards.types'
 
 function Card1({ cards, title, desc }: CardSectionProps) {
     return (
-        <section
-            id="Serviços"
-            className="m-8 rounded-2xl border-[1px] border-color-malachite bg-color-woodsmoke py-24 sm:pb-24">
-            <div className="container mx-auto flex flex-col items-center justify-center gap-12">
+        <section id="Serviços" className="bg-color-woodsmoke py-24 sm:py-28">
+            <div className="container mx-auto flex flex-col items-center justify-center gap-12 px-4">
+                {/* Título */}
                 <div className="w-full">
-                    <p className="text-center text-4xl font-semibold text-white">{title}</p>
+                    <p className="text-center text-3xl font-semibold tracking-tight text-white sm:text-4xl">{title}</p>
+
+                    {desc && (
+                        <p className="mx-auto mt-4 max-w-2xl text-center text-sm leading-6 text-color-clay sm:text-base">
+                            {desc}
+                        </p>
+                    )}
                 </div>
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-4">
-                    {cards!.map((card, index) => (
+
+                {/* Cards */}
+                <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    {cards?.map((card, index) => (
                         <CardPrimary
                             key={index}
                             icon={card.icon}

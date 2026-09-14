@@ -17,6 +17,7 @@ export interface CardData {
     buttonText?: string
     name?: string
     featured?: boolean
+    disabled?: boolean
 }
 
 export interface CardSectionProps {

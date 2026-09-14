@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 
@@ -23,6 +23,32 @@ export default function Login() {
 
     const [showPassword, setShowPassword] = useState(false)
     const [serverError, setServerError] = useState('')
+    const [checkingSession, setCheckingSession] = useState(true)
+
+    useEffect(() => {
+        const checkSession = async () => {
+            try {
+                const response = await fetch('/api/users/me', {
+                    credentials: 'include',
+                })
+
+                if (response.ok) {
+                    const result = await response.json()
+
+                    if (result?.user) {
+                        router.replace('/dashboard')
+                        return
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao verificar sessão:', error)
+            } finally {
+                setCheckingSession(false)
+            }
+        }
+
+        checkSession()
+    }, [router])
 
     const {
         register,
@@ -65,6 +91,16 @@ export default function Login() {
 
             setServerError('Não foi possível entrar. Tente novamente.')
         }
+    }
+
+    // Enquanto verifica se o usuário já está logado,
+    // não mostra o formulário de login.
+    if (checkingSession) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-color-codgray text-white">
+                <p className="text-sm text-zinc-400">Verificando sessão...</p>
+            </div>
+        )
     }
 
     return (
@@ -174,7 +210,6 @@ export default function Login() {
                         <button
                             type="button"
                             className="flex w-full items-center justify-center gap-3 rounded-2xl border border-zinc-800 bg-transparent px-4 py-3 text-sm font-medium text-white transition hover:bg-white/[0.03]">
-                            {/* Google */}
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M21.35 12.27c0-.78-.07-1.53-.2-2.27H12v4.3h5.22a4.46 4.46 0 0 1-1.94 2.93v2.43h3.14c1.84-1.7 2.93-4.2 2.93-7.39Z"

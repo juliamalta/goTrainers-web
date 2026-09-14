@@ -19,6 +19,7 @@ export type CardProps = {
 
 export type CardWorkProps = {
     title?: string
+    disabled?: boolean
     img?: string
     description?: string
     tag?: string[]

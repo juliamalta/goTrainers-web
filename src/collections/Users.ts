@@ -9,6 +9,10 @@ export const Users: CollectionConfig = {
         useAsTitle: 'name',
     },
 
+    access: {
+        create: () => true,
+    },
+
     fields: [
         {
             name: 'name',
@@ -33,23 +37,6 @@ export const Users: CollectionConfig = {
             type: 'text',
             required: false,
             label: 'CREF',
-        },
-        {
-            name: 'plan',
-            type: 'select',
-            required: true,
-            defaultValue: 'starter',
-            label: 'Plano',
-            options: [
-                {
-                    label: 'Starter',
-                    value: 'starter',
-                },
-                {
-                    label: 'Pro',
-                    value: 'pro',
-                },
-            ],
         },
     ],
 }

@@ -3,7 +3,6 @@
 import * as React from 'react'
 
 import { Button } from '@/components/ui/button'
-
 import { HeroSection1 } from '@/components/sections/hero-section'
 import Metrics1 from '@/components/sections/Metrics/Metrics1'
 import Cards5 from '@/components/sections/Cards/Card5'
@@ -528,6 +527,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
 
         if (type === 'hero') {
             setHeroImageFile(file)
+
             setHeroImagePreview((current) => {
                 if (current.startsWith('blob:')) {
                     URL.revokeObjectURL(current)
@@ -537,6 +537,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
             })
         } else {
             setAboutImageFile(file)
+
             setAboutImagePreview((current) => {
                 if (current.startsWith('blob:')) {
                     URL.revokeObjectURL(current)
@@ -605,6 +606,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
             }
 
             const heroFile = heroImageFile || (await createTemplateImageFile())
+
             const aboutFile = aboutImageFile || heroFile
 
             const heroMediaId = await uploadMedia(heroFile, heroImageAlt)
@@ -613,7 +615,9 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
                 aboutImageFile || heroImageFile ? await uploadMedia(aboutFile, aboutImageAlt) : heroMediaId
 
             const searchParams = new URLSearchParams()
+
             searchParams.set('where[slug][equals]', cleanSlug)
+
             searchParams.set('limit', '1')
 
             const existingResponse = await fetch(`/api/sites?${searchParams.toString()}`, {
@@ -627,6 +631,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
             }
 
             const existingResult = await existingResponse.json()
+
             const existingSite = existingResult?.docs?.[0] || null
 
             if (existingSite?.user?.id && existingSite.user.id !== user.id) {
@@ -639,6 +644,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
                 template: 'template-1',
                 published: true,
                 user: user.id,
+
                 template1: {
                     hero: {
                         titlePrimary: data.hero.titlePrimary,
@@ -649,13 +655,16 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
                         button1url: data.hero.button1url,
                         img: heroMediaId,
                     },
+
                     metrics: data.metrics.map((metric) => ({
                         number: metric.number,
                         text: metric.text,
                     })),
+
                     services: {
                         title: data.services.title,
                         desc: data.services.desc,
+
                         cards: data.services.cards.map((card) => ({
                             title: card.title,
                             desc: card.desc,
@@ -663,24 +672,34 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
                             featured: card.featured,
                         })),
                     },
+
                     about: {
                         img: aboutMediaId,
                         title: data.about.title,
                         desc: data.about.desc,
+
                         features: data.about.features.map((feature) => ({
                             title: feature.title,
                         })),
                     },
+
                     testimonials: {
                         title: data.testimonials.title,
                         desc: data.testimonials.desc,
+
                         cards: data.testimonials.cards.map((card) => ({
                             name: card.name,
                             text: card.text,
                         })),
                     },
-                    contact: { ...data.contact },
-                    whatsapp: { ...data.whatsapp },
+
+                    contact: {
+                        ...data.contact,
+                    },
+
+                    whatsapp: {
+                        ...data.whatsapp,
+                    },
                 },
             }
 
@@ -710,10 +729,12 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
 
             if (!response.ok) {
                 console.error('Erro Payload:', result)
+
                 throw new Error(result?.errors?.[0]?.message || result?.message || 'Não foi possível publicar o site.')
             }
 
             setSlug(cleanSlug)
+
             setPublishMessage('Seu site foi publicado com sucesso!')
 
             window.setTimeout(() => {
@@ -721,6 +742,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
             }, 1200)
         } catch (error) {
             console.error('Erro ao publicar site:', error)
+
             setPublishError(error instanceof Error ? error.message : 'Erro ao publicar o site.')
         } finally {
             setPublishing(false)
@@ -736,9 +758,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
         text: metric.text || 'Sua métrica',
     }))
 
-    const serviceColors = ['#D1FAE5', '#CCFBF1', '#DCFCE7']
-
-    const previewServices = data.services.cards.map((card, index) => ({
+    const previewServices = data.services.cards.map((card) => ({
         title: card.title || 'Seu serviço',
         desc: card.desc || 'Descrição do serviço',
         text: card.text || 'Descreva aqui o seu serviço.',
@@ -749,10 +769,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
         title: feature.title || 'Seu diferencial',
     }))
 
-    const testimonialIcons = ['star', 'star', 'users', 'star']
-    const testimonialColors = ['#D1FAE5', '#CCFBF1', '#DCFCE7', '#D1FAE5']
-
-    const previewTestimonials = data.testimonials.cards.map((card, index) => ({
+    const previewTestimonials = data.testimonials.cards.map((card) => ({
         name: card.name || 'Nome do cliente',
         text: card.text || 'O depoimento do seu cliente aparecerá aqui.',
     }))
@@ -1245,7 +1262,7 @@ export default function CustomizeSite({ templateName, templateImage, userName }:
                         PREVIEW
                     ==================================================== */}
 
-                    <div className="min-w-0">
+                    <div className="hidden min-w-0 md:block">
                         <div className="sticky top-6">
                             <div className="mb-4">
                                 <h2 className="text-xl font-semibold text-white">Preview do seu site</h2>
@@ -1466,6 +1483,7 @@ function ImageField({ label, altLabel, altValue, preview, onAltChange, onChange 
             <div className="flex flex-col gap-4">
                 <div>
                     <p className="text-sm font-medium text-white">{label}</p>
+
                     <p className="mt-1 text-xs text-color-clay">JPG, PNG ou WEBP • máximo 5 MB</p>
                 </div>
 

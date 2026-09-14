@@ -75,15 +75,15 @@ export default function Home() {
                 cards={[
                     {
                         title: 'Template 1 — FITNESS',
-                        img: '/images/templates.png',
+                        img: '/images/template1.png',
                         tag: ['Alta Energia', 'Neon Green'],
                         desc: 'Moderno, energético e impactante. Fundo escuro, verde neon, grandes imagens, CTAs fortes, visual de academia e foco total em resultados.',
-                        link: '/templates/fitness',
+                        link: '/template1',
                         buttonText: 'Visualizar template',
                     },
                     {
                         title: 'Template 2 — PREMIUM',
-                        img: '/images/templates.png',
+                        img: '/images/template2.png',
                         tag: ['Alto Ticket', 'Champagne Gold'],
                         desc: 'Sofisticado, elegante e profissional. Fundo escuro, detalhes dourados e champagne, tipografia refinada, ideal para consultoria VIP de alto valor agregado.',
                         link: '/templates/premium',

@@ -36,11 +36,11 @@ export function HeroSection1({ title, desc, button1text, button2text, titlePrima
                         <p className="text-md max-w-2xl text-color-clay sm:text-base lg:text-lg">{desc}</p>
 
                         {/* BOTÕES */}
-                        <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
+                        <Link href="/auth" className="w-fit">
                             <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
-                                <Link href="/auth">{button1text}</Link>
+                                {button1text}
                             </InteractiveHoverButton>
-                        </div>
+                        </Link>
                     </div>
 
                     {/* IMAGEM DIREITA */}

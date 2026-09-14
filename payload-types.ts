@@ -129,7 +129,6 @@ export interface User {
   whatsapp: string;
   cpf?: string | null;
   cref?: string | null;
-  plan: 'starter' | 'pro';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -356,7 +355,6 @@ export interface UsersSelect<T extends boolean = true> {
   whatsapp?: T;
   cpf?: T;
   cref?: T;
-  plan?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

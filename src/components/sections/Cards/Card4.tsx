@@ -33,6 +33,7 @@ function Cards4({ cards, title, desc, titlePrimary }: CardSectionProps) {
                         {cards?.map((card, index) => (
                             <div key={index} className="h-full">
                                 <CardTemplate
+                                    disabled={card.disabled}
                                     tag={card.tag ?? []}
                                     title={card.title!}
                                     description={card.desc}

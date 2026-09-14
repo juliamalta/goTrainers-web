@@ -1,13 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-
 import { useRouter } from 'next/navigation'
-
 import { useForm } from 'react-hook-form'
-
 import { z } from 'zod'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 
 const registerSchema = z
@@ -25,8 +21,6 @@ const registerSchema = z
         cpf: z.string().optional(),
 
         cref: z.string().optional(),
-
-        plan: z.string().min(1, 'Selecione um plano'),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: 'As senhas não coincidem',
@@ -48,9 +42,6 @@ export default function Register() {
         formState: { errors, isSubmitting },
     } = useForm<RegisterFormData>({
         resolver: zodResolver(registerSchema),
-        defaultValues: {
-            plan: 'starter',
-        },
     })
 
     const onSubmit = async (data: RegisterFormData) => {
@@ -60,22 +51,26 @@ export default function Register() {
             // 1. Criar usuário no Payload
             const registerResponse = await fetch('/api/users', {
                 method: 'POST',
+
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
                 credentials: 'include',
+
                 body: JSON.stringify({
-                    name: data.name,
-                    email: data.email,
+                    name: data.name.trim(),
+                    email: data.email.trim().toLowerCase(),
                     password: data.password,
-                    whatsapp: data.whatsapp,
-                    cpf: data.cpf || '',
-                    cref: data.cref || '',
-                    plan: data.plan,
+                    whatsapp: data.whatsapp.trim(),
+                    cpf: data.cpf?.trim() || '',
+                    cref: data.cref?.trim() || '',
                 }),
             })
 
             const registerResult = await registerResponse.json()
+
+            console.log('Resposta cadastro:', registerResult)
 
             if (!registerResponse.ok) {
                 const message =
@@ -84,6 +79,7 @@ export default function Register() {
                     'Não foi possível criar sua conta.'
 
                 setServerError(message)
+
                 return
             }
 
@@ -92,17 +88,22 @@ export default function Register() {
             // 2. Fazer login automaticamente
             const loginResponse = await fetch('/api/users/login', {
                 method: 'POST',
+
                 headers: {
                     'Content-Type': 'application/json',
                 },
+
                 credentials: 'include',
+
                 body: JSON.stringify({
-                    email: data.email,
+                    email: data.email.trim().toLowerCase(),
                     password: data.password,
                 }),
             })
 
             const loginResult = await loginResponse.json()
+
+            console.log('Resposta login:', loginResult)
 
             if (!loginResponse.ok) {
                 const message =
@@ -111,6 +112,7 @@ export default function Register() {
                     'Conta criada, mas não foi possível entrar automaticamente.'
 
                 setServerError(message)
+
                 return
             }
 
@@ -121,7 +123,7 @@ export default function Register() {
         } catch (error) {
             console.error('Erro no cadastro:', error)
 
-            setServerError('Não foi possível criar sua conta. Tente novamente.')
+            setServerError('Não foi possível conectar ao servidor. Tente novamente.')
         }
     }
 
@@ -130,7 +132,7 @@ export default function Register() {
             <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-12">
                 {/* Cadastro */}
                 <section className="relative z-10 w-full max-w-md">
-                    <div className="rounded-2xl border border-color-woodsmoke bg-black bg-opacity-25 p-7 shadow-sm backdrop-blur-sm sm:p-9">
+                    <div className="rounded-2xl border border-color-woodsmoke bg-black/25 p-7 shadow-sm backdrop-blur-sm sm:p-9">
                         {/* Cabeçalho */}
                         <div className="mb-8 text-center">
                             <h1 className="text-3xl font-bold tracking-tight">Crie sua conta</h1>
@@ -314,32 +316,6 @@ export default function Register() {
                                         className="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-color-malachite focus:ring-1 focus:ring-color-malachite"
                                     />
                                 </div>
-                            </div>
-
-                            {/* Plano */}
-                            <div>
-                                <label htmlFor="plan" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    Plano
-                                </label>
-
-                                <select
-                                    id="plan"
-                                    {...register('plan')}
-                                    className={`w-full appearance-none rounded-lg border bg-transparent px-4 py-3 text-sm text-white outline-none transition focus:ring-1 ${
-                                        errors.plan
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                    }`}>
-                                    <option value="starter" className="bg-zinc-900">
-                                        Starter · R$ 49,90/mês
-                                    </option>
-
-                                    <option value="pro" className="bg-zinc-900">
-                                        Pro · R$ 79,90/mês
-                                    </option>
-                                </select>
-
-                                {errors.plan && <p className="mt-2 text-xs text-red-400">{errors.plan.message}</p>}
                             </div>
 
                             {/* Criar conta */}

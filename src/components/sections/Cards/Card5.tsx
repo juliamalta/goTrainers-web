@@ -13,7 +13,7 @@ function Cards5({ cards, title, desc }: CardSectionProps) {
                 <div className="w-full">
                     <p className="text-center text-4xl font-semibold text-white">{title}</p>
                 </div>
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-4 xl:grid-cols-3">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-3">
                     {cards!.map((card, index) => (
                         <CardPlan
                             desc={card.desc}
