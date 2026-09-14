@@ -1,6 +1,7 @@
 import React from 'react'
 
 export type CardProps = {
+    price?: string
     titleApp?: string
     icon?: React.JSX.Element
     text?: string
@@ -15,6 +16,8 @@ export type CardProps = {
     tag?: string[]
     name?: string
     featured?: boolean
+    option?: string[]
+    link?: string
 }
 
 export type CardWorkProps = {

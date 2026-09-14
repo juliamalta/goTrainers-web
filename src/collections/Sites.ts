@@ -1,4 +1,5 @@
 import type { CollectionConfig, Where } from 'payload'
+
 export const Sites: CollectionConfig = {
     slug: 'sites',
 
@@ -35,7 +36,7 @@ export const Sites: CollectionConfig = {
                 user: {
                     equals: req.user.id,
                 },
-            }
+            } as Where
         },
 
         delete: ({ req }) => {
@@ -47,15 +48,11 @@ export const Sites: CollectionConfig = {
                 user: {
                     equals: req.user.id,
                 },
-            }
+            } as Where
         },
     },
 
     fields: [
-        // =====================================================
-        // INFORMAÇÕES DO SITE
-        // =====================================================
-
         {
             name: 'name',
             type: 'text',
@@ -126,10 +123,6 @@ export const Sites: CollectionConfig = {
             },
         },
 
-        // =====================================================
-        // TEMPLATE 1
-        // =====================================================
-
         {
             name: 'template1',
             type: 'group',
@@ -137,10 +130,6 @@ export const Sites: CollectionConfig = {
             label: 'Template 1',
 
             fields: [
-                // =================================================
-                // HERO
-                // =================================================
-
                 {
                     name: 'hero',
                     type: 'group',
@@ -229,10 +218,6 @@ export const Sites: CollectionConfig = {
                     ],
                 },
 
-                // =================================================
-                // MÉTRICAS — EXATAMENTE 4
-                // =================================================
-
                 {
                     name: 'metrics',
                     type: 'array',
@@ -273,10 +258,6 @@ export const Sites: CollectionConfig = {
                         },
                     ],
                 },
-
-                // =================================================
-                // SERVIÇOS — EXATAMENTE 3
-                // =================================================
 
                 {
                     name: 'services',
@@ -359,6 +340,68 @@ export const Sites: CollectionConfig = {
                                 },
 
                                 {
+                                    name: 'price',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Preço',
+
+                                    admin: {
+                                        placeholder: 'Exemplo: R$ 199,90/mês',
+                                    },
+                                },
+
+                                {
+                                    name: 'option',
+                                    type: 'array',
+                                    required: false,
+                                    maxRows: 4,
+                                    label: 'Opções do plano',
+
+                                    admin: {
+                                        initCollapsed: false,
+                                        description:
+                                            'Opcional. Se adicionar uma opção, é obrigatório preencher exatamente 4 opções.',
+                                    },
+
+                                    validate: (value) => {
+                                        if (!value || value.length === 0) {
+                                            return true
+                                        }
+
+                                        if (value.length !== 4) {
+                                            return 'Se adicionar opções, é obrigatório preencher exatamente 4 opções.'
+                                        }
+
+                                        return true
+                                    },
+
+                                    fields: [
+                                        {
+                                            name: 'text',
+                                            type: 'text',
+                                            required: true,
+                                            label: 'Opção',
+
+                                            admin: {
+                                                placeholder: 'Exemplo: Treino personalizado',
+                                            },
+                                        },
+                                    ],
+                                },
+
+                                {
+                                    name: 'link',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Link do WhatsApp',
+
+                                    admin: {
+                                        placeholder: 'Exemplo: https://wa.me/5531999999999',
+                                        description: 'Link que será aberto ao clicar em Escolher Plano.',
+                                    },
+                                },
+
+                                {
                                     name: 'featured',
                                     type: 'checkbox',
                                     required: true,
@@ -369,10 +412,6 @@ export const Sites: CollectionConfig = {
                         },
                     ],
                 },
-
-                // =================================================
-                // SOBRE O PROFISSIONAL
-                // =================================================
 
                 {
                     name: 'about',
@@ -416,10 +455,6 @@ export const Sites: CollectionConfig = {
                             },
                         },
 
-                        // =================================================
-                        // FEATURES — EXATAMENTE 4
-                        // =================================================
-
                         {
                             name: 'features',
                             type: 'array',
@@ -450,10 +485,6 @@ export const Sites: CollectionConfig = {
                         },
                     ],
                 },
-
-                // =================================================
-                // DEPOIMENTOS — EXATAMENTE 4
-                // =================================================
 
                 {
                     name: 'testimonials',
@@ -528,10 +559,6 @@ export const Sites: CollectionConfig = {
                     ],
                 },
 
-                // =================================================
-                // CONTATO
-                // =================================================
-
                 {
                     name: 'contact',
                     type: 'group',
@@ -596,10 +623,6 @@ export const Sites: CollectionConfig = {
                         },
                     ],
                 },
-
-                // =================================================
-                // WHATSAPP
-                // =================================================
 
                 {
                     name: 'whatsapp',

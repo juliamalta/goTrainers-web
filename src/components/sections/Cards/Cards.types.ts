@@ -18,6 +18,8 @@ export interface CardData {
     name?: string
     featured?: boolean
     disabled?: boolean
+    price?: string
+    option?: string[]
 }
 
 export interface CardSectionProps {

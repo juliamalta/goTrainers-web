@@ -30,9 +30,14 @@ type Site = {
             desc?: string | null
             button1text?: string | null
             button1url?: string | null
-            img?: string | { id?: string; url?: string | null } | null
+            img?: string | { id?: string; url?: string | null; alt?: string | null } | null
         } | null
-        metrics?: Array<{ number?: string | null; text?: string | null }> | null
+
+        metrics?: Array<{
+            number?: string | null
+            text?: string | null
+        }> | null
+
         services?: {
             title?: string | null
             desc?: string | null
@@ -40,20 +45,31 @@ type Site = {
                 title?: string | null
                 desc?: string | null
                 text?: string | null
+                price?: string | null
+                option?: Array<{
+                    text?: string | null
+                }> | null
+                link?: string | null
                 featured?: boolean | null
             }> | null
         } | null
+
         about?: {
-            img?: string | { id?: string; url?: string | null } | null
+            img?: string | { id?: string; url?: string | null; alt?: string | null } | null
             title?: string | null
             desc?: string | null
             features?: Array<{ title?: string | null }> | null
         } | null
+
         testimonials?: {
             title?: string | null
             desc?: string | null
-            cards?: Array<{ name?: string | null; text?: string | null }> | null
+            cards?: Array<{
+                name?: string | null
+                text?: string | null
+            }> | null
         } | null
+
         contact?: {
             title?: string | null
             titleHighlight?: string | null
@@ -61,6 +77,7 @@ type Site = {
             buttontext?: string | null
             buttonurl?: string | null
         } | null
+
         whatsapp?: {
             enabled?: boolean | null
             phone?: string | null
@@ -92,6 +109,9 @@ interface Template1Data {
             title: string
             desc: string
             text: string
+            price: string
+            option: string[]
+            link: string
             featured: boolean
         }[]
     }
@@ -129,9 +149,77 @@ interface Template1Data {
     }
 }
 
-function getMediaUrl(media: string | { id?: string; url?: string | null } | null | undefined, fallback: string) {
+/**
+ * Retorna a URL da imagem para o preview.
+ */
+function getMediaUrl(
+    media:
+        | string
+        | {
+              id?: string
+              url?: string | null
+              alt?: string | null
+          }
+        | null
+        | undefined,
+    fallback: string
+) {
     if (typeof media === 'object' && media?.url) {
         return media.url
+    }
+
+    return fallback
+}
+
+/**
+ * Retorna o ID da mídia existente no Payload.
+ *
+ * Isso é importante porque, quando o usuário edita somente
+ * textos, precisamos manter a imagem que já existe.
+ */
+function getMediaId(
+    media:
+        | string
+        | {
+              id?: string
+              url?: string | null
+              alt?: string | null
+          }
+        | null
+        | undefined
+): string | null {
+    if (!media) {
+        return null
+    }
+
+    if (typeof media === 'string') {
+        return media
+    }
+
+    if (media.id) {
+        return String(media.id)
+    }
+
+    return null
+}
+
+/**
+ * Retorna o alt da mídia existente.
+ */
+function getMediaAlt(
+    media:
+        | string
+        | {
+              id?: string
+              url?: string | null
+              alt?: string | null
+          }
+        | null
+        | undefined,
+    fallback: string
+) {
+    if (typeof media === 'object' && media?.alt) {
+        return media.alt
     }
 
     return fallback
@@ -159,10 +247,17 @@ function createInitialData(site: Site | null | undefined, templateImage: string)
         services: {
             title: template1?.services?.title || '',
             desc: template1?.services?.desc || '',
+
             cards: [0, 1, 2].map((index) => ({
                 title: template1?.services?.cards?.[index]?.title || '',
                 desc: template1?.services?.cards?.[index]?.desc || '',
                 text: template1?.services?.cards?.[index]?.text || '',
+                price: template1?.services?.cards?.[index]?.price || '',
+
+                option:
+                    template1?.services?.cards?.[index]?.option?.map((item) => item.text || '').filter(Boolean) || [],
+
+                link: template1?.services?.cards?.[index]?.link || '',
                 featured: template1?.services?.cards?.[index]?.featured || false,
             })),
         },
@@ -171,6 +266,7 @@ function createInitialData(site: Site | null | undefined, templateImage: string)
             img: getMediaUrl(template1?.about?.img, templateImage),
             title: template1?.about?.title || '',
             desc: template1?.about?.desc || '',
+
             features: [0, 1, 2, 3].map((index) => ({
                 title: template1?.about?.features?.[index]?.title || '',
             })),
@@ -179,6 +275,7 @@ function createInitialData(site: Site | null | undefined, templateImage: string)
         testimonials: {
             title: template1?.testimonials?.title || '',
             desc: template1?.testimonials?.desc || '',
+
             cards: [0, 1, 2, 3].map((index) => ({
                 name: template1?.testimonials?.cards?.[index]?.name || '',
                 text: template1?.testimonials?.cards?.[index]?.text || '',
@@ -247,22 +344,35 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     const [previewScale, setPreviewScale] = React.useState(1)
 
     const [siteName, setSiteName] = React.useState(site?.name || userName || '')
+
     const [slug, setSlug] = React.useState(site?.slug || '')
 
     const [heroImageFile, setHeroImageFile] = React.useState<File | null>(null)
+
     const [aboutImageFile, setAboutImageFile] = React.useState<File | null>(null)
 
-    const [heroImagePreview, setHeroImagePreview] = React.useState(templateImage)
-    const [aboutImagePreview, setAboutImagePreview] = React.useState(templateImage)
+    /**
+     * IMPORTANTE:
+     * Agora o preview começa com a imagem existente do site.
+     * Se não existir, usa a imagem padrão do template.
+     */
+    const [heroImagePreview, setHeroImagePreview] = React.useState(() =>
+        getMediaUrl(site?.template1?.hero?.img, templateImage)
+    )
 
-    const [heroImageAlt, setHeroImageAlt] = React.useState('Imagem principal do site')
-    const [aboutImageAlt, setAboutImageAlt] = React.useState('Foto sobre o profissional')
+    const [aboutImagePreview, setAboutImagePreview] = React.useState(() =>
+        getMediaUrl(site?.template1?.about?.img, templateImage)
+    )
+
+    const [heroImageAlt, setHeroImageAlt] = React.useState(() =>
+        getMediaAlt(site?.template1?.hero?.img, 'Imagem principal do site')
+    )
+
+    const [aboutImageAlt, setAboutImageAlt] = React.useState(() =>
+        getMediaAlt(site?.template1?.about?.img, 'Foto sobre o profissional')
+    )
 
     const [data, setData] = React.useState<Template1Data>(() => createInitialData(site, templateImage))
-
-    // ============================================================
-    // PREVIEW — TAMANHO E FOCO
-    // ============================================================
 
     React.useEffect(() => {
         const preview = previewScrollRef.current
@@ -352,7 +462,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     function updateServiceCard(
         index: number,
         field: keyof Template1Data['services']['cards'][number],
-        value: string | boolean
+        value: string | boolean | string[]
     ) {
         setData((current) => {
             const cards = [...current.services.cards]
@@ -360,6 +470,71 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             cards[index] = {
                 ...cards[index],
                 [field]: value,
+            }
+
+            return {
+                ...current,
+                services: {
+                    ...current.services,
+                    cards,
+                },
+            }
+        })
+    }
+
+    function updateServiceOption(serviceIndex: number, optionIndex: number, value: string) {
+        setData((current) => {
+            const cards = [...current.services.cards]
+            const options = [...cards[serviceIndex].option]
+
+            options[optionIndex] = value
+
+            cards[serviceIndex] = {
+                ...cards[serviceIndex],
+                option: options,
+            }
+
+            return {
+                ...current,
+                services: {
+                    ...current.services,
+                    cards,
+                },
+            }
+        })
+    }
+
+    function addServiceOption(serviceIndex: number) {
+        setData((current) => {
+            const cards = [...current.services.cards]
+            const currentOptions = cards[serviceIndex].option
+
+            if (currentOptions.length >= 4) {
+                return current
+            }
+
+            cards[serviceIndex] = {
+                ...cards[serviceIndex],
+                option: [...currentOptions, ''],
+            }
+
+            return {
+                ...current,
+                services: {
+                    ...current.services,
+                    cards,
+                },
+            }
+        })
+    }
+
+    function removeServiceOption(serviceIndex: number, optionIndex: number) {
+        setData((current) => {
+            const cards = [...current.services.cards]
+
+            cards[serviceIndex] = {
+                ...cards[serviceIndex],
+                option: cards[serviceIndex].option.filter((_, index) => index !== optionIndex),
             }
 
             return {
@@ -486,6 +661,10 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
         }
     }
 
+    // ============================================================
+    // UPLOAD
+    // ============================================================
+
     async function uploadMedia(file: File, alt: string): Promise<string> {
         const formData = new FormData()
 
@@ -569,7 +748,34 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 return previewUrl
             })
         }
+
+        /**
+         * Atualiza também a imagem usada no preview do site.
+         */
+        setData((current) => {
+            if (type === 'hero') {
+                return {
+                    ...current,
+                    hero: {
+                        ...current.hero,
+                        img: previewUrl,
+                    },
+                }
+            }
+
+            return {
+                ...current,
+                about: {
+                    ...current.about,
+                    img: previewUrl,
+                },
+            }
+        })
     }
+
+    // ============================================================
+    // PUBLICAR
+    // ============================================================
 
     async function handleFinish() {
         if (publishing) return
@@ -602,6 +808,30 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             return
         }
 
+        // ========================================================
+        // VALIDAR OPÇÕES DOS SERVIÇOS
+        // ========================================================
+
+        // As opções são opcionais. Porém, se o usuário adicionar
+        // qualquer opção, precisa preencher exatamente 4.
+        for (let index = 0; index < data.services.cards.length; index++) {
+            const options = data.services.cards[index].option
+
+            if (options.length > 0 && options.length !== 4) {
+                setPublishError(
+                    `O Serviço ${index + 1} possui ${options.length} opção(ões). Se começar a adicionar opções, é obrigatório preencher exatamente 4.`
+                )
+                setStep(3)
+                return
+            }
+
+            if (options.length === 4 && options.some((option) => !option.trim())) {
+                setPublishError(`Preencha as 4 opções do Serviço ${index + 1} antes de publicar.`)
+                setStep(3)
+                return
+            }
+        }
+
         setPublishing(true)
 
         try {
@@ -628,14 +858,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 )
             }
 
-            const heroFile = heroImageFile || (await createTemplateImageFile())
-
-            const aboutFile = aboutImageFile || heroFile
-
-            const heroMediaId = await uploadMedia(heroFile, heroImageAlt)
-
-            const aboutMediaId =
-                aboutImageFile || heroImageFile ? await uploadMedia(aboutFile, aboutImageAlt) : heroMediaId
+            // ========================================================
+            // VERIFICAR SE JÁ EXISTE SITE
+            // ========================================================
 
             const searchParams = new URLSearchParams()
 
@@ -661,44 +886,143 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 throw new Error('Esse endereço já está sendo usado por outro usuário.')
             }
 
+            // ========================================================
+            // IMAGENS
+            // ========================================================
+            //
+            // REGRA:
+            //
+            // 1. Se escolheu imagem nova:
+            //    faz upload.
+            //
+            // 2. Se não escolheu imagem nova e já existe imagem:
+            //    mantém a imagem existente.
+            //
+            // 3. Se é um site novo e não existe imagem:
+            //    usa a imagem padrão do template.
+            //
+            // ========================================================
+
+            let heroMediaId: string
+            let aboutMediaId: string
+
+            // --------------------------------------------------------
+            // HERO
+            // --------------------------------------------------------
+
+            if (heroImageFile) {
+                // Usuário escolheu uma imagem nova.
+                heroMediaId = await uploadMedia(heroImageFile, heroImageAlt)
+            } else {
+                // Não escolheu imagem nova.
+                const existingHeroMediaId = getMediaId(existingSite?.template1?.hero?.img)
+
+                if (existingHeroMediaId) {
+                    // Mantém a imagem que já estava salva.
+                    heroMediaId = existingHeroMediaId
+                } else {
+                    // Site novo sem imagem: usa a imagem do template.
+                    const heroFile = await createTemplateImageFile()
+
+                    heroMediaId = await uploadMedia(heroFile, heroImageAlt)
+                }
+            }
+
+            // --------------------------------------------------------
+            // SOBRE
+            // --------------------------------------------------------
+
+            if (aboutImageFile) {
+                // Usuário escolheu uma imagem nova.
+                aboutMediaId = await uploadMedia(aboutImageFile, aboutImageAlt)
+            } else {
+                // Não escolheu imagem nova.
+                const existingAboutMediaId = getMediaId(existingSite?.template1?.about?.img)
+
+                if (existingAboutMediaId) {
+                    // Mantém a imagem que já estava salva.
+                    aboutMediaId = existingAboutMediaId
+                } else {
+                    /**
+                     * Se não existe imagem de "Sobre", usamos a
+                     * mesma imagem do Hero.
+                     */
+                    aboutMediaId = heroMediaId
+                }
+            }
+
+            // ========================================================
+            // DADOS DO SITE
+            // ========================================================
+
             const payloadData = {
                 name: siteName.trim(),
+
                 slug: cleanSlug,
+
                 template: 'template-1',
+
                 published: true,
+
                 user: user.id,
 
                 template1: {
                     hero: {
                         titlePrimary: data.hero.titlePrimary,
+
                         title: data.hero.title,
+
                         titleHighlight: data.hero.titleHighlight,
+
                         desc: data.hero.desc,
+
                         button1text: data.hero.button1text,
+
                         button1url: data.hero.button1url,
+
                         img: heroMediaId,
                     },
 
                     metrics: data.metrics.map((metric) => ({
                         number: metric.number,
+
                         text: metric.text,
                     })),
 
                     services: {
                         title: data.services.title,
+
                         desc: data.services.desc,
 
                         cards: data.services.cards.map((card) => ({
                             title: card.title,
+
                             desc: card.desc,
+
                             text: card.text,
+
+                            price: card.price || undefined,
+
+                            option:
+                                card.option.length > 0
+                                    ? card.option
+                                          .filter((item) => item.trim())
+                                          .map((item) => ({
+                                              text: item,
+                                          }))
+                                    : undefined,
+
+                            link: card.link || undefined,
+
                             featured: card.featured,
                         })),
                     },
 
                     about: {
                         img: aboutMediaId,
+
                         title: data.about.title,
+
                         desc: data.about.desc,
 
                         features: data.about.features.map((feature) => ({
@@ -708,10 +1032,12 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
                     testimonials: {
                         title: data.testimonials.title,
+
                         desc: data.testimonials.desc,
 
                         cards: data.testimonials.cards.map((card) => ({
                             name: card.name,
+
                             text: card.text,
                         })),
                     },
@@ -726,24 +1052,44 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 },
             }
 
+            // ========================================================
+            // ATUALIZAR OU CRIAR
+            // ========================================================
+
             let response: Response
 
             if (existingSite?.id) {
+                /**
+                 * SITE JÁ EXISTE
+                 *
+                 * PATCH atualiza os textos e mantém os IDs
+                 * das imagens existentes quando não houve
+                 * upload de uma nova imagem.
+                 */
                 response = await fetch(`/api/sites/${existingSite.id}`, {
                     method: 'PATCH',
+
                     headers: {
                         'Content-Type': 'application/json',
                     },
+
                     credentials: 'include',
+
                     body: JSON.stringify(payloadData),
                 })
             } else {
+                /**
+                 * SITE NOVO
+                 */
                 response = await fetch('/api/sites', {
                     method: 'POST',
+
                     headers: {
                         'Content-Type': 'application/json',
                     },
+
                     credentials: 'include',
+
                     body: JSON.stringify(payloadData),
                 })
             }
@@ -755,6 +1101,10 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
                 throw new Error(result?.errors?.[0]?.message || result?.message || 'Não foi possível publicar o site.')
             }
+
+            // ========================================================
+            // SUCESSO
+            // ========================================================
 
             setSlug(cleanSlug)
 
@@ -778,13 +1128,23 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
     const previewMetrics = data.metrics.map((metric) => ({
         number: metric.number || '0',
+
         text: metric.text || 'Sua métrica',
     }))
 
     const previewServices = data.services.cards.map((card) => ({
         title: card.title || 'Seu serviço',
-        desc: card.desc || 'Descrição do serviço',
+
+        desc: card.desc || 'Descrição do serviço.',
+
         text: card.text || 'Descreva aqui o seu serviço.',
+
+        price: card.price || '',
+
+        option: card.option.filter(Boolean),
+
+        link: card.link || '',
+
         featured: card.featured,
     }))
 
@@ -794,6 +1154,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
     const previewTestimonials = data.testimonials.cards.map((card) => ({
         name: card.name || 'Nome do cliente',
+
         text: card.text || 'O depoimento do seu cliente aparecerá aqui.',
     }))
 
@@ -1048,6 +1409,85 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                                 onChange={(value) => updateServiceCard(index, 'text', value)}
                                             />
 
+                                            <Field
+                                                label="Preço"
+                                                value={card.price}
+                                                placeholder="Ex: R$ 199,90/mês ou Consulte"
+                                                onChange={(value) => updateServiceCard(index, 'price', value)}
+                                            />
+
+                                            <Field
+                                                label="Link do WhatsApp"
+                                                value={card.link}
+                                                placeholder="Ex: https://wa.me/5531999999999"
+                                                onChange={(value) => updateServiceCard(index, 'link', value)}
+                                            />
+
+                                            <div className="flex flex-col gap-3 rounded-lg border border-white/10 p-4">
+                                                <div className="flex items-center justify-between">
+                                                    <div>
+                                                        <p className="text-sm font-medium text-white">
+                                                            Opções do plano
+                                                        </p>
+
+                                                        <p className="text-xs text-color-clay">
+                                                            {card.option.length === 0
+                                                                ? 'Opcional — se começar, preencha 4'
+                                                                : `${card.option.length}/4 opções`}
+                                                        </p>
+                                                    </div>
+
+                                                    {card.option.length < 4 && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => addServiceOption(index)}
+                                                            className="rounded-lg bg-color-malachite px-3 py-2 text-xs font-semibold text-black transition hover:opacity-90">
+                                                            + Adicionar
+                                                        </button>
+                                                    )}
+                                                </div>
+
+                                                {card.option.length > 0 ? (
+                                                    <div className="flex flex-col gap-3">
+                                                        {card.option.map((option, optionIndex) => (
+                                                            <div key={optionIndex} className="flex gap-2">
+                                                                <input
+                                                                    type="text"
+                                                                    value={option}
+                                                                    placeholder={`Opção ${optionIndex + 1}`}
+                                                                    onChange={(event) =>
+                                                                        updateServiceOption(
+                                                                            index,
+                                                                            optionIndex,
+                                                                            event.target.value
+                                                                        )
+                                                                    }
+                                                                    className="h-11 flex-1 rounded-lg border border-white/10 bg-color-codgray px-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-color-malachite"
+                                                                />
+
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() =>
+                                                                        removeServiceOption(index, optionIndex)
+                                                                    }
+                                                                    className="rounded-lg border border-red-500/20 px-3 text-sm text-red-400 transition hover:bg-red-500/10">
+                                                                    ×
+                                                                </button>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                ) : (
+                                                    <p className="text-xs text-color-clay">Nenhuma opção adicionada.</p>
+                                                )}
+
+                                                {card.option.length > 0 && card.option.length < 4 && (
+                                                    <p className="text-xs font-medium text-amber-400">
+                                                        Você começou a adicionar opções. Adicione mais{' '}
+                                                        {4 - card.option.length} para poder publicar.
+                                                    </p>
+                                                )}
+                                            </div>
+
                                             <label className="flex cursor-pointer items-center gap-3 text-sm text-white">
                                                 <input
                                                     type="checkbox"
@@ -1240,7 +1680,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         )}
 
                         {/* ==================================================
-                            BOTÕES DE NAVEGAÇÃO
+                            MENSAGENS
                         ================================================== */}
 
                         {publishMessage && (
@@ -1254,6 +1694,10 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                 {publishError}
                             </div>
                         )}
+
+                        {/* ==================================================
+                            BOTÕES
+                        ================================================== */}
 
                         <div className="mt-8 flex gap-3 border-t border-white/10 pt-6">
                             {step > 0 && (

@@ -5,17 +5,11 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 
 import { HeroSection1 } from '@/components/sections/hero-section'
-
 import Cards2 from '@/components/sections/Cards/Card2'
-
 import Metrics1 from '@/components/sections/Metrics/Metrics1'
-
 import { Features2 } from '@/components/sections/Features/Features2'
-
 import { WhatsAppFloat } from '@/components/ui/whatsapp-float'
-
 import Cards5 from '@/components/sections/Cards/Card5'
-
 import Contact from '@/components/sections/Contact/Contact'
 
 interface PageProps {
@@ -95,7 +89,23 @@ export default async function SitePage({ params }: PageProps) {
                         title: card.title,
                         desc: card.desc,
                         text: card.text,
-                        featured: card.featured,
+
+                        // PREÇO
+                        price: card.price || '',
+
+                        // OPÇÕES DO PAYLOAD
+                        // Payload retorna:
+                        // [{ text: 'opção 1' }]
+                        //
+                        // CardPlan recebe:
+                        // ['opção 1']
+                        option: (card.option || []).map((item: any) => item.text || '').filter(Boolean),
+
+                        // LINK
+                        link: card.link || '',
+
+                        // DESTAQUE
+                        featured: Boolean(card.featured),
                     }))}
                 />
 
@@ -133,7 +143,9 @@ export default async function SitePage({ params }: PageProps) {
                     title={
                         <>
                             {template.contact?.title || ''}
+
                             <br />
+
                             <span className="font-bold text-color-malachite">
                                 {template.contact?.titleHighlight || ''}
                             </span>
