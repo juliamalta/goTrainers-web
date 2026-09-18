@@ -25,18 +25,8 @@ export default function Home() {
                     titlePrimary="PERSONAL TRAINING EXCLUSIVO"
                     title={
                         <>
-                            Transformação
-                            <br />
-                            Física &amp;
-                            <br />
-                            Performance
-                            <br />
-                            para{' '}
-                            <span className="font-medium italic text-color-saffron">
-                                Líderes de
-                                <br />
-                                Alto Padrão.
-                            </span>
+                            Transformação Física Performance para
+                            <span className="font-medium italic text-color-saffron"> Líderes de Alto Padrão.</span>
                         </>
                     }
                     desc="Metodologia científica individualizada, privacidade absoluta e acompanhamento sob medida para quem valoriza tempo, estética e saúde no mais alto nível."

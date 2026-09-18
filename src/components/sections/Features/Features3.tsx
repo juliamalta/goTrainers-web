@@ -38,7 +38,7 @@ export function Features3({ img, features, title, desc }: Features3Props) {
                             {features!.map((card, index) => (
                                 <div
                                     key={index}
-                                    className="flex w-full flex-col gap-3 rounded-2xl bg-color-woodsmoke p-4">
+                                    className="flex w-full flex-col gap-3 rounded-2xl bg-color-woodsmoke p-4 transition-transform hover:scale-105 hover:border-color-flamingo">
                                     <p className="text-color-saffron">{card.number}</p>
                                     <h1 className="text-base text-white">{card.title}</h1>
                                     <p className="text-sm text-color-sisal">{card.desc}</p>

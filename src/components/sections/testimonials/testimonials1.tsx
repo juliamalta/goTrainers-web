@@ -24,7 +24,9 @@ function Testimonials1({ testimonial, title }: TestimonialProps) {
                 {/* DEPOIMENTOS */}
                 <div className="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-3">
                     {testimonial?.map((card, index) => (
-                        <div key={index} className="flex min-h-[420px] w-full flex-col bg-color-woodsmoke p-10 xl:p-12">
+                        <div
+                            key={index}
+                            className="flex min-h-[420px] w-full flex-col bg-color-woodsmoke p-10 transition-transform hover:scale-105 hover:border-color-flamingo xl:p-12">
                             {/* ASPAS */}
                             <Quote size={30} fill="currentColor" strokeWidth={0} className="mb-10 text-color-saffron" />
 
