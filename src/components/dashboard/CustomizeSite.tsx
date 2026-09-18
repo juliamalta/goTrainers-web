@@ -228,72 +228,179 @@ function getMediaAlt(
 function createInitialData(site: Site | null | undefined, templateImage: string): Template1Data {
     const template1 = site?.template1
 
-    return {
+    const defaults: Template1Data = {
         hero: {
-            titlePrimary: template1?.hero?.titlePrimary || '',
-            title: template1?.hero?.title || '',
-            titleHighlight: template1?.hero?.titleHighlight || '',
-            desc: template1?.hero?.desc || '',
-            button1text: template1?.hero?.button1text || '',
-            button1url: template1?.hero?.button1url || '#contato',
-            img: getMediaUrl(template1?.hero?.img, templateImage),
+            titlePrimary: 'PROFISSIONALISMO QUE GERA RESULTADOS',
+            title: 'Transforme seu objetivo em',
+            titleHighlight: 'resultados reais.',
+            desc: 'Ofereço um serviço personalizado, pensado para entender suas necessidades e entregar uma experiência de qualidade, com atenção aos detalhes e foco no que realmente importa para você.',
+            button1text: 'Quero começar',
+            button1url: '#contato',
+            img: templateImage,
         },
 
-        metrics: [0, 1, 2, 3].map((index) => ({
-            number: template1?.metrics?.[index]?.number || '',
-            text: template1?.metrics?.[index]?.text || '',
-        })),
+        metrics: [
+            { number: '+8', text: 'Anos de experiência' },
+            { number: '+480', text: 'Clientes atendidos' },
+            { number: '4.9', text: 'Nota média dos clientes' },
+            { number: '+1mil', text: 'Projetos realizados' },
+        ],
 
         services: {
-            title: template1?.services?.title || '',
-            desc: template1?.services?.desc || '',
-
-            cards: [0, 1, 2].map((index) => ({
-                title: template1?.services?.cards?.[index]?.title || '',
-                desc: template1?.services?.cards?.[index]?.desc || '',
-                text: template1?.services?.cards?.[index]?.text || '',
-                price: template1?.services?.cards?.[index]?.price || '',
-
-                option:
-                    template1?.services?.cards?.[index]?.option?.map((item) => item.text || '').filter(Boolean) || [],
-
-                link: template1?.services?.cards?.[index]?.link || '',
-                featured: template1?.services?.cards?.[index]?.featured || false,
-            })),
+            title: 'Meus serviços',
+            desc: 'Conheça as soluções que ofereço e escolha a opção ideal para você',
+            cards: [
+                {
+                    desc: 'Atendimento personalizado',
+                    title: 'Serviço Personalizado',
+                    text: 'Uma solução pensada de acordo com suas necessidades, objetivos e expectativas.',
+                    price: 'R$ 299,90',
+                    option: ['Atendimento personalizado', 'Solução sob medida', 'Acompanhamento completo'],
+                    link: '',
+                    featured: true,
+                },
+                {
+                    desc: 'Qualidade e atenção',
+                    title: 'Atendimento Completo',
+                    text: 'Conte com acompanhamento próximo e atenção em cada etapa do processo.',
+                    price: 'R$ 499,90/mês',
+                    option: ['Acompanhamento próximo', 'Suporte durante o processo', 'Atendimento completo'],
+                    link: '',
+                    featured: true,
+                },
+                {
+                    desc: 'Foco em resultados',
+                    title: 'Soluções Sob Medida',
+                    text: 'Estratégias e serviços desenvolvidos para entregar resultados que realmente fazem diferença.',
+                    price: 'R$ 799,90',
+                    option: ['Estratégia personalizada', 'Foco em resultados', 'Soluções sob medida'],
+                    link: '',
+                    featured: false,
+                },
+            ],
         },
 
         about: {
-            img: getMediaUrl(template1?.about?.img, templateImage),
-            title: template1?.about?.title || '',
-            desc: template1?.about?.desc || '',
+            img: templateImage,
+            title: 'Experiência, dedicação e compromisso com você',
+            desc: 'Meu objetivo é oferecer um serviço de qualidade, entender o que você precisa e buscar sempre a melhor solução. Trabalho com dedicação, profissionalismo e atenção aos detalhes para proporcionar uma experiência diferenciada.',
+            features: [
+                { title: 'Atendimento personalizado para cada cliente' },
+                { title: 'Experiência e conhecimento na área' },
+                { title: 'Acompanhamento próximo durante todo o processo' },
+                { title: 'Compromisso com qualidade e bons resultados' },
+            ],
+        },
 
-            features: [0, 1, 2, 3].map((index) => ({
-                title: template1?.about?.features?.[index]?.title || '',
+        testimonials: {
+            title: 'O que meus clientes dizem?',
+            desc: '',
+            cards: [
+                {
+                    name: 'Mariana Costa',
+                    text: 'Fiquei muito satisfeita com o atendimento. Desde o primeiro contato fui muito bem atendida e o resultado superou minhas expectativas.',
+                },
+                {
+                    name: 'Rafael Mendes',
+                    text: 'Profissional extremamente atencioso e comprometido. Entendeu exatamente o que eu precisava e entregou um ótimo resultado.',
+                },
+                {
+                    name: 'Camila Oliveira',
+                    text: 'O atendimento fez toda a diferença. Tive suporte durante todo o processo e fiquei muito satisfeita com o resultado final.',
+                },
+                {
+                    name: 'Bruno Almeida',
+                    text: 'Excelente profissional. Trabalho de qualidade, atendimento rápido e muita atenção aos detalhes. Recomendo muito.',
+                },
+            ],
+        },
+
+        contact: {
+            title: 'Pronto para dar o próximo passo?',
+            titleHighlight: 'Entre em contato comigo.',
+            text: 'Conte um pouco sobre o que você precisa e descubra como posso ajudar. Será um prazer conversar com você.',
+            buttontext: 'Entre em contato',
+            buttonurl: '',
+        },
+
+        whatsapp: {
+            enabled: true,
+            phone: '',
+            message: 'Olá! Vi seu site e gostaria de saber mais sobre seus serviços.',
+        },
+    }
+
+    if (!site || !template1) {
+        return defaults
+    }
+
+    return {
+        hero: {
+            titlePrimary: template1.hero?.titlePrimary ?? defaults.hero.titlePrimary,
+            title: template1.hero?.title ?? defaults.hero.title,
+            titleHighlight: template1.hero?.titleHighlight ?? defaults.hero.titleHighlight,
+            desc: template1.hero?.desc ?? defaults.hero.desc,
+            button1text: template1.hero?.button1text ?? defaults.hero.button1text,
+            button1url: template1.hero?.button1url ?? defaults.hero.button1url,
+            img: getMediaUrl(template1.hero?.img, templateImage),
+        },
+
+        metrics: defaults.metrics.map((defaultMetric, index) => ({
+            number: template1.metrics?.[index]?.number ?? defaultMetric.number,
+            text: template1.metrics?.[index]?.text ?? defaultMetric.text,
+        })),
+
+        services: {
+            title: template1.services?.title ?? defaults.services.title,
+            desc: template1.services?.desc ?? defaults.services.desc,
+            cards: defaults.services.cards.map((defaultCard, index) => {
+                const savedCard = template1.services?.cards?.[index]
+
+                return {
+                    title: savedCard?.title ?? defaultCard.title,
+                    desc: savedCard?.desc ?? defaultCard.desc,
+                    text: savedCard?.text ?? defaultCard.text,
+                    price: savedCard?.price ?? defaultCard.price,
+                    option:
+                        savedCard?.option !== undefined && savedCard?.option !== null
+                            ? savedCard.option.map((item) => item.text ?? '').filter(Boolean)
+                            : defaultCard.option,
+                    link: savedCard?.link ?? defaultCard.link,
+                    featured: savedCard?.featured ?? defaultCard.featured,
+                }
+            }),
+        },
+
+        about: {
+            img: getMediaUrl(template1.about?.img, templateImage),
+            title: template1.about?.title ?? defaults.about.title,
+            desc: template1.about?.desc ?? defaults.about.desc,
+            features: defaults.about.features.map((defaultFeature, index) => ({
+                title: template1.about?.features?.[index]?.title ?? defaultFeature.title,
             })),
         },
 
         testimonials: {
-            title: template1?.testimonials?.title || '',
-            desc: template1?.testimonials?.desc || '',
-
-            cards: [0, 1, 2, 3].map((index) => ({
-                name: template1?.testimonials?.cards?.[index]?.name || '',
-                text: template1?.testimonials?.cards?.[index]?.text || '',
+            title: template1.testimonials?.title ?? defaults.testimonials.title,
+            desc: template1.testimonials?.desc ?? defaults.testimonials.desc,
+            cards: defaults.testimonials.cards.map((defaultCard, index) => ({
+                name: template1.testimonials?.cards?.[index]?.name ?? defaultCard.name,
+                text: template1.testimonials?.cards?.[index]?.text ?? defaultCard.text,
             })),
         },
 
         contact: {
-            title: template1?.contact?.title || '',
-            titleHighlight: template1?.contact?.titleHighlight || '',
-            text: template1?.contact?.text || '',
-            buttontext: template1?.contact?.buttontext || '',
-            buttonurl: template1?.contact?.buttonurl || '',
+            title: template1.contact?.title ?? defaults.contact.title,
+            titleHighlight: template1.contact?.titleHighlight ?? defaults.contact.titleHighlight,
+            text: template1.contact?.text ?? defaults.contact.text,
+            buttontext: template1.contact?.buttontext ?? defaults.contact.buttontext,
+            buttonurl: template1.contact?.buttonurl ?? defaults.contact.buttonurl,
         },
 
         whatsapp: {
-            enabled: template1?.whatsapp?.enabled ?? true,
-            phone: template1?.whatsapp?.phone || '',
-            message: template1?.whatsapp?.message || '',
+            enabled: template1.whatsapp?.enabled ?? defaults.whatsapp.enabled,
+            phone: template1.whatsapp?.phone ?? defaults.whatsapp.phone,
+            message: template1.whatsapp?.message ?? defaults.whatsapp.message,
         },
     }
 }
@@ -338,9 +445,12 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     const [publishing, setPublishing] = React.useState(false)
     const [publishMessage, setPublishMessage] = React.useState('')
     const [publishError, setPublishError] = React.useState('')
+    const [mobilePreviewOpen, setMobilePreviewOpen] = React.useState(false)
 
     const previewScrollRef = React.useRef<HTMLDivElement | null>(null)
     const previewSectionRefs = React.useRef<Array<HTMLDivElement | null>>([])
+    const mobilePreviewScrollRef = React.useRef<HTMLDivElement | null>(null)
+    const mobilePreviewSectionRefs = React.useRef<Array<HTMLDivElement | null>>([])
     const [previewScale, setPreviewScale] = React.useState(1)
 
     const [siteName, setSiteName] = React.useState(site?.name || userName || '')
@@ -388,6 +498,17 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     const [data, setData] = React.useState<Template1Data>(() => createInitialData(site, templateImage))
 
     React.useEffect(() => {
+        if (!mobilePreviewOpen) return
+
+        const previousOverflow = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+
+        return () => {
+            document.body.style.overflow = previousOverflow
+        }
+    }, [mobilePreviewOpen])
+
+    React.useEffect(() => {
         const preview = previewScrollRef.current
 
         if (!preview) return
@@ -423,6 +544,30 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
         return () => window.clearTimeout(timer)
     }, [step])
+
+    React.useEffect(() => {
+        if (!mobilePreviewOpen) return
+
+        // step 0 (Informações) abre no topo/Hero.
+        // A partir do Hero, cada etapa acompanha sua seção no preview.
+        const previewIndex = Math.max(0, Math.min(6, step - 1))
+        const section = mobilePreviewSectionRefs.current[previewIndex]
+        const scrollContainer = mobilePreviewScrollRef.current
+
+        const timer = window.setTimeout(() => {
+            if (step === 0) {
+                scrollContainer?.scrollTo({ top: 0, behavior: 'auto' })
+                return
+            }
+
+            section?.scrollIntoView({
+                behavior: 'auto',
+                block: 'start',
+            })
+        }, 100)
+
+        return () => window.clearTimeout(timer)
+    }, [mobilePreviewOpen, step])
 
     // ============================================================
     // HERO
@@ -829,21 +974,18 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
         // VALIDAR OPÇÕES DOS SERVIÇOS
         // ========================================================
 
-        // As opções são opcionais. Porém, se o usuário adicionar
-        // qualquer opção, precisa preencher exatamente 4.
+        // As opções são opcionais e cada serviço pode ter até 4 benefícios.
         for (let index = 0; index < data.services.cards.length; index++) {
             const options = data.services.cards[index].option
 
-            if (options.length > 0 && options.length !== 4) {
-                setPublishError(
-                    `O Serviço ${index + 1} possui ${options.length} opção(ões). Se começar a adicionar opções, é obrigatório preencher exatamente 4.`
-                )
+            if (options.length > 4) {
+                setPublishError(`O Serviço ${index + 1} pode ter no máximo 4 opções.`)
                 setStep(3)
                 return
             }
 
-            if (options.length === 4 && options.some((option) => !option.trim())) {
-                setPublishError(`Preencha as 4 opções do Serviço ${index + 1} antes de publicar.`)
+            if (options.some((option) => !option.trim())) {
+                setPublishError(`Preencha ou remova as opções vazias do Serviço ${index + 1}.`)
                 setStep(3)
                 return
             }
@@ -1228,7 +1370,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     }))
 
     return (
-        <section className="min-h-screen bg-color-woodsmoke py-8">
+        <section className="min-h-screen bg-color-woodsmoke py-8 pb-28 md:pb-8">
             <div className="container mx-auto px-4">
                 {/* ========================================================
                     CABEÇALHO
@@ -1501,7 +1643,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
                                                         <p className="text-xs text-color-clay">
                                                             {card.option.length === 0
-                                                                ? 'Opcional — se começar, preencha 4'
+                                                                ? 'Opcional — adicione até 4 benefícios'
                                                                 : `${card.option.length}/4 opções`}
                                                         </p>
                                                     </div>
@@ -1547,13 +1689,6 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                                     </div>
                                                 ) : (
                                                     <p className="text-xs text-color-clay">Nenhuma opção adicionada.</p>
-                                                )}
-
-                                                {card.option.length > 0 && card.option.length < 4 && (
-                                                    <p className="text-xs font-medium text-amber-400">
-                                                        Você começou a adicionar opções. Adicione mais{' '}
-                                                        {4 - card.option.length} para poder publicar.
-                                                    </p>
                                                 )}
                                             </div>
 
@@ -1972,6 +2107,149 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                     </div>
                 </div>
             </div>
+
+            {/* ====================================================
+                BOTÃO FIXO DE PREVIEW — MOBILE
+            ==================================================== */}
+
+            <div className="bg-color-codgray/95 fixed inset-x-0 bottom-0 z-40 border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+                <div className="mx-auto max-w-md">
+                    <Button
+                        type="button"
+                        onClick={() => setMobilePreviewOpen(true)}
+                        className="h-12 w-full bg-color-malachite font-semibold text-black hover:text-white">
+                        👁 Ver prévia do site
+                    </Button>
+                </div>
+            </div>
+
+            {/* ====================================================
+                PREVIEW EM TELA CHEIA — MOBILE
+            ==================================================== */}
+
+            {mobilePreviewOpen && (
+                <div className="fixed inset-0 z-50 flex flex-col bg-color-woodsmoke md:hidden">
+                    <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-color-codgray px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
+                        <button
+                            type="button"
+                            onClick={() => setMobilePreviewOpen(false)}
+                            className="rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-white">
+                            ← Voltar
+                        </button>
+
+                        <div className="min-w-0 text-right">
+                            <p className="truncate text-sm font-semibold text-white">Prévia do site</p>
+                            <p className="text-xs text-color-clay">
+                                Etapa {step + 1}: {steps[step].title}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        ref={mobilePreviewScrollRef}
+                        className="flex-1 scroll-pt-4 overflow-y-auto overflow-x-hidden bg-black">
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[0] = element
+                            }}>
+                            <HeroSection1
+                                titlePrimary={data.hero.titlePrimary || 'SEU TEXTO SUPERIOR'}
+                                title={
+                                    <>
+                                        {data.hero.title || 'Seu título principal'}
+                                        {data.hero.titleHighlight && (
+                                            <>
+                                                {' '}
+                                                <span className="font-bold text-color-malachite">
+                                                    {data.hero.titleHighlight}
+                                                </span>
+                                            </>
+                                        )}
+                                    </>
+                                }
+                                desc={data.hero.desc || 'Sua descrição aparecerá aqui.'}
+                                button1text={data.hero.button1text || 'Seu botão'}
+                                button2text=""
+                                img={data.hero.img || templateImage}
+                            />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[1] = element
+                            }}>
+                            <Metrics1 metrics={previewMetrics} />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[2] = element
+                            }}>
+                            <Cards5
+                                title={data.services.title || 'Meus serviços'}
+                                desc={data.services.desc || 'Conheça meus serviços.'}
+                                cards={previewServices}
+                            />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[3] = element
+                            }}>
+                            <Features2
+                                img={data.about.img || templateImage}
+                                title={data.about.title || 'Sobre mim'}
+                                desc={data.about.desc || 'Conte aqui um pouco sobre você.'}
+                                features={previewFeatures}
+                            />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[4] = element
+                            }}>
+                            <Cards2
+                                title={data.testimonials.title || 'O que meus clientes dizem?'}
+                                desc={data.testimonials.desc || ''}
+                                cards={previewTestimonials}
+                            />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[5] = element
+                            }}>
+                            <Contact
+                                title={
+                                    <>
+                                        {data.contact.title || 'Entre em contato'}
+                                        {data.contact.titleHighlight && (
+                                            <>
+                                                <br />
+                                                <span className="font-bold text-color-malachite">
+                                                    {data.contact.titleHighlight}
+                                                </span>
+                                            </>
+                                        )}
+                                    </>
+                                }
+                                text={data.contact.text || 'Seu texto de contato aparecerá aqui.'}
+                                buttontext={data.contact.buttontext || 'Entre em contato'}
+                            />
+                        </div>
+
+                        <div
+                            ref={(element) => {
+                                mobilePreviewSectionRefs.current[6] = element
+                            }}
+                            className="min-h-24">
+                            {data.whatsapp.enabled && data.whatsapp.phone && (
+                                <WhatsAppFloat phone={data.whatsapp.phone} />
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     )
 }

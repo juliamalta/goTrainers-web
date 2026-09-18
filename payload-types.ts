@@ -13,555 +13,602 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-    | 'Pacific/Midway'
-    | 'Pacific/Niue'
-    | 'Pacific/Honolulu'
-    | 'Pacific/Rarotonga'
-    | 'America/Anchorage'
-    | 'Pacific/Gambier'
-    | 'America/Los_Angeles'
-    | 'America/Tijuana'
-    | 'America/Denver'
-    | 'America/Phoenix'
-    | 'America/Chicago'
-    | 'America/Guatemala'
-    | 'America/New_York'
-    | 'America/Bogota'
-    | 'America/Caracas'
-    | 'America/Santiago'
-    | 'America/Buenos_Aires'
-    | 'America/Sao_Paulo'
-    | 'Atlantic/South_Georgia'
-    | 'Atlantic/Azores'
-    | 'Atlantic/Cape_Verde'
-    | 'Europe/London'
-    | 'Europe/Berlin'
-    | 'Africa/Lagos'
-    | 'Europe/Athens'
-    | 'Africa/Cairo'
-    | 'Europe/Moscow'
-    | 'Asia/Riyadh'
-    | 'Asia/Dubai'
-    | 'Asia/Baku'
-    | 'Asia/Karachi'
-    | 'Asia/Tashkent'
-    | 'Asia/Calcutta'
-    | 'Asia/Dhaka'
-    | 'Asia/Almaty'
-    | 'Asia/Jakarta'
-    | 'Asia/Bangkok'
-    | 'Asia/Shanghai'
-    | 'Asia/Singapore'
-    | 'Asia/Tokyo'
-    | 'Asia/Seoul'
-    | 'Australia/Brisbane'
-    | 'Australia/Sydney'
-    | 'Pacific/Guam'
-    | 'Pacific/Noumea'
-    | 'Pacific/Auckland'
-    | 'Pacific/Fiji'
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
-    auth: {
-        users: UserAuthOperations
-    }
-    blocks: {}
-    collections: {
-        users: User
-        media: Media
-        sites: Site
-        'payload-kv': PayloadKv
-        'payload-locked-documents': PayloadLockedDocument
-        'payload-preferences': PayloadPreference
-        'payload-migrations': PayloadMigration
-    }
-    collectionsJoins: {}
-    collectionsSelect: {
-        users: UsersSelect<false> | UsersSelect<true>
-        media: MediaSelect<false> | MediaSelect<true>
-        sites: SitesSelect<false> | SitesSelect<true>
-        'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
-        'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>
-        'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
-        'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
-    }
-    db: {
-        defaultIDType: string
-    }
-    fallbackLocale: null
-    globals: {}
-    globalsSelect: {}
-    locale: null
-    widgets: {
-        collections: CollectionsWidget
-    }
-    user: User
-    jobs: {
-        tasks: unknown
-        workflows: unknown
-    }
+  auth: {
+    users: UserAuthOperations;
+  };
+  blocks: {};
+  collections: {
+    users: User;
+    media: Media;
+    sites: Site;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    sites: SitesSelect<false> | SitesSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: string;
+  };
+  fallbackLocale: null;
+  globals: {};
+  globalsSelect: {};
+  locale: null;
+  widgets: {
+    collections: CollectionsWidget;
+  };
+  user: User;
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
+  };
 }
 export interface UserAuthOperations {
-    forgotPassword: {
-        email: string
-        password: string
-    }
-    login: {
-        email: string
-        password: string
-    }
-    registerFirstUser: {
-        email: string
-        password: string
-    }
-    unlock: {
-        email: string
-        password: string
-    }
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-    id: string
-    name: string
-    whatsapp: string
-    cpf?: string | null
-    cref?: string | null
-    updatedAt: string
-    createdAt: string
-    email: string
-    resetPasswordToken?: string | null
-    resetPasswordExpiration?: string | null
-    salt?: string | null
-    hash?: string | null
-    loginAttempts?: number | null
-    lockUntil?: string | null
-    sessions?:
-        | {
-              id: string
-              createdAt?: string | null
-              expiresAt: string
-          }[]
-        | null
-    password?: string | null
-    collection: 'users'
+  id: string;
+  name: string;
+  whatsapp: string;
+  cpf?: string | null;
+  cref?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-    id: string
-    alt: string
-    updatedAt: string
-    createdAt: string
-    url?: string | null
-    thumbnailURL?: string | null
-    filename?: string | null
-    mimeType?: string | null
-    filesize?: number | null
-    width?: number | null
-    height?: number | null
-    focalX?: number | null
-    focalY?: number | null
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sites".
  */
 export interface Site {
-    id: string
-    name: string
+  id: string;
+  /**
+   * Nome que será usado para identificar seu site.
+   */
+  name: string;
+  /**
+   * Usuário responsável por este site.
+   */
+  user?: (string | null) | User;
+  template?: 'template-1' | null;
+  /**
+   * Seu endereço ficará parecido com /personal/lucas-andrade
+   */
+  slug: string;
+  /**
+   * Enquanto estiver desativado, o site ficará apenas como prévia.
+   */
+  published?: boolean | null;
+  template1?: {
     /**
-     * Usuário responsável por este site.
+     * Já deixamos essa parte pronta. Altere apenas o que quiser.
      */
-    user: string | User
-    template: 'template-1'
+    hero?: {
+      /**
+       * Pequeno texto que aparece acima do título principal.
+       */
+      titlePrimary?: string | null;
+      /**
+       * Essa será uma das primeiras mensagens vistas no seu site.
+       */
+      title?: string | null;
+      /**
+       * Essa parte aparece destacada na cor principal do template.
+       */
+      titleHighlight?: string | null;
+      desc?: string | null;
+      button1text?: string | null;
+      button1url?: string | null;
+      /**
+       * Opcional. Se você não enviar uma foto agora, usamos a imagem padrão do template.
+       */
+      img?: (string | null) | Media;
+    };
     /**
-     * Endereço usado para acessar o site. Exemplo: /personal/lucas-andrade
+     * Já deixamos alguns exemplos. Troque apenas pelos números que representem sua experiência.
      */
-    slug: string
-    published: boolean
-    template1: {
-        hero: {
-            titlePrimary: string
-            title: string
-            titleHighlight: string
-            desc: string
-            button1text: string
-            button1url: string
-            /**
-             * Escolha a imagem principal que aparecerá no Hero.
-             */
-            img: string | Media
-        }
-        /**
-         * O Template 1 utiliza exatamente 4 métricas.
-         */
-        metrics: {
-            /**
-             * Exemplos: 8, 480, 4.9 ou 1mil.
-             */
-            number: string
-            text: string
-            id?: string | null
+    metrics?:
+      | {
+          number?: string | null;
+          text?: string | null;
+          id?: string | null;
         }[]
-        services: {
-            title: string
-            desc: string
+      | null;
+    /**
+     * Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.
+     */
+    services?: {
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Os serviços já estão preenchidos. Personalize de acordo com o que você oferece.
+       */
+      cards?:
+        | {
+            title?: string | null;
+            desc?: string | null;
+            text?: string | null;
             /**
-             * O Template 1 utiliza exatamente 3 serviços.
+             * Opcional. Deixe vazio se não quiser mostrar o preço.
              */
-            cards: {
-                title: string
-                desc: string
-                text: string
-                price?: string | null
-                /**
-                 * Opcional. Se adicionar uma opção, é obrigatório preencher exatamente 4 opções.
-                 */
-                option?:
-                    | {
-                          text: string
-                          id?: string | null
-                      }[]
-                    | null
-                /**
-                 * Link que será aberto ao clicar em Escolher Plano.
-                 */
-                link?: string | null
-                featured: boolean
-                id?: string | null
-            }[]
-        }
-        about: {
+            price?: string | null;
             /**
-             * Imagem que aparecerá na seção sobre você.
+             * Opcional. Você pode mostrar até quatro benefícios.
              */
-            img: string | Media
-            title: string
-            desc: string
+            option?:
+              | {
+                  text?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             /**
-             * O Template 1 utiliza exatamente 4 diferenciais.
+             * Opcional. Se não preencher, você pode usar o WhatsApp principal do site.
              */
-            features: {
-                title: string
-                id?: string | null
-            }[]
-        }
-        testimonials: {
-            title: string
-            desc: string
-            /**
-             * O Template 1 utiliza exatamente 4 depoimentos.
-             */
-            cards: {
-                name: string
-                text: string
-                id?: string | null
-            }[]
-        }
-        contact: {
-            title: string
-            titleHighlight: string
-            text: string
-            buttontext: string
-            buttonurl: string
-        }
-        whatsapp: {
-            enabled: boolean
-            /**
-             * Coloque o número com código do país e DDD, sem espaços ou símbolos.
-             */
-            phone: string
-            message: string
-        }
-    }
-    updatedAt: string
-    createdAt: string
+            link?: string | null;
+            featured?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Já criamos uma apresentação profissional. Personalize se quiser.
+     */
+    about?: {
+      /**
+       * Opcional. Se nenhuma foto for enviada, usamos a imagem padrão do template.
+       */
+      img?: (string | null) | Media;
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Já deixamos quatro diferenciais preenchidos. Altere apenas se quiser.
+       */
+      features?:
+        | {
+            title?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Já deixamos depoimentos de exemplo para o template aparecer completo. Você pode alterar ou remover quando quiser.
+     */
+    testimonials?: {
+      /**
+       * Desative caso não queira mostrar essa seção.
+       */
+      enabled?: boolean | null;
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Esses são textos de exemplo. Substitua pelos depoimentos reais dos seus clientes.
+       */
+      cards?:
+        | {
+            name?: string | null;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    /**
+     * Essa chamada já está pronta. Altere apenas se quiser.
+     */
+    contact?: {
+      title?: string | null;
+      titleHighlight?: string | null;
+      text?: string | null;
+      buttontext?: string | null;
+      buttonurl?: string | null;
+    };
+    whatsapp?: {
+      enabled?: boolean | null;
+      /**
+       * Digite código do país + DDD + número, sem espaços ou símbolos.
+       */
+      phone?: string | null;
+      /**
+       * Essa mensagem será preenchida automaticamente quando alguém entrar em contato.
+       */
+      message?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-    id: string
-    key: string
-    data:
-        | {
-              [k: string]: unknown
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-    id: string
-    document?:
-        | ({
-              relationTo: 'users'
-              value: string | User
-          } | null)
-        | ({
-              relationTo: 'media'
-              value: string | Media
-          } | null)
-        | ({
-              relationTo: 'sites'
-              value: string | Site
-          } | null)
-    globalSlug?: string | null
-    user: {
-        relationTo: 'users'
-        value: string | User
-    }
-    updatedAt: string
-    createdAt: string
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'sites';
+        value: string | Site;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-    id: string
-    user: {
-        relationTo: 'users'
-        value: string | User
-    }
-    key?: string | null
-    value?:
-        | {
-              [k: string]: unknown
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null
-    updatedAt: string
-    createdAt: string
+  id: string;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-    id: string
-    name?: string | null
-    batch?: number | null
-    updatedAt: string
-    createdAt: string
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-    name?: T
-    whatsapp?: T
-    cpf?: T
-    cref?: T
-    updatedAt?: T
-    createdAt?: T
-    email?: T
-    resetPasswordToken?: T
-    resetPasswordExpiration?: T
-    salt?: T
-    hash?: T
-    loginAttempts?: T
-    lockUntil?: T
-    sessions?:
-        | T
-        | {
-              id?: T
-              createdAt?: T
-              expiresAt?: T
-          }
+  name?: T;
+  whatsapp?: T;
+  cpf?: T;
+  cref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-    alt?: T
-    updatedAt?: T
-    createdAt?: T
-    url?: T
-    thumbnailURL?: T
-    filename?: T
-    mimeType?: T
-    filesize?: T
-    width?: T
-    height?: T
-    focalX?: T
-    focalY?: T
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sites_select".
  */
 export interface SitesSelect<T extends boolean = true> {
-    name?: T
-    user?: T
-    template?: T
-    slug?: T
-    published?: T
-    template1?:
-        | T
-        | {
-              hero?:
-                  | T
-                  | {
-                        titlePrimary?: T
-                        title?: T
-                        titleHighlight?: T
-                        desc?: T
-                        button1text?: T
-                        button1url?: T
-                        img?: T
-                    }
-              metrics?:
-                  | T
-                  | {
-                        number?: T
-                        text?: T
-                        id?: T
-                    }
-              services?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  title?: T
-                                  desc?: T
-                                  text?: T
-                                  price?: T
-                                  option?:
-                                      | T
-                                      | {
-                                            text?: T
-                                            id?: T
-                                        }
-                                  link?: T
-                                  featured?: T
-                                  id?: T
-                              }
-                    }
-              about?:
-                  | T
-                  | {
-                        img?: T
-                        title?: T
-                        desc?: T
-                        features?:
-                            | T
-                            | {
-                                  title?: T
-                                  id?: T
-                              }
-                    }
-              testimonials?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  name?: T
-                                  text?: T
-                                  id?: T
-                              }
-                    }
-              contact?:
-                  | T
-                  | {
-                        title?: T
-                        titleHighlight?: T
-                        text?: T
-                        buttontext?: T
-                        buttonurl?: T
-                    }
-              whatsapp?:
-                  | T
-                  | {
-                        enabled?: T
-                        phone?: T
-                        message?: T
-                    }
-          }
-    updatedAt?: T
-    createdAt?: T
+  name?: T;
+  user?: T;
+  template?: T;
+  slug?: T;
+  published?: T;
+  template1?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              titlePrimary?: T;
+              title?: T;
+              titleHighlight?: T;
+              desc?: T;
+              button1text?: T;
+              button1url?: T;
+              img?: T;
+            };
+        metrics?:
+          | T
+          | {
+              number?: T;
+              text?: T;
+              id?: T;
+            };
+        services?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    text?: T;
+                    price?: T;
+                    option?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    link?: T;
+                    featured?: T;
+                    id?: T;
+                  };
+            };
+        about?:
+          | T
+          | {
+              img?: T;
+              title?: T;
+              desc?: T;
+              features?:
+                | T
+                | {
+                    title?: T;
+                    id?: T;
+                  };
+            };
+        testimonials?:
+          | T
+          | {
+              enabled?: T;
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    name?: T;
+                    text?: T;
+                    id?: T;
+                  };
+            };
+        contact?:
+          | T
+          | {
+              title?: T;
+              titleHighlight?: T;
+              text?: T;
+              buttontext?: T;
+              buttonurl?: T;
+            };
+        whatsapp?:
+          | T
+          | {
+              enabled?: T;
+              phone?: T;
+              message?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-    key?: T
-    data?: T
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-    document?: T
-    globalSlug?: T
-    user?: T
-    updatedAt?: T
-    createdAt?: T
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-    user?: T
-    key?: T
-    value?: T
-    updatedAt?: T
-    createdAt?: T
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-    name?: T
-    batch?: T
-    updatedAt?: T
-    createdAt?: T
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
-    data?: {
-        [k: string]: unknown
-    }
-    width: 'full'
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-    [k: string]: unknown
+  [k: string]: unknown;
 }
 
+
 declare module 'payload' {
-    export interface GeneratedTypes extends Config {}
+  export interface GeneratedTypes extends Config {}
 }

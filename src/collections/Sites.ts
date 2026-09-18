@@ -53,6 +53,10 @@ export const Sites: CollectionConfig = {
     },
 
     fields: [
+        // =========================================================
+        // INFORMAÇÕES DO SITE
+        // =========================================================
+
         {
             name: 'name',
             type: 'text',
@@ -62,6 +66,7 @@ export const Sites: CollectionConfig = {
             admin: {
                 position: 'sidebar',
                 placeholder: 'Exemplo: Lucas Andrade Personal',
+                description: 'Nome que será usado para identificar seu site.',
             },
         },
 
@@ -69,7 +74,7 @@ export const Sites: CollectionConfig = {
             name: 'user',
             type: 'relationship',
             relationTo: 'users',
-            required: true,
+            required: false,
             label: 'Usuário',
 
             admin: {
@@ -81,7 +86,7 @@ export const Sites: CollectionConfig = {
         {
             name: 'template',
             type: 'select',
-            required: true,
+            required: false,
             label: 'Template',
             defaultValue: 'template-1',
 
@@ -102,105 +107,115 @@ export const Sites: CollectionConfig = {
             type: 'text',
             required: true,
             unique: true,
-            label: 'Slug',
+            label: 'Endereço do site',
 
             admin: {
                 position: 'sidebar',
                 placeholder: 'Exemplo: lucas-andrade',
-                description: 'Endereço usado para acessar o site. Exemplo: /personal/lucas-andrade',
+                description: 'Seu endereço ficará parecido com /personal/lucas-andrade',
             },
         },
 
         {
             name: 'published',
             type: 'checkbox',
-            required: true,
+            required: false,
             defaultValue: false,
             label: 'Site publicado',
 
             admin: {
                 position: 'sidebar',
+                description: 'Enquanto estiver desativado, o site ficará apenas como prévia.',
             },
         },
+
+        // =========================================================
+        // TEMPLATE 1
+        // =========================================================
 
         {
             name: 'template1',
             type: 'group',
-            required: true,
+            required: false,
             label: 'Template 1',
 
             fields: [
+                // =================================================
+                // HERO
+                // =================================================
+
                 {
                     name: 'hero',
                     type: 'group',
-                    required: true,
-                    label: 'Hero',
+                    required: false,
+                    label: 'Apresentação',
+
+                    admin: {
+                        description: 'Já deixamos essa parte pronta. Altere apenas o que quiser.',
+                    },
 
                     fields: [
                         {
                             name: 'titlePrimary',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Texto superior',
+                            defaultValue: 'PROFISSIONALISMO QUE GERA RESULTADOS',
 
                             admin: {
-                                placeholder: 'Exemplo: TREINE COM PROPÓSITO. EVOLUA DE VERDADE.',
+                                description: 'Pequeno texto que aparece acima do título principal.',
                             },
                         },
 
                         {
                             name: 'title',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Título principal',
+                            defaultValue: 'Transforme seu objetivo em',
 
                             admin: {
-                                placeholder: 'Exemplo: Seu corpo mais forte começa com',
+                                description: 'Essa será uma das primeiras mensagens vistas no seu site.',
                             },
                         },
 
                         {
                             name: 'titleHighlight',
                             type: 'text',
-                            required: true,
-                            label: 'Texto colorido em destaque',
+                            required: false,
+                            label: 'Texto em destaque',
+                            defaultValue: 'resultados reais.',
 
                             admin: {
-                                placeholder: 'Exemplo: a decisão de começar.',
+                                description: 'Essa parte aparece destacada na cor principal do template.',
                             },
                         },
 
                         {
                             name: 'desc',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Descrição',
-
-                            admin: {
-                                placeholder:
-                                    'Exemplo: Treinos personalizados para quem busca mais força, disposição e qualidade de vida.',
-                            },
+                            defaultValue:
+                                'Ofereço um serviço personalizado, pensado para entender suas necessidades e entregar uma experiência de qualidade, com atenção aos detalhes e foco no que realmente importa para você.',
                         },
 
                         {
                             name: 'button1text',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Texto do botão',
-
-                            admin: {
-                                placeholder: 'Exemplo: Começar agora',
-                            },
+                            defaultValue: 'Quero começar',
                         },
 
                         {
                             name: 'button1url',
                             type: 'text',
-                            required: true,
-                            label: 'Link do botão',
+                            required: false,
+                            defaultValue: '#contato',
 
                             admin: {
-                                placeholder: 'Exemplo: #contato',
+                                hidden: true,
                             },
                         },
 
@@ -208,134 +223,221 @@ export const Sites: CollectionConfig = {
                             name: 'img',
                             type: 'upload',
                             relationTo: 'media',
-                            required: true,
-                            label: 'Imagem do Hero',
+                            required: false,
+                            label: 'Sua foto',
 
                             admin: {
-                                description: 'Escolha a imagem principal que aparecerá no Hero.',
+                                description:
+                                    'Opcional. Se você não enviar uma foto agora, usamos a imagem padrão do template.',
                             },
                         },
                     ],
                 },
 
+                // =================================================
+                // MÉTRICAS
+                // =================================================
+
                 {
                     name: 'metrics',
                     type: 'array',
-                    required: true,
-                    minRows: 4,
+                    required: false,
                     maxRows: 4,
-                    label: 'Métricas',
+                    label: 'Seus números',
 
-                    defaultValue: [{}, {}, {}, {}],
+                    defaultValue: [
+                        {
+                            number: '+8',
+                            text: 'Anos de experiência',
+                        },
+                        {
+                            number: '+480',
+                            text: 'Clientes atendidos',
+                        },
+                        {
+                            number: '4.9',
+                            text: 'Nota média dos clientes',
+                        },
+                        {
+                            number: '+1mil',
+                            text: 'Projetos realizados',
+                        },
+                    ],
 
                     admin: {
                         initCollapsed: false,
-                        description: 'O Template 1 utiliza exatamente 4 métricas.',
+                        description:
+                            'Já deixamos alguns exemplos. Troque apenas pelos números que representem sua experiência.',
                     },
 
                     fields: [
                         {
                             name: 'number',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Número',
 
                             admin: {
-                                placeholder: 'Exemplo: 320',
-                                description: 'Exemplos: 8, 480, 4.9 ou 1mil.',
+                                placeholder: 'Exemplo: +8',
                             },
                         },
 
                         {
                             name: 'text',
                             type: 'text',
-                            required: true,
-                            label: 'Texto',
+                            required: false,
+                            label: 'Descrição',
 
                             admin: {
-                                placeholder: 'Exemplo: Alunos acompanhados',
+                                placeholder: 'Exemplo: Anos de experiência',
                             },
                         },
                     ],
                 },
 
+                // =================================================
+                // SERVIÇOS
+                // =================================================
+
                 {
                     name: 'services',
                     type: 'group',
-                    required: true,
-                    label: 'Serviços',
+                    required: false,
+                    label: 'Seus serviços',
+
+                    admin: {
+                        description: 'Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.',
+                    },
 
                     fields: [
                         {
                             name: 'title',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Título',
-
-                            admin: {
-                                placeholder: 'Exemplo: Escolha seu próximo nível',
-                            },
+                            defaultValue: 'Meus serviços',
                         },
 
                         {
                             name: 'desc',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Descrição',
-
-                            admin: {
-                                placeholder:
-                                    'Exemplo: Planos de treinamento pensados para diferentes objetivos, níveis e rotinas.',
-                            },
+                            defaultValue: 'Conheça as soluções que ofereço e escolha a opção ideal para você',
                         },
 
                         {
                             name: 'cards',
                             type: 'array',
-                            required: true,
-                            minRows: 3,
+                            required: false,
                             maxRows: 3,
-                            label: 'Cards de serviços',
+                            label: 'Serviços',
 
-                            defaultValue: [{}, {}, {}],
+                            defaultValue: [
+                                {
+                                    desc: 'Atendimento personalizado',
+                                    title: 'Serviço Personalizado',
+                                    text: 'Uma solução pensada de acordo com suas necessidades, objetivos e expectativas.',
+                                    price: 'R$ 299,90',
+
+                                    option: [
+                                        {
+                                            text: 'Atendimento personalizado',
+                                        },
+                                        {
+                                            text: 'Solução sob medida',
+                                        },
+                                        {
+                                            text: 'Acompanhamento completo',
+                                        },
+                                    ],
+
+                                    link: '',
+                                    featured: true,
+                                },
+
+                                {
+                                    desc: 'Qualidade e atenção',
+                                    title: 'Atendimento Completo',
+                                    text: 'Conte com acompanhamento próximo e atenção em cada etapa do processo.',
+                                    price: 'R$ 499,90/mês',
+
+                                    option: [
+                                        {
+                                            text: 'Acompanhamento próximo',
+                                        },
+                                        {
+                                            text: 'Suporte durante o processo',
+                                        },
+                                        {
+                                            text: 'Atendimento completo',
+                                        },
+                                    ],
+
+                                    link: '',
+                                    featured: true,
+                                },
+
+                                {
+                                    desc: 'Foco em resultados',
+                                    title: 'Soluções Sob Medida',
+                                    text: 'Estratégias e serviços desenvolvidos para entregar resultados que realmente fazem diferença.',
+                                    price: 'R$ 799,90',
+
+                                    option: [
+                                        {
+                                            text: 'Estratégia personalizada',
+                                        },
+                                        {
+                                            text: 'Foco em resultados',
+                                        },
+                                        {
+                                            text: 'Soluções sob medida',
+                                        },
+                                    ],
+
+                                    link: '',
+                                    featured: false,
+                                },
+                            ],
 
                             admin: {
                                 initCollapsed: false,
-                                description: 'O Template 1 utiliza exatamente 3 serviços.',
+                                description:
+                                    'Os serviços já estão preenchidos. Personalize de acordo com o que você oferece.',
                             },
 
                             fields: [
                                 {
                                     name: 'title',
                                     type: 'text',
-                                    required: true,
-                                    label: 'Título',
+                                    required: false,
+                                    label: 'Nome do serviço',
 
                                     admin: {
-                                        placeholder: 'Exemplo: Treino Personalizado',
+                                        placeholder: 'Exemplo: Consultoria Online',
                                     },
                                 },
 
                                 {
                                     name: 'desc',
                                     type: 'text',
-                                    required: true,
+                                    required: false,
                                     label: 'Descrição curta',
 
                                     admin: {
-                                        placeholder: 'Exemplo: Um plano feito para você',
+                                        placeholder: 'Exemplo: Treine onde estiver',
                                     },
                                 },
 
                                 {
                                     name: 'text',
                                     type: 'textarea',
-                                    required: true,
-                                    label: 'Texto',
+                                    required: false,
+                                    label: 'Descrição',
 
                                     admin: {
-                                        placeholder:
-                                            'Exemplo: Treinamentos planejados de acordo com seus objetivos, condicionamento físico e disponibilidade.',
+                                        placeholder: 'Explique rapidamente como funciona esse serviço.',
                                     },
                                 },
 
@@ -346,7 +448,9 @@ export const Sites: CollectionConfig = {
                                     label: 'Preço',
 
                                     admin: {
-                                        placeholder: 'Exemplo: R$ 199,90/mês',
+                                        placeholder: 'Exemplo: R$ 299,90/mês',
+
+                                        description: 'Opcional. Deixe vazio se não quiser mostrar o preço.',
                                     },
                                 },
 
@@ -355,35 +459,22 @@ export const Sites: CollectionConfig = {
                                     type: 'array',
                                     required: false,
                                     maxRows: 4,
-                                    label: 'Opções do plano',
+                                    label: 'O que está incluso',
 
                                     admin: {
                                         initCollapsed: false,
-                                        description:
-                                            'Opcional. Se adicionar uma opção, é obrigatório preencher exatamente 4 opções.',
-                                    },
-
-                                    validate: (value) => {
-                                        if (!value || value.length === 0) {
-                                            return true
-                                        }
-
-                                        if (value.length !== 4) {
-                                            return 'Se adicionar opções, é obrigatório preencher exatamente 4 opções.'
-                                        }
-
-                                        return true
+                                        description: 'Opcional. Você pode mostrar até quatro benefícios.',
                                     },
 
                                     fields: [
                                         {
                                             name: 'text',
                                             type: 'text',
-                                            required: true,
-                                            label: 'Opção',
+                                            required: false,
+                                            label: 'Benefício',
 
                                             admin: {
-                                                placeholder: 'Exemplo: Treino personalizado',
+                                                placeholder: 'Exemplo: Acompanhamento personalizado',
                                             },
                                         },
                                     ],
@@ -393,92 +484,107 @@ export const Sites: CollectionConfig = {
                                     name: 'link',
                                     type: 'text',
                                     required: false,
-                                    label: 'Link do WhatsApp',
+                                    label: 'Link do serviço',
 
                                     admin: {
-                                        placeholder: 'Exemplo: https://wa.me/5531999999999',
-                                        description: 'Link que será aberto ao clicar em Escolher Plano.',
+                                        description:
+                                            'Opcional. Se não preencher, você pode usar o WhatsApp principal do site.',
                                     },
                                 },
 
                                 {
                                     name: 'featured',
                                     type: 'checkbox',
-                                    required: true,
+                                    required: false,
                                     defaultValue: false,
-                                    label: 'Destacado',
+                                    label: 'Destacar este serviço',
                                 },
                             ],
                         },
                     ],
                 },
 
+                // =================================================
+                // SOBRE
+                // =================================================
+
                 {
                     name: 'about',
                     type: 'group',
-                    required: true,
-                    label: 'Sobre o profissional',
+                    required: false,
+                    label: 'Sobre você',
+
+                    admin: {
+                        description: 'Já criamos uma apresentação profissional. Personalize se quiser.',
+                    },
 
                     fields: [
                         {
                             name: 'img',
                             type: 'upload',
                             relationTo: 'media',
-                            required: true,
-                            label: 'Imagem',
+                            required: false,
+                            label: 'Sua foto',
 
                             admin: {
-                                description: 'Imagem que aparecerá na seção sobre você.',
+                                description:
+                                    'Opcional. Se nenhuma foto for enviada, usamos a imagem padrão do template.',
                             },
                         },
 
                         {
                             name: 'title',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Título',
-
-                            admin: {
-                                placeholder: 'Exemplo: Treinamento inteligente para uma evolução consistente',
-                            },
+                            defaultValue: 'Experiência, dedicação e compromisso com você',
                         },
 
                         {
                             name: 'desc',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Descrição',
-
-                            admin: {
-                                placeholder:
-                                    'Exemplo: Acredito que um bom treinamento precisa fazer sentido para a rotina de cada pessoa.',
-                            },
+                            defaultValue:
+                                'Meu objetivo é oferecer um serviço de qualidade, entender o que você precisa e buscar sempre a melhor solução. Trabalho com dedicação, profissionalismo e atenção aos detalhes para proporcionar uma experiência diferenciada.',
                         },
 
                         {
                             name: 'features',
                             type: 'array',
-                            required: true,
-                            minRows: 4,
+                            required: false,
                             maxRows: 4,
-                            label: 'Diferenciais',
+                            label: 'Seus diferenciais',
 
-                            defaultValue: [{}, {}, {}, {}],
+                            defaultValue: [
+                                {
+                                    title: 'Atendimento personalizado para cada cliente',
+                                },
+                                {
+                                    title: 'Experiência e conhecimento na área',
+                                },
+                                {
+                                    title: 'Acompanhamento próximo durante todo o processo',
+                                },
+                                {
+                                    title: 'Compromisso com qualidade e bons resultados',
+                                },
+                            ],
 
                             admin: {
                                 initCollapsed: false,
-                                description: 'O Template 1 utiliza exatamente 4 diferenciais.',
+                                description: 'Já deixamos quatro diferenciais preenchidos. Altere apenas se quiser.',
                             },
 
                             fields: [
                                 {
                                     name: 'title',
                                     type: 'text',
-                                    required: true,
+                                    required: false,
                                     label: 'Diferencial',
 
                                     admin: {
-                                        placeholder: 'Exemplo: Planos adaptados aos seus objetivos',
+                                        placeholder: 'Exemplo: Atendimento personalizado para cada cliente',
                                     },
                                 },
                             ],
@@ -486,72 +592,105 @@ export const Sites: CollectionConfig = {
                     ],
                 },
 
+                // =================================================
+                // DEPOIMENTOS
+                // =================================================
+
                 {
                     name: 'testimonials',
                     type: 'group',
-                    required: true,
+                    required: false,
                     label: 'Depoimentos',
+
+                    admin: {
+                        description:
+                            'Já deixamos depoimentos de exemplo para o template aparecer completo. Você pode alterar ou remover quando quiser.',
+                    },
 
                     fields: [
                         {
-                            name: 'title',
-                            type: 'text',
-                            required: true,
-                            label: 'Título',
+                            name: 'enabled',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: true,
+                            label: 'Mostrar depoimentos',
 
                             admin: {
-                                placeholder: 'Exemplo: Resultados que motivam',
+                                description: 'Desative caso não queira mostrar essa seção.',
                             },
+                        },
+
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'O que meus clientes dizem?',
                         },
 
                         {
                             name: 'desc',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Descrição',
-
-                            admin: {
-                                placeholder:
-                                    'Exemplo: Confira a experiência de quem decidiu começar e manteve o compromisso com sua evolução.',
-                            },
+                            defaultValue: '',
                         },
 
                         {
                             name: 'cards',
                             type: 'array',
-                            required: true,
-                            minRows: 4,
+                            required: false,
                             maxRows: 4,
                             label: 'Depoimentos',
 
-                            defaultValue: [{}, {}, {}, {}],
+                            defaultValue: [
+                                {
+                                    name: 'Mariana Costa',
+                                    text: 'Fiquei muito satisfeita com o atendimento. Desde o primeiro contato fui muito bem atendida e o resultado superou minhas expectativas.',
+                                },
+
+                                {
+                                    name: 'Rafael Mendes',
+                                    text: 'Profissional extremamente atencioso e comprometido. Entendeu exatamente o que eu precisava e entregou um ótimo resultado.',
+                                },
+
+                                {
+                                    name: 'Camila Oliveira',
+                                    text: 'O atendimento fez toda a diferença. Tive suporte durante todo o processo e fiquei muito satisfeita com o resultado final.',
+                                },
+
+                                {
+                                    name: 'Bruno Almeida',
+                                    text: 'Excelente profissional. Trabalho de qualidade, atendimento rápido e muita atenção aos detalhes. Recomendo muito.',
+                                },
+                            ],
 
                             admin: {
                                 initCollapsed: false,
-                                description: 'O Template 1 utiliza exatamente 4 depoimentos.',
+                                description:
+                                    'Esses são textos de exemplo. Substitua pelos depoimentos reais dos seus clientes.',
                             },
 
                             fields: [
                                 {
                                     name: 'name',
                                     type: 'text',
-                                    required: true,
+                                    required: false,
                                     label: 'Nome',
 
                                     admin: {
-                                        placeholder: 'Exemplo: Ana Beatriz',
+                                        placeholder: 'Exemplo: Mariana Costa',
                                     },
                                 },
 
                                 {
                                     name: 'text',
                                     type: 'textarea',
-                                    required: true,
+                                    required: false,
                                     label: 'Depoimento',
 
                                     admin: {
-                                        placeholder:
-                                            'Exemplo: Comecei sem muita confiança e hoje consigo treinar com muito mais segurança.',
+                                        placeholder: 'Cole aqui o depoimento enviado pelo cliente.',
                                     },
                                 },
                             ],
@@ -559,82 +698,82 @@ export const Sites: CollectionConfig = {
                     ],
                 },
 
+                // =================================================
+                // CONTATO
+                // =================================================
+
                 {
                     name: 'contact',
                     type: 'group',
-                    required: true,
+                    required: false,
                     label: 'Contato',
+
+                    admin: {
+                        description: 'Essa chamada já está pronta. Altere apenas se quiser.',
+                    },
 
                     fields: [
                         {
                             name: 'title',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Título',
-
-                            admin: {
-                                placeholder: 'Exemplo: Pronto para começar sua evolução?',
-                            },
+                            defaultValue: 'Pronto para dar o próximo passo?',
                         },
 
                         {
                             name: 'titleHighlight',
                             type: 'text',
-                            required: true,
-                            label: 'Texto destacado',
-
-                            admin: {
-                                placeholder: 'Exemplo: Vamos treinar juntos.',
-                            },
+                            required: false,
+                            label: 'Texto em destaque',
+                            defaultValue: 'Entre em contato comigo.',
                         },
 
                         {
                             name: 'text',
                             type: 'textarea',
-                            required: true,
-                            label: 'Texto',
-
-                            admin: {
-                                placeholder:
-                                    'Exemplo: Me conte quais são seus objetivos e vamos encontrar a melhor estratégia.',
-                            },
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Conte um pouco sobre o que você precisa e descubra como posso ajudar. Será um prazer conversar com você.',
                         },
 
                         {
                             name: 'buttontext',
                             type: 'text',
-                            required: true,
+                            required: false,
                             label: 'Texto do botão',
-
-                            admin: {
-                                placeholder: 'Exemplo: Quero começar',
-                            },
+                            defaultValue: 'Entre em contato',
                         },
 
                         {
                             name: 'buttonurl',
                             type: 'text',
-                            required: true,
-                            label: 'Link do botão',
+                            required: false,
+                            defaultValue: '',
 
                             admin: {
-                                placeholder: 'Exemplo: https://wa.me/5531999999999',
+                                hidden: true,
                             },
                         },
                     ],
                 },
 
+                // =================================================
+                // WHATSAPP
+                // =================================================
+
                 {
                     name: 'whatsapp',
                     type: 'group',
-                    required: true,
+                    required: false,
                     label: 'WhatsApp',
 
                     fields: [
                         {
                             name: 'enabled',
                             type: 'checkbox',
-                            required: true,
+                            required: false,
                             defaultValue: true,
                             label: 'Mostrar WhatsApp',
                         },
@@ -642,23 +781,26 @@ export const Sites: CollectionConfig = {
                         {
                             name: 'phone',
                             type: 'text',
-                            required: true,
-                            label: 'Número do WhatsApp',
+                            required: false,
+                            label: 'Seu WhatsApp',
 
                             admin: {
                                 placeholder: 'Exemplo: 5531999999999',
-                                description: 'Coloque o número com código do país e DDD, sem espaços ou símbolos.',
+
+                                description: 'Digite código do país + DDD + número, sem espaços ou símbolos.',
                             },
                         },
 
                         {
                             name: 'message',
                             type: 'textarea',
-                            required: true,
+                            required: false,
                             label: 'Mensagem automática',
+                            defaultValue: 'Olá! Vi seu site e gostaria de saber mais sobre seus serviços.',
 
                             admin: {
-                                placeholder: 'Exemplo: Olá! Vi seu site e gostaria de saber mais sobre seus serviços.',
+                                description:
+                                    'Essa mensagem será preenchida automaticamente quando alguém entrar em contato.',
                             },
                         },
                     ],
