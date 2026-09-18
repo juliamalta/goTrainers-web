@@ -2118,7 +2118,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         type="button"
                         onClick={() => setMobilePreviewOpen(true)}
                         className="h-12 w-full bg-color-malachite font-semibold text-black hover:text-white">
-                        👁 Ver prévia do site
+                        Ver prévia do site
                     </Button>
                 </div>
             </div>
@@ -2129,20 +2129,11 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
             {mobilePreviewOpen && (
                 <div className="fixed inset-0 z-50 flex flex-col bg-color-woodsmoke md:hidden">
-                    <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 bg-color-codgray px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
-                        <button
-                            type="button"
-                            onClick={() => setMobilePreviewOpen(false)}
-                            className="rounded-lg border border-white/10 px-3 py-2 text-sm font-medium text-white">
-                            ← Voltar
-                        </button>
-
-                        <div className="min-w-0 text-right">
-                            <p className="truncate text-sm font-semibold text-white">Prévia do site</p>
-                            <p className="text-xs text-color-clay">
-                                Etapa {step + 1}: {steps[step].title}
-                            </p>
-                        </div>
+                    <div className="shrink-0 border-b border-white/10 bg-color-codgray px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-center">
+                        <p className="truncate text-sm font-semibold text-white">Prévia do site</p>
+                        <p className="mt-1 text-xs text-color-clay">
+                            Etapa {step + 1}: {steps[step].title}
+                        </p>
                     </div>
 
                     <div
@@ -2246,6 +2237,17 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                             {data.whatsapp.enabled && data.whatsapp.phone && (
                                 <WhatsAppFloat phone={data.whatsapp.phone} />
                             )}
+                        </div>
+                    </div>
+
+                    <div className="bg-color-codgray/95 shrink-0 border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">
+                        <div className="mx-auto max-w-md">
+                            <Button
+                                type="button"
+                                onClick={() => setMobilePreviewOpen(false)}
+                                className="h-12 w-full bg-color-malachite font-semibold text-black hover:text-white">
+                                Voltar para edição
+                            </Button>
                         </div>
                     </div>
                 </div>
