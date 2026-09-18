@@ -1,8 +1,8 @@
 'use client'
 
-import { FormEvent, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { FormEvent, useState } from 'react'
 import { FiArrowLeft, FiLock } from 'react-icons/fi'
 
 export default function ForgotPasswordPage() {
@@ -44,7 +44,7 @@ export default function ForgotPasswordPage() {
     }
 
     return (
-        <main className="flex min-h-screen items-center justify-center bg-[#151817] px-6 text-white">
+        <main className="flex min-h-screen items-center justify-center bg-color-woodsmoke px-6 text-white">
             <div className="w-full max-w-md">
                 <Link
                     href="/auth"
@@ -53,9 +53,9 @@ export default function ForgotPasswordPage() {
                     Voltar para login
                 </Link>
 
-                <div className="rounded-2xl border border-white/5 bg-[#0d0f0e] p-6 md:p-8">
+                <div className="rounded-2xl border border-white/10 bg-color-codgray p-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)] md:p-8">
                     <div className="mb-8">
-                        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#00e676]/10 text-[#00e676]">
+                        <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] text-color-malachite">
                             <FiLock size={22} />
                         </div>
 
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
                                 placeholder="seu@email.com"
                                 autoComplete="email"
                                 required
-                                className="w-full rounded-xl border border-white/10 bg-[#151817] px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-[#00e676]/50"
+                                className="w-full rounded-xl border border-white/10 bg-color-woodsmoke px-4 py-3 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                             />
                         </div>
 
@@ -93,7 +93,7 @@ export default function ForgotPasswordPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full rounded-xl bg-[#00e676] px-5 py-3 text-sm font-semibold text-black transition hover:bg-[#00d96d] disabled:cursor-not-allowed disabled:opacity-50">
+                            className="w-full rounded-xl bg-color-malachite px-5 py-3 text-sm font-semibold text-black transition hover:bg-color-malachite hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-50">
                             {loading ? 'Verificando...' : 'Continuar'}
                         </button>
                     </form>

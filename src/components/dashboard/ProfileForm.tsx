@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { FiArrowLeft, FiCheck, FiMail, FiUser } from 'react-icons/fi'
 
 interface ProfileFormProps {
@@ -61,7 +61,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
     }
 
     return (
-        <main className="min-h-screen bg-[#151817] text-white">
+        <main className="min-h-screen bg-color-woodsmoke text-white">
             <div className="mx-auto max-w-[900px] px-6 py-10 lg:px-10">
                 {/* HEADER */}
                 <div className="mb-8">
@@ -73,7 +73,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                         Voltar para Dashboard
                     </button>
 
-                    <p className="mb-2 text-sm font-medium text-[#00e676]">Minha conta</p>
+                    <p className="mb-2 text-sm font-medium text-color-malachite">Minha conta</p>
 
                     <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Meu perfil</h1>
 
@@ -81,11 +81,11 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                 </div>
 
                 {/* PROFILE CARD */}
-                <section className="overflow-hidden rounded-2xl border border-white/5 bg-[#0d0f0e]">
+                <section className="overflow-hidden rounded-2xl border border-white/10 bg-color-codgray shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
                     {/* PROFILE HEADER */}
-                    <div className="border-b border-white/5 p-6 md:p-8">
+                    <div className="border-b border-white/10 p-6 md:p-8">
                         <div className="flex items-center gap-4">
-                            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#00e676] text-xl font-bold text-black">
+                            <div className="flex size-16 items-center justify-center rounded-full bg-color-malachite text-xl font-bold text-black">
                                 {name ? name.charAt(0).toUpperCase() : 'U'}
                             </div>
 
@@ -118,7 +118,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                                         value={name}
                                         onChange={(event) => setName(event.target.value)}
                                         required
-                                        className="w-full rounded-xl border border-white/10 bg-[#151817] py-3 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-700 focus:border-[#00e676]/40"
+                                        className="w-full rounded-xl border border-white/10 bg-color-woodsmoke py-3 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                                         placeholder="Seu nome"
                                     />
                                 </div>
@@ -142,7 +142,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                                         value={email}
                                         onChange={(event) => setEmail(event.target.value)}
                                         required
-                                        className="w-full rounded-xl border border-white/10 bg-[#151817] py-3 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-700 focus:border-[#00e676]/40"
+                                        className="w-full rounded-xl border border-white/10 bg-color-woodsmoke py-3 pl-11 pr-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                                         placeholder="seu@email.com"
                                     />
                                 </div>
@@ -150,7 +150,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
 
                             {/* MESSAGES */}
                             {message && (
-                                <div className="flex items-center gap-2 rounded-xl border border-[#00e676]/20 bg-[#00e676]/5 p-4 text-sm text-[#00e676]">
+                                <div className="flex items-center gap-2 rounded-xl border border-[color-mix(in_srgb,var(--malachite-500)_20%,transparent)] bg-[color-mix(in_srgb,var(--malachite-500)_5%,transparent)] p-4 text-sm text-color-malachite">
                                     <FiCheck size={17} />
                                     {message}
                                 </div>
@@ -163,7 +163,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                             )}
 
                             {/* ACTIONS */}
-                            <div className="flex flex-col-reverse gap-3 border-t border-white/5 pt-6 sm:flex-row sm:justify-end">
+                            <div className="flex flex-col-reverse gap-3 border-t border-white/10 pt-6 sm:flex-row sm:justify-end">
                                 <button
                                     type="button"
                                     onClick={() => router.push('/dashboard')}
@@ -174,7 +174,7 @@ export default function ProfileForm({ user }: ProfileFormProps) {
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="rounded-xl bg-[#00e676] px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
+                                    className="rounded-xl bg-color-malachite px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
                                     {loading ? 'Salvando...' : 'Salvar alterações'}
                                 </button>
                             </div>

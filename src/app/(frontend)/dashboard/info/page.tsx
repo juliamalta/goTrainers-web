@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import {
     FiArrowUpRight,
     FiBarChart2,
@@ -10,8 +12,6 @@ import {
     FiTrash2,
     FiUser,
 } from 'react-icons/fi'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 type Site = {
     id: string
@@ -121,11 +121,11 @@ export default function DashboardInfo() {
     }
 
     return (
-        <main className="min-h-screen bg-[#151817] text-white">
+        <main className="min-h-screen bg-color-woodsmoke text-white">
             <div className="mx-auto max-w-[1400px] px-6 py-10 lg:px-10">
                 {/* TITLE */}
                 <div className="mb-10">
-                    <p className="mb-2 text-sm font-medium text-[#00e676]">Painel de controle</p>
+                    <p className="mb-2 text-sm font-medium text-color-malachite">Painel de controle</p>
 
                     <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Olá, Julia 👋</h1>
 
@@ -140,12 +140,12 @@ export default function DashboardInfo() {
                 )}
 
                 {/* SITE CARD */}
-                <section className="mb-8 overflow-hidden rounded-2xl border border-white/5 bg-[#0d0f0e]">
+                <section className="mb-8 overflow-hidden rounded-2xl border border-white/10 bg-color-codgray shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
                     <div className="flex flex-col justify-between gap-6 p-6 md:flex-row md:items-center md:p-8">
                         <div>
                             <div className="mb-4 flex items-center gap-3">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#00e676]/10">
-                                    <FiGlobe size={21} className="text-[#00e676]" />
+                                <div className="flex size-11 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)]">
+                                    <FiGlobe size={21} className="text-color-malachite" />
                                 </div>
 
                                 <div>
@@ -159,12 +159,13 @@ export default function DashboardInfo() {
 
                             <div className="flex items-center gap-2">
                                 <span
-                                    className={`h-2 w-2 rounded-full ${
-                                        site?.published ? 'bg-[#00e676]' : 'bg-yellow-500'
+                                    className={`size-2 rounded-full ${
+                                        site?.published ? 'bg-color-malachite' : 'bg-yellow-500'
                                     }`}
                                 />
 
-                                <span className={`text-sm ${site?.published ? 'text-[#00e676]' : 'text-yellow-500'}`}>
+                                <span
+                                    className={`text-sm ${site?.published ? 'text-color-malachite' : 'text-yellow-500'}`}>
                                     {loading ? 'Carregando...' : status}
                                 </span>
                             </div>
@@ -182,7 +183,7 @@ export default function DashboardInfo() {
                             <button
                                 onClick={handleEditSite}
                                 disabled={!site || loading}
-                                className="flex items-center justify-center gap-2 rounded-xl bg-[#00e676] px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">
+                                className="flex items-center justify-center gap-2 rounded-xl bg-color-malachite px-5 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40">
                                 <FiEdit3 size={16} />
                                 Editar site
                             </button>
@@ -198,17 +199,18 @@ export default function DashboardInfo() {
                     </div>
 
                     {/* SITE INFO */}
-                    <div className="grid border-t border-white/5 sm:grid-cols-3">
-                        <div className="border-b border-white/5 p-6 sm:border-b-0 sm:border-r">
+                    <div className="grid border-t border-white/10 sm:grid-cols-3">
+                        <div className="border-b border-white/10 p-6 sm:border-b-0 sm:border-r">
                             <p className="text-xs text-zinc-500">TEMPLATE</p>
 
                             <p className="mt-2 font-medium">{loading ? '—' : templateName}</p>
                         </div>
 
-                        <div className="border-b border-white/5 p-6 sm:border-b-0 sm:border-r">
+                        <div className="border-b border-white/10 p-6 sm:border-b-0 sm:border-r">
                             <p className="text-xs text-zinc-500">STATUS</p>
 
-                            <p className={`mt-2 font-medium ${site?.published ? 'text-[#00e676]' : 'text-yellow-500'}`}>
+                            <p
+                                className={`mt-2 font-medium ${site?.published ? 'text-color-malachite' : 'text-yellow-500'}`}>
                                 {loading ? '—' : status}
                             </p>
                         </div>
@@ -256,7 +258,7 @@ export default function DashboardInfo() {
                 {/* BOTTOM */}
                 <section className="grid gap-6 lg:grid-cols-3">
                     {/* QUICK ACTIONS */}
-                    <div className="rounded-2xl border border-white/5 bg-[#0d0f0e] p-6">
+                    <div className="rounded-2xl border border-white/10 bg-color-codgray p-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
                         <h2 className="text-lg font-semibold">Ações rápidas</h2>
 
                         <p className="mt-1 text-sm text-zinc-500">Acesse rapidamente as principais funções.</p>
@@ -286,7 +288,7 @@ export default function DashboardInfo() {
                     </div>
 
                     {/* PERFORMANCE */}
-                    <div className="rounded-2xl border border-white/5 bg-[#0d0f0e] p-6 lg:col-span-2">
+                    <div className="rounded-2xl border border-white/10 bg-color-codgray p-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)] lg:col-span-2">
                         <div className="flex items-start justify-between">
                             <div>
                                 <h2 className="text-lg font-semibold">Desempenho do site</h2>
@@ -294,10 +296,10 @@ export default function DashboardInfo() {
                                 <p className="mt-1 text-sm text-zinc-500">Acompanhe o crescimento do seu site.</p>
                             </div>
 
-                            <FiBarChart2 size={22} className="text-[#00e676]" />
+                            <FiBarChart2 size={22} className="text-color-malachite" />
                         </div>
 
-                        <div className="mt-8 flex h-48 items-center justify-center rounded-xl border border-dashed border-white/5">
+                        <div className="mt-8 flex h-48 items-center justify-center rounded-xl border border-dashed border-white/10">
                             <div className="text-center">
                                 <FiBarChart2 size={28} className="mx-auto mb-3 text-zinc-700" />
 
@@ -329,16 +331,16 @@ function StatCard({
     success?: boolean
 }) {
     return (
-        <div className="rounded-2xl border border-white/5 bg-[#0d0f0e] p-6">
+        <div className="rounded-2xl border border-white/10 bg-color-codgray p-6 shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
             <div className="mb-5 flex items-center justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#00e676]/10 text-[#00e676]">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] text-color-malachite">
                     {icon}
                 </div>
             </div>
 
             <p className="text-sm text-zinc-500">{title}</p>
 
-            <p className={`mt-2 text-2xl font-bold ${success ? 'text-[#00e676]' : 'text-white'}`}>{value}</p>
+            <p className={`mt-2 text-2xl font-bold ${success ? 'text-color-malachite' : 'text-white'}`}>{value}</p>
 
             <p className="mt-2 text-xs text-zinc-600">{description}</p>
         </div>
@@ -359,8 +361,8 @@ function ActionButton({
     return (
         <button
             onClick={onClick}
-            className="flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#151817] p-4 text-left transition hover:border-[#00e676]/20 hover:bg-[#00e676]/5">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#00e676]/10 text-[#00e676]">
+            className="flex w-full items-center gap-4 rounded-xl border border-white/10 bg-color-woodsmoke p-4 text-left transition hover:border-[color-mix(in_srgb,var(--malachite-500)_20%,transparent)] hover:bg-[color-mix(in_srgb,var(--malachite-500)_5%,transparent)]">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] text-color-malachite">
                 {icon}
             </div>
 

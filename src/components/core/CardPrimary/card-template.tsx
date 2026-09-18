@@ -1,24 +1,21 @@
 'use client'
 
-import { CardWorkProps } from '@/components/core/CardPrimary/Card.types'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { CardWorkProps } from '@/components/core/CardPrimary/Card.types'
 import { Button } from '@/components/ui/button'
 
 function CardTemplate({ title, description, img, tag, link, buttonText, disabled }: CardWorkProps) {
-    const handleConstruction = () => {
-        alert('🚧 Este template está em construção.')
-    }
-
     return (
         <div
-            className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111313] shadow-[0_10px_40px_rgba(0,0,0,0.2)] transition-all duration-300 ${
+            className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-color-codgray shadow-[0_10px_40px_rgba(0,0,0,0.2)] transition-all duration-300 ${
                 disabled
                     ? 'cursor-not-allowed opacity-75'
-                    : 'hover:border-color-malachite/40 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(0,0,0,0.35)]'
+                    : 'hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(0,0,0,0.35)]'
             }`}>
             {/* Preview do template */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-[#0b0d0d]">
+            <div className="relative aspect-[16/10] overflow-hidden bg-color-codgray">
                 <Image
                     src={img!}
                     alt={title!}
@@ -39,8 +36,8 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                             disabled ? 'border-white/15 bg-black/70' : 'border-white/15 bg-black/60'
                         }`}>
                         <span
-                            className={`h-1.5 w-1.5 rounded-full ${
-                                disabled ? 'bg-yellow-400' : 'bg-color-malachite shadow-[0_0_8px_rgba(0,255,150,0.8)]'
+                            className={`size-1.5 rounded-full ${
+                                disabled ? 'bg-color-clay' : 'bg-color-malachite shadow-[0_0_8px_var(--malachite-500)]'
                             }`}
                         />
 
@@ -49,7 +46,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                 </div>
 
                 {/* Indicador inferior */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
                     <div>
                         <span className="text-xs font-medium uppercase tracking-[0.18em] text-white/60">Modelo</span>
 
@@ -57,10 +54,10 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                     </div>
 
                     <div
-                        className={`flex h-9 w-9 items-center justify-center rounded-full border bg-black/50 text-white backdrop-blur-md transition-all duration-300 ${
+                        className={`flex size-9 items-center justify-center rounded-full border bg-black/50 text-white backdrop-blur-md transition-all duration-300 ${
                             disabled
                                 ? 'border-white/15'
-                                : 'group-hover:border-color-malachite/50 group-hover:bg-color-malachite group-hover:text-black'
+                                : 'group-hover:border-color-malachite group-hover:bg-color-malachite group-hover:text-black'
                         }`}>
                         {disabled ? (
                             <svg
@@ -113,7 +110,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                             {tag.map((t, i) => (
                                 <span
                                     key={i}
-                                    className="group-hover:border-color-malachite/20 rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs font-medium text-color-clay transition-colors">
+                                    className="rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs font-medium text-color-clay transition-colors group-hover:border-[color-mix(in_srgb,var(--malachite-500)_20%,transparent)]">
                                     {t}
                                 </span>
                             ))}
@@ -129,7 +126,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                     {/* Informações */}
                     <div className="mb-5 grid grid-cols-2 gap-3">
                         <div className="flex items-center gap-2">
-                            <div className="bg-color-malachite/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-color-malachite">
+                            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] text-color-malachite">
                                 <svg
                                     width="15"
                                     height="15"
@@ -153,7 +150,7 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                         </div>
 
                         <div className="flex items-center gap-2">
-                            <div className="bg-color-malachite/10 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-color-malachite">
+                            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] text-color-malachite">
                                 <svg
                                     width="15"
                                     height="15"
@@ -185,9 +182,8 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                         {disabled ? (
                             <Button
                                 type="button"
-                                variant="buttoncard"
-                                onClick={handleConstruction}
-                                className="h-11 w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/[0.05] text-sm font-semibold text-white/60 transition-all duration-300 hover:bg-white/[0.08]">
+                                disabled
+                                className="h-11 w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/[0.05] text-sm font-semibold text-white/60 transition-all duration-300 disabled:opacity-100">
                                 <span>{buttonText || 'Em construção'}</span>
 
                                 <svg
@@ -210,9 +206,8 @@ function CardTemplate({ title, description, img, tag, link, buttonText, disabled
                         ) : (
                             link && (
                                 <Button
-                                    variant="buttoncard"
                                     asChild
-                                    className="group/button border-color-malachite/40 h-11 w-full rounded-lg border bg-color-malachite text-sm font-semibold text-black transition-all duration-300 hover:bg-color-malachite hover:shadow-[0_0_25px_rgba(0,255,150,0.18)]">
+                                    className="group/button h-11 w-full rounded-lg border border-color-malachite bg-color-malachite text-sm font-semibold text-black transition-all duration-300 hover:bg-color-malachite hover:text-black hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-codgray">
                                     <Link href={link} className="flex items-center justify-center gap-2">
                                         <span>{buttonText || 'Usar este template'}</span>
 

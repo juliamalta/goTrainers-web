@@ -26,17 +26,5 @@ export const Users: CollectionConfig = {
             required: true,
             label: 'WhatsApp',
         },
-        {
-            name: 'cpf',
-            type: 'text',
-            required: false,
-            label: 'CPF',
-        },
-        {
-            name: 'cref',
-            type: 'text',
-            required: false,
-            label: 'CREF',
-        },
     ],
 }

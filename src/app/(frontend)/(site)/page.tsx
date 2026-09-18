@@ -1,13 +1,14 @@
-import { HeroSection } from '@/components/sections/hero-section'
-import { FaStar, FaUsers } from 'react-icons/fa6'
 import { CiTimer } from 'react-icons/ci'
+import { FaStar, FaUsers } from 'react-icons/fa6'
+
+import Cards1 from '@/components/sections/Cards/Cards1'
 import Cards3 from '@/components/sections/Cards/Cards3'
 import Contact from '@/components/sections/Contact/Contact'
-import Cards1 from '@/components/sections/Cards/Cards1'
+import { HeroSection } from '@/components/sections/hero-section'
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-[#0C0F0F]">
+        <main className="min-h-screen bg-color-codgray">
             <div>
                 <HeroSection
                     titlePrimary="A PLATAFORMA Nº 1 PARA PERSONAL TRAINERS"

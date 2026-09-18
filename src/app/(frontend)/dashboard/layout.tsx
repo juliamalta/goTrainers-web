@@ -48,9 +48,9 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
      * URL pública do site
      *
      * Seu sistema publica em:
-     * /template1/[slug]
+     * /personal/[slug]
      */
-    const siteUrl = hasPublishedSite && site?.slug ? `/template1/${site.slug}` : undefined
+    const siteUrl = hasPublishedSite && site?.slug ? `/personal/${encodeURIComponent(site.slug)}` : undefined
 
     /*
      * Define para onde o Dashboard deve levar:

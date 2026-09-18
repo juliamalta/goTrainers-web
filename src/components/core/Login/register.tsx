@@ -1,345 +1,212 @@
-'use client'
+﻿'use client'
 
-import { useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight, CheckCircle2, Loader2 } from 'lucide-react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
+
+import { Button } from '@/components/ui/button'
+
+import AuthField from './AuthField'
+import AuthLayout from './AuthLayout'
 
 const registerSchema = z
     .object({
-        name: z.string().min(1, 'Digite seu nome completo'),
-
-        email: z.string().min(1, 'Digite seu e-mail').email('Digite um e-mail válido'),
-
-        password: z.string().min(1, 'Digite sua senha').min(6, 'A senha deve ter pelo menos 6 caracteres'),
-
+        name: z.string().trim().min(1, 'Digite seu nome completo'),
+        email: z.string().trim().toLowerCase().min(1, 'Digite seu e-mail').email('Digite um e-mail válido'),
+        whatsapp: z
+            .string()
+            .trim()
+            .min(1, 'Digite seu WhatsApp')
+            .regex(/^\+?[\d\s().-]+$/, 'Use apenas números e a formatação do telefone')
+            .refine((value) => {
+                const digits = value.replace(/\D/g, '')
+                return digits.length >= 10 && digits.length <= 15
+            }, 'Digite um WhatsApp válido com DDD'),
+        password: z.string().min(6, 'A senha deve ter pelo menos 6 caracteres'),
         confirmPassword: z.string().min(1, 'Confirme sua senha'),
-
-        whatsapp: z.string().min(1, 'Digite seu WhatsApp').min(10, 'Digite um WhatsApp válido'),
-
-        cpf: z.string().optional(),
-
-        cref: z.string().optional(),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: 'As senhas não coincidem',
         path: ['confirmPassword'],
     })
-
 type RegisterFormData = z.infer<typeof registerSchema>
 
 export default function Register() {
     const router = useRouter()
-
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [serverError, setServerError] = useState('')
-
+    const [created, setCreated] = useState(false)
+    const [loginFailed, setLoginFailed] = useState(false)
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<RegisterFormData>({
-        resolver: zodResolver(registerSchema),
-    })
+    } = useForm<RegisterFormData>({ resolver: zodResolver(registerSchema) })
 
     const onSubmit = async (data: RegisterFormData) => {
+        if (created) return
         setServerError('')
-
         try {
-            // 1. Criar usuário no Payload
-            const registerResponse = await fetch('/api/users', {
+            const response = await fetch('/api/users', {
                 method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-
+                headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-
                 body: JSON.stringify({
-                    name: data.name.trim(),
-                    email: data.email.trim().toLowerCase(),
+                    name: data.name,
+                    email: data.email,
                     password: data.password,
-                    whatsapp: data.whatsapp.trim(),
-                    cpf: data.cpf?.trim() || '',
-                    cref: data.cref?.trim() || '',
+                    whatsapp: data.whatsapp,
                 }),
             })
-
-            const registerResult = await registerResponse.json()
-
-            console.log('Resposta cadastro:', registerResult)
-
-            if (!registerResponse.ok) {
-                const message =
-                    registerResult?.errors?.[0]?.message ||
-                    registerResult?.message ||
-                    'Não foi possível criar sua conta.'
-
-                setServerError(message)
-
+            if (!response.ok) {
+                setServerError(
+                    response.status >= 500
+                        ? 'Não foi possível criar sua conta agora. Tente novamente em instantes.'
+                        : 'Não foi possível criar sua conta. Confira os dados. Se já tiver uma conta com este e-mail, entre ou recupere sua senha.'
+                )
                 return
             }
-
-            console.log('Usuário criado:', registerResult)
-
-            // 2. Fazer login automaticamente
-            const loginResponse = await fetch('/api/users/login', {
+        } catch {
+            setServerError(
+                'Não foi possível confirmar o cadastro. Verifique sua conexão. Se a conta já foi criada, você pode entrar com seu e-mail e senha.'
+            )
+            return
+        }
+        setCreated(true)
+        try {
+            const response = await fetch('/api/users/login', {
                 method: 'POST',
-
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-
+                headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-
-                body: JSON.stringify({
-                    email: data.email.trim().toLowerCase(),
-                    password: data.password,
-                }),
+                body: JSON.stringify({ email: data.email, password: data.password }),
             })
-
-            const loginResult = await loginResponse.json()
-
-            console.log('Resposta login:', loginResult)
-
-            if (!loginResponse.ok) {
-                const message =
-                    loginResult?.errors?.[0]?.message ||
-                    loginResult?.message ||
-                    'Conta criada, mas não foi possível entrar automaticamente.'
-
-                setServerError(message)
-
+            if (!response.ok) {
+                setLoginFailed(true)
                 return
             }
-
-            console.log('Usuário autenticado:', loginResult)
-
-            // 3. Ir para o dashboard
-            router.push('/dashboard')
-        } catch (error) {
-            console.error('Erro no cadastro:', error)
-
-            setServerError('Não foi possível conectar ao servidor. Tente novamente.')
+            router.replace('/dashboard')
+            router.refresh()
+        } catch {
+            setLoginFailed(true)
         }
     }
 
     return (
-        <div className="min-h-screen bg-color-codgray text-white">
-            <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-12">
-                {/* Cadastro */}
-                <section className="relative z-10 w-full max-w-md">
-                    <div className="rounded-2xl border border-color-woodsmoke bg-black/25 p-7 shadow-sm backdrop-blur-sm sm:p-9">
-                        {/* Cabeçalho */}
-                        <div className="mb-8 text-center">
-                            <h1 className="text-3xl font-bold tracking-tight">Crie sua conta</h1>
-
-                            <p className="mt-2 text-sm text-zinc-400">7 dias grátis. Sem cartão.</p>
-                        </div>
-
-                        {/* Erro do servidor */}
-                        {serverError && (
-                            <div className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-                                {serverError}
-                            </div>
-                        )}
-
-                        {/* Formulário */}
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                            {/* Nome */}
-                            <div>
-                                <label htmlFor="name" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    Nome completo
-                                </label>
-
-                                <input
-                                    id="name"
-                                    type="text"
-                                    placeholder="Seu nome completo"
-                                    autoComplete="name"
-                                    {...register('name')}
-                                    className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                        errors.name
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                    }`}
-                                />
-
-                                {errors.name && <p className="mt-2 text-xs text-red-400">{errors.name.message}</p>}
-                            </div>
-
-                            {/* E-mail */}
-                            <div>
-                                <label htmlFor="email" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    E-mail
-                                </label>
-
-                                <input
-                                    id="email"
-                                    type="email"
-                                    placeholder="seu@email.com"
-                                    autoComplete="email"
-                                    {...register('email')}
-                                    className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                        errors.email
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                    }`}
-                                />
-
-                                {errors.email && <p className="mt-2 text-xs text-red-400">{errors.email.message}</p>}
-                            </div>
-
-                            {/* Senha */}
-                            <div>
-                                <label htmlFor="password" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    Senha
-                                </label>
-
-                                <div className="relative">
-                                    <input
-                                        id="password"
-                                        type={showPassword ? 'text' : 'password'}
-                                        placeholder="••••••••"
-                                        autoComplete="new-password"
-                                        {...register('password')}
-                                        className={`w-full rounded-lg border bg-transparent px-4 py-3 pr-20 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                            errors.password
-                                                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                                : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                        }`}
-                                    />
-
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword((prev) => !prev)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500 transition hover:text-white">
-                                        {showPassword ? 'Ocultar' : 'Mostrar'}
-                                    </button>
-                                </div>
-
-                                {errors.password && (
-                                    <p className="mt-2 text-xs text-red-400">{errors.password.message}</p>
-                                )}
-                            </div>
-
-                            {/* Confirmar senha */}
-                            <div>
-                                <label
-                                    htmlFor="confirmPassword"
-                                    className="mb-2 block text-sm font-medium text-zinc-200">
-                                    Confirmar senha
-                                </label>
-
-                                <div className="relative">
-                                    <input
-                                        id="confirmPassword"
-                                        type={showConfirmPassword ? 'text' : 'password'}
-                                        placeholder="••••••••"
-                                        autoComplete="new-password"
-                                        {...register('confirmPassword')}
-                                        className={`w-full rounded-lg border bg-transparent px-4 py-3 pr-20 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                            errors.confirmPassword
-                                                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                                : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                        }`}
-                                    />
-
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowConfirmPassword((prev) => !prev)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500 transition hover:text-white">
-                                        {showConfirmPassword ? 'Ocultar' : 'Mostrar'}
-                                    </button>
-                                </div>
-
-                                {errors.confirmPassword && (
-                                    <p className="mt-2 text-xs text-red-400">{errors.confirmPassword.message}</p>
-                                )}
-                            </div>
-
-                            {/* WhatsApp */}
-                            <div>
-                                <label htmlFor="whatsapp" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    WhatsApp
-                                </label>
-
-                                <input
-                                    id="whatsapp"
-                                    type="tel"
-                                    placeholder="(11) 99999-9999"
-                                    autoComplete="tel"
-                                    {...register('whatsapp')}
-                                    className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                        errors.whatsapp
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                    }`}
-                                />
-
-                                {errors.whatsapp && (
-                                    <p className="mt-2 text-xs text-red-400">{errors.whatsapp.message}</p>
-                                )}
-                            </div>
-
-                            {/* CPF e CREF */}
-                            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                                {/* CPF */}
-                                <div>
-                                    <label htmlFor="cpf" className="mb-2 block text-sm font-medium text-zinc-200">
-                                        CPF <span className="font-normal text-zinc-500">(opcional)</span>
-                                    </label>
-
-                                    <input
-                                        id="cpf"
-                                        type="text"
-                                        placeholder="000.000.000-00"
-                                        {...register('cpf')}
-                                        className="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-color-malachite focus:ring-1 focus:ring-color-malachite"
-                                    />
-                                </div>
-
-                                {/* CREF */}
-                                <div>
-                                    <label htmlFor="cref" className="mb-2 block text-sm font-medium text-zinc-200">
-                                        CREF <span className="font-normal text-zinc-500">(opcional)</span>
-                                    </label>
-
-                                    <input
-                                        id="cref"
-                                        type="text"
-                                        placeholder="000000-G/UF"
-                                        {...register('cref')}
-                                        className="w-full rounded-lg border border-zinc-800 bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-color-malachite focus:ring-1 focus:ring-color-malachite"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Criar conta */}
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="w-full rounded-2xl bg-color-malachite px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
-                                {isSubmitting ? 'Criando conta...' : 'Criar conta grátis →'}
-                            </button>
-                        </form>
-
-                        {/* Login */}
-                        <p className="mt-7 text-center text-sm text-zinc-500">
-                            Já tem uma conta?{' '}
-                            <button
-                                type="button"
-                                onClick={() => router.push('/auth')}
-                                className="font-medium text-color-malachite transition hover:opacity-80">
-                                Entrar
-                            </button>
+        <AuthLayout mode="register">
+            {created ? (
+                <div className="py-4">
+                    <CheckCircle2 className="mb-5 size-10 text-color-malachite" aria-hidden="true" />
+                    <div role="status">
+                        <h2 className="text-xl font-semibold">Sua conta foi criada!</h2>
+                        <p className="mt-3 text-sm leading-relaxed text-color-clay">
+                            {loginFailed
+                                ? 'Não foi possível entrar automaticamente. Acesse sua conta com o e-mail e a senha que você acabou de cadastrar.'
+                                : 'Tudo pronto. Estamos entrando na sua conta para abrir seu painel.'}
                         </p>
                     </div>
-                </section>
-            </main>
-        </div>
+                    {loginFailed ? (
+                        <Button
+                            asChild
+                            className="mt-6 h-12 w-full rounded-xl bg-color-malachite font-semibold text-color-codgray hover:bg-color-malachite hover:brightness-110">
+                            <Link href="/auth">
+                                Ir para o login <ArrowRight className="ml-2 size-4" aria-hidden="true" />
+                            </Link>
+                        </Button>
+                    ) : (
+                        <Loader2
+                            className="mt-6 size-5 animate-spin text-color-malachite"
+                            aria-label="Entrando na sua conta"
+                        />
+                    )}
+                </div>
+            ) : (
+                <>
+                    {serverError && (
+                        <div
+                            role="alert"
+                            className="mb-6 rounded-xl border border-red-400/30 bg-red-400/10 p-4 text-sm leading-relaxed text-red-400">
+                            {serverError}
+                        </div>
+                    )}
+                    <form noValidate onSubmit={handleSubmit(onSubmit)} aria-busy={isSubmitting}>
+                        <fieldset disabled={isSubmitting} className="space-y-5">
+                            <AuthField
+                                id="name"
+                                label="Nome completo"
+                                placeholder="Como você se chama?"
+                                autoComplete="name"
+                                {...register('name')}
+                                error={errors.name?.message}
+                            />
+                            <AuthField
+                                id="email"
+                                label="E-mail"
+                                type="email"
+                                placeholder="voce@exemplo.com"
+                                autoComplete="email"
+                                autoCapitalize="none"
+                                spellCheck={false}
+                                {...register('email')}
+                                error={errors.email?.message}
+                            />
+                            <AuthField
+                                id="whatsapp"
+                                label="WhatsApp com DDD"
+                                type="tel"
+                                placeholder="(11) 99999-9999"
+                                autoComplete="tel"
+                                {...register('whatsapp')}
+                                error={errors.whatsapp?.message}
+                            />
+                            <AuthField
+                                id="password"
+                                label="Senha"
+                                type="password"
+                                placeholder="Crie uma senha"
+                                autoComplete="new-password"
+                                hint="Use pelo menos 6 caracteres."
+                                {...register('password')}
+                                error={errors.password?.message}
+                            />
+                            <AuthField
+                                id="confirmPassword"
+                                label="Confirme sua senha"
+                                type="password"
+                                placeholder="Repita a senha"
+                                autoComplete="new-password"
+                                {...register('confirmPassword')}
+                                error={errors.confirmPassword?.message}
+                            />
+                            <Button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="h-12 w-full gap-2 rounded-xl bg-color-malachite text-sm font-semibold text-color-codgray hover:bg-color-malachite hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-woodsmoke">
+                                {isSubmitting ? (
+                                    <>
+                                        <Loader2 size={18} className="animate-spin" aria-hidden="true" /> Criando sua
+                                        conta...
+                                    </>
+                                ) : (
+                                    <>
+                                        Criar minha conta <ArrowRight size={18} aria-hidden="true" />
+                                    </>
+                                )}
+                            </Button>
+                        </fieldset>
+                    </form>
+                    <p className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-color-clay">
+                        Já tem uma conta?{' '}
+                        <Link
+                            href="/auth"
+                            className="font-semibold text-color-malachite underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-color-malachite">
+                            Entrar
+                        </Link>
+                    </p>
+                </>
+            )}
+        </AuthLayout>
     )
 }

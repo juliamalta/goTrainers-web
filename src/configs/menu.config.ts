@@ -4,11 +4,11 @@ export const menuConfig = [
         link: '#inicio',
     },
     {
-        text: 'Sobre',
-        link: '#sobre',
+        text: 'Como funciona',
+        link: '#como-funciona',
     },
     {
         text: 'Templates',
-        link: '#serviços',
+        link: '#trabalho',
     },
 ]

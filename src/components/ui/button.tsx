@@ -5,23 +5,23 @@ import * as React from 'react'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-    'ring-offset-background focus-visible:ring-ring inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+    'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
     {
         variants: {
             variant: {
                 default: 'bg-primary text-primary-foreground hover:bg-primary/90',
                 destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-                outline: 'border-input bg-background hover:bg-accent hover:text-accent-foreground border',
+                outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
                 secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
                 ghost: 'hover:bg-accent hover:text-accent-foreground',
                 link: 'text-primary underline-offset-4 hover:underline',
                 herobutton:
-                    'bg-color-malachite hover:text-color-studio hover:border-color-purble text-black hover:border-2 hover:bg-white',
+                    'bg-color-malachite text-black hover:bg-color-malachite hover:brightness-110 focus-visible:ring-color-malachite',
 
                 herobuttonsecondary:
-                    'bg-[#1E2020] border-[#1E2020] hover:text-color-flamingo rounded-xl border-2 text-white hover:text-color-malachite hover:border-color-malachite',
+                    'rounded-xl border border-white/10 bg-color-woodsmoke text-white hover:border-color-malachite hover:bg-color-codgray hover:text-color-malachite focus-visible:ring-color-malachite',
                 buttoncard:
-                    'hover:bg-[#1E2020] hover:border-color-malachite hover:text-color-malachite rounded-xl border-2 text-color-malachite text-white border-white',
+                    'rounded-xl border border-white/10 bg-color-codgray text-white hover:border-color-malachite hover:bg-color-woodsmoke hover:text-color-malachite focus-visible:ring-color-malachite',
             },
             size: {
                 default: 'h-10 px-4 py-2',

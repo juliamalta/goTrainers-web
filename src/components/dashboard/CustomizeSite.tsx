@@ -2,13 +2,13 @@
 
 import * as React from 'react'
 
-import { Button } from '@/components/ui/button'
+import Cards2 from '@/components/sections/Cards/Card2'
+import Cards5 from '@/components/sections/Cards/Card5'
+import Contact from '@/components/sections/Contact/Contact'
+import { Features2 } from '@/components/sections/Features/Features2'
 import { HeroSection1 } from '@/components/sections/hero-section'
 import Metrics1 from '@/components/sections/Metrics/Metrics1'
-import Cards5 from '@/components/sections/Cards/Card5'
-import { Features2 } from '@/components/sections/Features/Features2'
-import Cards2 from '@/components/sections/Cards/Card2'
-import Contact from '@/components/sections/Contact/Contact'
+import { Button } from '@/components/ui/button'
 import { WhatsAppFloat } from '@/components/ui/whatsapp-float'
 
 interface CustomizeSiteProps {
@@ -1334,12 +1334,15 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             // SUCESSO
             // ========================================================
 
-            setSlug(cleanSlug)
+            const savedSlug = result?.doc?.slug ?? result?.slug
+            const publishedSlug = typeof savedSlug === 'string' && savedSlug ? savedSlug : cleanSlug
+
+            setSlug(publishedSlug)
 
             setPublishMessage('Seu site foi publicado com sucesso!')
 
             window.setTimeout(() => {
-                window.location.href = `/personal/${cleanSlug}`
+                window.location.href = `/personal/${encodeURIComponent(publishedSlug)}`
             }, 1200)
         } catch (error) {
             console.error('Erro ao publicar site:', error)
@@ -1407,7 +1410,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                     PROGRESSO
                 ======================================================== */}
 
-                <div className="mb-8 rounded-2xl border border-white/10 bg-color-codgray p-5">
+                <div className="mb-8 rounded-2xl border border-white/10 bg-color-codgray p-5 shadow-[0_10px_40px_rgba(0,0,0,0.2)] sm:p-6">
                     <div className="mb-4 flex items-center justify-between">
                         <div>
                             <p className="text-sm text-color-clay">
@@ -1459,7 +1462,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         FORMULÁRIO
                     ==================================================== */}
 
-                    <div ref={formRef} className="scroll-mt-4 rounded-2xl border border-white/10 bg-color-codgray p-6">
+                    <div
+                        ref={formRef}
+                        className="scroll-mt-4 rounded-2xl border border-white/10 bg-color-codgray p-5 shadow-[0_10px_40px_rgba(0,0,0,0.2)] sm:p-6">
                         {/* ==================================================
                             ETAPA 1 — INFORMAÇÕES
                         ================================================== */}
@@ -1690,7 +1695,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                                                             event.target.value
                                                                         )
                                                                     }
-                                                                    className="h-11 flex-1 rounded-lg border border-white/10 bg-color-codgray px-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-color-malachite"
+                                                                    className="h-11 flex-1 rounded-lg border border-white/10 bg-color-codgray px-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                                                                 />
 
                                                                 <button
@@ -1905,7 +1910,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         ================================================== */}
 
                         {publishMessage && (
-                            <div className="border-color-malachite/20 bg-color-malachite/10 mb-4 rounded-xl border p-4 text-sm font-medium text-color-malachite">
+                            <div className="mb-4 rounded-xl border border-[color-mix(in_srgb,var(--malachite-500)_20%,transparent)] bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] p-4 text-sm font-medium text-color-malachite">
                                 {publishMessage}
                             </div>
                         )}
@@ -1922,7 +1927,11 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
                         <div className="mt-8 flex gap-3 border-t border-white/10 pt-6">
                             {step > 0 && (
-                                <Button type="button" variant="outline" onClick={previousStep} className="h-12 flex-1">
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={previousStep}
+                                    className="h-12 flex-1 rounded-lg border-white/10 bg-color-woodsmoke text-white hover:bg-color-woodsmoke hover:text-color-malachite focus-visible:ring-color-malachite">
                                     ← Voltar
                                 </Button>
                             )}
@@ -1931,7 +1940,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                 <Button
                                     type="button"
                                     onClick={nextStep}
-                                    className="h-12 flex-1 bg-color-malachite text-black hover:text-white">
+                                    className="h-12 flex-1 rounded-lg bg-color-malachite font-semibold text-black hover:bg-color-malachite hover:text-black hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-codgray">
                                     Continuar →
                                 </Button>
                             ) : (
@@ -1939,7 +1948,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                     type="button"
                                     onClick={handleFinish}
                                     disabled={publishing}
-                                    className="h-12 flex-1 bg-color-malachite text-black hover:text-white disabled:cursor-not-allowed disabled:opacity-60">
+                                    className="h-12 flex-1 rounded-lg bg-color-malachite font-semibold text-black hover:bg-color-malachite hover:text-black hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-codgray disabled:cursor-not-allowed disabled:opacity-60">
                                     {publishing ? 'Publicando...' : 'Publicar meu site'}
                                 </Button>
                             )}
@@ -1950,7 +1959,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         PREVIEW
                     ==================================================== */}
 
-                    <div className="hidden min-w-0 md:block">
+                    <div className="hidden min-w-0 rounded-2xl border border-white/10 bg-color-codgray p-5 shadow-[0_10px_40px_rgba(0,0,0,0.2)] sm:p-6 md:block">
                         <div className="sticky top-6">
                             <div className="mb-4">
                                 <h2 className="text-xl font-semibold text-white">Preview do seu site</h2>
@@ -1976,7 +1985,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step <= 1
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <HeroSection1
@@ -2010,7 +2019,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 2
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <Metrics1 metrics={previewMetrics} />
@@ -2024,7 +2033,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 3
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <Cards5
@@ -2042,7 +2051,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 4
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <Features2
@@ -2061,7 +2070,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 5
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <Cards2
@@ -2079,7 +2088,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 6
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         <Contact
@@ -2111,7 +2120,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                                         }}
                                         className={`transition-all duration-300 ${
                                             step === 7
-                                                ? 'outline-color-malachite/60 outline outline-2 outline-offset-[-2px]'
+                                                ? 'outline outline-2 outline-offset-[-2px] outline-[color-mix(in_srgb,var(--malachite-500)_60%,transparent)]'
                                                 : ''
                                         }`}>
                                         {data.whatsapp.enabled && data.whatsapp.phone && (
@@ -2129,12 +2138,12 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 BOTÃO FIXO DE PREVIEW — MOBILE
             ==================================================== */}
 
-            <div className="bg-color-codgray/95 fixed inset-x-0 bottom-0 z-40 border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
+            <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[color-mix(in_srgb,var(--cod-gray-950)_95%,transparent)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur md:hidden">
                 <div className="mx-auto max-w-md">
                     <Button
                         type="button"
                         onClick={() => setMobilePreviewOpen(true)}
-                        className="h-12 w-full bg-color-malachite font-semibold text-black hover:text-white">
+                        className="h-12 w-full rounded-lg bg-color-malachite font-semibold text-black hover:bg-color-malachite hover:text-black hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-codgray">
                         Ver prévia do site
                     </Button>
                 </div>
@@ -2257,12 +2266,12 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         </div>
                     </div>
 
-                    <div className="bg-color-codgray/95 shrink-0 border-t border-white/10 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">
+                    <div className="shrink-0 border-t border-white/10 bg-[color-mix(in_srgb,var(--cod-gray-950)_95%,transparent)] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur">
                         <div className="mx-auto max-w-md">
                             <Button
                                 type="button"
                                 onClick={() => setMobilePreviewOpen(false)}
-                                className="h-12 w-full bg-color-malachite font-semibold text-black hover:text-white">
+                                className="h-12 w-full rounded-lg bg-color-malachite font-semibold text-black hover:bg-color-malachite hover:text-black hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-codgray">
                                 Voltar para edição
                             </Button>
                         </div>
@@ -2363,7 +2372,7 @@ function Field({ label, value, placeholder, textarea = false, onChange }: FieldP
                     placeholder={placeholder}
                     rows={4}
                     onChange={(event) => onChange(event.target.value)}
-                    className="resize-none rounded-lg border border-white/10 bg-color-woodsmoke px-4 py-3 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-color-malachite"
+                    className="resize-none rounded-lg border border-white/10 bg-color-woodsmoke px-4 py-3 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                 />
             ) : (
                 <input
@@ -2371,7 +2380,7 @@ function Field({ label, value, placeholder, textarea = false, onChange }: FieldP
                     value={value}
                     placeholder={placeholder}
                     onChange={(event) => onChange(event.target.value)}
-                    className="h-12 rounded-lg border border-white/10 bg-color-woodsmoke px-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-color-malachite"
+                    className="h-12 rounded-lg border border-white/10 bg-color-woodsmoke px-4 text-sm text-white outline-none transition placeholder:text-color-clay focus:border-[var(--malachite-700)]"
                 />
             )}
         </div>

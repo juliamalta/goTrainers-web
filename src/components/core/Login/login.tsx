@@ -1,252 +1,156 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-
-import { useRouter } from 'next/navigation'
-
-import { useForm } from 'react-hook-form'
-
-import { z } from 'zod'
+﻿'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
+import { Button } from '@/components/ui/button'
+
+import AuthField from './AuthField'
+import AuthLayout from './AuthLayout'
 
 const loginSchema = z.object({
-    email: z.string().min(1, 'Digite seu e-mail').email('Digite um e-mail válido'),
-
-    password: z.string().min(1, 'Digite sua senha').min(6, 'A senha deve ter pelo menos 6 caracteres'),
+    email: z.string().trim().min(1, 'Digite seu e-mail').email('Digite um e-mail válido'),
+    password: z.string().min(1, 'Digite sua senha'),
 })
-
 type LoginFormData = z.infer<typeof loginSchema>
 
 export default function Login() {
     const router = useRouter()
-
-    const [showPassword, setShowPassword] = useState(false)
     const [serverError, setServerError] = useState('')
     const [checkingSession, setCheckingSession] = useState(true)
-
-    useEffect(() => {
-        const checkSession = async () => {
-            try {
-                const response = await fetch('/api/users/me', {
-                    credentials: 'include',
-                })
-
-                if (response.ok) {
-                    const result = await response.json()
-
-                    if (result?.user) {
-                        router.replace('/dashboard')
-                        return
-                    }
-                }
-            } catch (error) {
-                console.error('Erro ao verificar sessão:', error)
-            } finally {
-                setCheckingSession(false)
-            }
-        }
-
-        checkSession()
-    }, [router])
-
+    const [redirecting, setRedirecting] = useState(false)
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<LoginFormData>({
-        resolver: zodResolver(loginSchema),
-    })
+    } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) })
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const checkSession = async () => {
+            try {
+                const response = await fetch('/api/users/me', {
+                    credentials: 'include',
+                    cache: 'no-store',
+                    signal: controller.signal,
+                })
+                if (response.ok && (await response.json())?.user) {
+                    setRedirecting(true)
+                    router.replace('/dashboard')
+                }
+            } catch {
+                // A failed session check still allows the user to sign in.
+            } finally {
+                if (!controller.signal.aborted) setCheckingSession(false)
+            }
+        }
+        void checkSession()
+        return () => controller.abort()
+    }, [router])
 
     const onSubmit = async (data: LoginFormData) => {
         setServerError('')
-
         try {
             const response = await fetch('/api/users/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({
-                    email: data.email,
-                    password: data.password,
-                }),
+                body: JSON.stringify(data),
             })
-
-            const result = await response.json()
-
             if (!response.ok) {
-                const message = result?.errors?.[0]?.message || result?.message || 'E-mail ou senha inválidos.'
-
-                setServerError(message)
+                setServerError(
+                    response.status === 429
+                        ? 'Muitas tentativas. Aguarde um pouco e tente novamente.'
+                        : response.status >= 500
+                          ? 'Não foi possível entrar agora. Tente novamente em instantes.'
+                          : 'Não foi possível entrar. Confira seu e-mail e senha e tente novamente.'
+                )
                 return
             }
-
-            console.log('Login realizado:', result)
-
-            router.push('/dashboard')
-        } catch (error) {
-            console.error('Erro no login:', error)
-
-            setServerError('Não foi possível entrar. Tente novamente.')
+            setRedirecting(true)
+            router.replace('/dashboard')
+            router.refresh()
+        } catch {
+            setServerError('Não foi possível conectar. Verifique sua conexão e tente novamente.')
         }
     }
 
-    // Enquanto verifica se o usuário já está logado,
-    // não mostra o formulário de login.
-    if (checkingSession) {
-        return (
-            <div className="flex min-h-screen items-center justify-center bg-color-codgray text-white">
-                <p className="text-sm text-zinc-400">Verificando sessão...</p>
-            </div>
-        )
-    }
-
     return (
-        <div className="min-h-screen bg-color-codgray text-white">
-            <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-12">
-                {/* Login */}
-                <section className="relative z-10 w-full max-w-md">
-                    <div className="rounded-2xl border border-color-woodsmoke bg-black bg-opacity-25 p-7 shadow-sm backdrop-blur-sm sm:p-9">
-                        {/* Cabeçalho */}
-                        <div className="mb-8 text-center">
-                            <h1 className="text-3xl font-bold tracking-tight">Bem-vindo de volta</h1>
-
-                            <p className="mt-2 text-sm text-zinc-400">Entre na sua conta para continuar</p>
+        <AuthLayout mode="login">
+            {checkingSession || redirecting ? (
+                <div role="status" className="flex min-h-48 items-center justify-center gap-3 text-sm text-zinc-300">
+                    <Loader2 className="size-5 animate-spin text-color-malachite" aria-hidden="true" />
+                    {checkingSession ? 'Verificando sessão...' : 'Tudo certo! Abrindo seu painel...'}
+                </div>
+            ) : (
+                <>
+                    {serverError && (
+                        <div
+                            role="alert"
+                            className="mb-6 rounded-xl border border-red-400/30 bg-red-400/10 p-4 text-sm leading-relaxed text-red-400">
+                            {serverError}
                         </div>
-
-                        {/* Erro do servidor */}
-                        {serverError && (
-                            <div className="mb-5 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-                                {serverError}
+                    )}
+                    <form noValidate onSubmit={handleSubmit(onSubmit)} aria-busy={isSubmitting}>
+                        <fieldset disabled={isSubmitting} className="space-y-5">
+                            <AuthField
+                                id="email"
+                                label="E-mail"
+                                type="email"
+                                placeholder="voce@exemplo.com"
+                                autoComplete="email"
+                                autoCapitalize="none"
+                                spellCheck={false}
+                                {...register('email')}
+                                error={errors.email?.message}
+                            />
+                            <AuthField
+                                id="password"
+                                label="Senha"
+                                type="password"
+                                placeholder="Digite sua senha"
+                                autoComplete="current-password"
+                                {...register('password')}
+                                error={errors.password?.message}
+                            />
+                            <div className="text-right">
+                                <Link
+                                    href="/forgot-password"
+                                    className="rounded text-sm text-zinc-300 underline-offset-4 hover:text-color-malachite hover:underline focus-visible:outline focus-visible:outline-color-malachite">
+                                    Esqueci minha senha
+                                </Link>
                             </div>
-                        )}
-
-                        {/* Formulário */}
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                            {/* E-mail */}
-                            <div>
-                                <label htmlFor="email" className="mb-2 block text-sm font-medium text-zinc-200">
-                                    E-mail
-                                </label>
-
-                                <input
-                                    id="email"
-                                    type="email"
-                                    placeholder="seu@email.com"
-                                    autoComplete="email"
-                                    {...register('email')}
-                                    className={`w-full rounded-lg border bg-transparent px-4 py-3 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                        errors.email
-                                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                            : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                    }`}
-                                />
-
-                                {errors.email && <p className="mt-2 text-xs text-red-400">{errors.email.message}</p>}
-                            </div>
-
-                            {/* Senha */}
-                            <div>
-                                <div className="mb-2 flex items-center justify-between">
-                                    <label htmlFor="password" className="block text-sm font-medium text-zinc-200">
-                                        Senha
-                                    </label>
-
-                                    <button
-                                        type="button"
-                                        className="text-xs text-color-clay transition hover:text-color-malachite">
-                                        Esqueci minha senha
-                                    </button>
-                                </div>
-
-                                <div className="relative">
-                                    <input
-                                        id="password"
-                                        type={showPassword ? 'text' : 'password'}
-                                        placeholder="••••••••"
-                                        autoComplete="current-password"
-                                        {...register('password')}
-                                        className={`w-full rounded-lg border bg-transparent px-4 py-3 pr-20 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:ring-1 ${
-                                            errors.password
-                                                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
-                                                : 'border-zinc-800 focus:border-color-malachite focus:ring-color-malachite'
-                                        }`}
-                                    />
-
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowPassword((prev) => !prev)}
-                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-500 transition hover:text-white">
-                                        {showPassword ? 'Ocultar' : 'Mostrar'}
-                                    </button>
-                                </div>
-
-                                {errors.password && (
-                                    <p className="mt-2 text-xs text-red-400">{errors.password.message}</p>
-                                )}
-                            </div>
-
-                            {/* Entrar */}
-                            <button
+                            <Button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full rounded-2xl bg-color-malachite px-4 py-3 text-sm font-semibold text-black transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">
-                                {isSubmitting ? 'Entrando...' : 'Entrar'}
-                            </button>
-                        </form>
-
-                        {/* Divisor */}
-                        <div className="my-7 flex items-center gap-4">
-                            <div className="bg-color-clay/30 h-px flex-1" />
-
-                            <span className="text-xs text-zinc-600">ou</span>
-
-                            <div className="bg-color-clay/30 h-px flex-1" />
-                        </div>
-
-                        {/* Google */}
-                        <button
-                            type="button"
-                            className="flex w-full items-center justify-center gap-3 rounded-2xl border border-zinc-800 bg-transparent px-4 py-3 text-sm font-medium text-white transition hover:bg-white/[0.03]">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                                <path
-                                    d="M21.35 12.27c0-.78-.07-1.53-.2-2.27H12v4.3h5.22a4.46 4.46 0 0 1-1.94 2.93v2.43h3.14c1.84-1.7 2.93-4.2 2.93-7.39Z"
-                                    fill="#4285F4"
-                                />
-
-                                <path
-                                    d="M12 21.99c2.63 0 4.84-.87 6.45-2.36l-3.14-2.43c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.51A9.74 9.74 0 0 0 12 21.99Z"
-                                    fill="#34A853"
-                                />
-
-                                <path
-                                    d="M6.54 14.09a5.86 5.86 0 0 1 0-3.76V7.82H3.3a9.98 9.98 0 0 0 0 8.78l3.24-2.51Z"
-                                    fill="#FBBC05"
-                                />
-
-                                <path
-                                    d="M12 6.3c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.38 14.63 2.5 12 2.5a9.74 9.74 0 0 0-8.7 5.32l3.24 2.51C7.31 8.02 9.46 6.3 12 6.3Z"
-                                    fill="#EA4335"
-                                />
-                            </svg>
-                            Continuar com Google
-                        </button>
-
-                        {/* Criar conta */}
-                        <p className="mt-7 text-center text-sm text-zinc-500">
-                            Ainda não possui uma conta?{' '}
-                            <button
-                                type="button"
-                                onClick={() => router.push('/auth/register')}
-                                className="font-medium text-color-malachite transition hover:opacity-80">
-                                Criar conta
-                            </button>
-                        </p>
-                    </div>
-                </section>
-            </main>
-        </div>
+                                className="h-12 w-full gap-2 rounded-xl bg-color-malachite text-sm font-semibold text-color-codgray hover:bg-color-malachite hover:brightness-110 focus-visible:ring-color-malachite focus-visible:ring-offset-color-woodsmoke">
+                                {isSubmitting ? (
+                                    <>
+                                        <Loader2 size={18} className="animate-spin" aria-hidden="true" /> Entrando...
+                                    </>
+                                ) : (
+                                    <>
+                                        Entrar na minha conta <ArrowRight size={18} aria-hidden="true" />
+                                    </>
+                                )}
+                            </Button>
+                        </fieldset>
+                    </form>
+                    <p className="mt-8 border-t border-white/10 pt-6 text-center text-sm text-color-clay">
+                        Ainda não tem uma conta?{' '}
+                        <Link
+                            href="/auth/register"
+                            className="font-semibold text-color-malachite underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-color-malachite">
+                            Criar conta
+                        </Link>
+                    </p>
+                </>
+            )}
+        </AuthLayout>
     )
 }

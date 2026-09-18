@@ -2,11 +2,11 @@ import { CardProps } from '@/components/core/CardPrimary/Card.types'
 
 function CardPrimary({ text, number, title, icon, iconBgColor }: CardProps) {
     return (
-        <div className="hover:border-color-malachite/30 group relative h-full min-h-[240px] overflow-hidden rounded-2xl border border-white/[0.06] bg-[#111313] p-[1px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
+        <div className="group relative h-full min-h-[240px] overflow-hidden rounded-2xl border border-white/10 bg-color-codgray p-px shadow-[0_10px_40px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-2 hover:border-[color-mix(in_srgb,var(--malachite-500)_30%,transparent)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
             {/* Brilho no hover */}
-            <div className="bg-color-malachite/10 group-hover:bg-color-malachite/20 absolute -right-16 -top-16 h-32 w-32 rounded-full blur-3xl transition-all duration-500" />
+            <div className="absolute -right-16 -top-16 size-32 rounded-full bg-[color-mix(in_srgb,var(--malachite-500)_10%,transparent)] blur-3xl transition-all duration-500 group-hover:bg-[color-mix(in_srgb,var(--malachite-500)_20%,transparent)]" />
 
-            <div className="relative flex h-full min-w-0 flex-col rounded-2xl bg-[#111313] p-5 sm:p-6 2xl:p-8">
+            <div className="relative flex h-full min-w-0 flex-col rounded-2xl bg-color-codgray p-5 sm:p-6 2xl:p-8">
                 {/* Topo */}
                 <div className="flex items-start justify-between gap-4">
                     {/* Número */}
@@ -17,7 +17,7 @@ function CardPrimary({ text, number, title, icon, iconBgColor }: CardProps) {
                     {/* Ícone */}
                     {icon && (
                         <div
-                            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 text-lg transition-all duration-300 group-hover:scale-110 sm:h-11 sm:w-11 sm:text-xl 2xl:h-12 2xl:w-12"
+                            className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/10 text-lg transition-all duration-300 group-hover:scale-110 sm:size-11 sm:text-xl 2xl:size-12"
                             style={{
                                 backgroundColor: iconBgColor ? `${iconBgColor}18` : 'rgba(0, 230, 118, 0.08)',
                             }}>
@@ -44,7 +44,7 @@ function CardPrimary({ text, number, title, icon, iconBgColor }: CardProps) {
 
                 {/* Indicador */}
                 <div className="mt-auto flex items-center gap-2 pt-6 sm:pt-8">
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-color-malachite transition-all duration-300 group-hover:w-5" />
+                    <span className="size-1.5 shrink-0 rounded-full bg-color-malachite transition-all duration-300 group-hover:w-5" />
 
                     <span className="text-[10px] font-medium uppercase tracking-wider text-white/40 sm:text-xs">
                         Etapa {number}

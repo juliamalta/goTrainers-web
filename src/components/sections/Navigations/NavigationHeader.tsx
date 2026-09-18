@@ -2,8 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { FaWhatsapp } from 'react-icons/fa'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -17,7 +19,7 @@ import {
 import { cn } from '@/lib/utils'
 
 import { NavigationHeaderProps } from './NavigationHeader.types'
-import { FaWhatsapp } from 'react-icons/fa'
+import UserMenu, { type UserData } from './UserMenu'
 
 const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'>>(
     ({ className, title, ...props }, ref) => {
@@ -43,17 +45,55 @@ ListItem.displayName = 'ListItem'
 
 function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
     const [isNavOpen, setIsNavOpen] = useState(false)
+    const [user, setUser] = useState<UserData | null>(null)
+    const [checkingSession, setCheckingSession] = useState(true)
+    const pathname = usePathname()
+
+    useEffect(() => {
+        const desktop = window.matchMedia('(min-width: 1024px)')
+        const closeOnDesktop = () => {
+            if (desktop.matches) setIsNavOpen(false)
+        }
+        closeOnDesktop()
+        desktop.addEventListener('change', closeOnDesktop)
+        return () => desktop.removeEventListener('change', closeOnDesktop)
+    }, [])
+
+    useEffect(() => {
+        const controller = new AbortController()
+        const checkSession = async () => {
+            try {
+                const response = await fetch('/api/users/me', {
+                    credentials: 'include',
+                    cache: 'no-store',
+                    signal: controller.signal,
+                })
+                const result = response.ok ? await response.json() : null
+                if (!controller.signal.aborted) setUser(result?.user || null)
+            } catch {
+                // Keep the current state if a background session check fails.
+            } finally {
+                if (!controller.signal.aborted) setCheckingSession(false)
+            }
+        }
+        void checkSession()
+        window.addEventListener('focus', checkSession)
+        return () => {
+            controller.abort()
+            window.removeEventListener('focus', checkSession)
+        }
+    }, [pathname])
 
     const toggleNavOpened = () => {
         setIsNavOpen(!isNavOpen)
     }
 
     return (
-        <section className="sticky top-0 z-30 bg-[#111111]">
+        <section className="sticky top-0 z-30 bg-color-codgray">
             <nav className="container flex items-center justify-between py-6">
                 <div className="flex items-start">
                     <Link className="block max-w-max" href="/">
-                        <Image width={172} height={73} src={logo} alt="logo" />
+                        <Image width={172} height={73} src={logo} alt="logo" className="h-auto w-28 sm:w-40" />
                     </Link>
                 </div>
                 <div className="hidden justify-center lg:flex">
@@ -82,19 +122,35 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                     </ul>
                 </div>
                 <div>
-                    <div className="hidden justify-end lg:flex">
-                        <Link
-                            href="#contato"
-                            className="pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-2xl bg-color-malachite px-5 py-3 text-sm font-semibold text-black transition hover:bg-color-codgray hover:text-white sm:w-fit sm:text-base 2xl:text-base">
-                            <span className="whitespace-nowrap text-sm">Entrar</span>
-                        </Link>
+                    <div className={user ? 'flex justify-end' : 'hidden justify-end lg:flex'}>
+                        {checkingSession ? (
+                            <span
+                                role="status"
+                                aria-label="Verificando sessão"
+                                className="h-11 w-20 animate-pulse rounded-2xl bg-white/5"
+                            />
+                        ) : user ? (
+                            <UserMenu user={user} hasPublishedSite={false} />
+                        ) : (
+                            <Link
+                                href="/auth"
+                                className="pointer-events-auto relative flex w-full items-center justify-center gap-3 rounded-2xl bg-color-malachite px-5 py-3 text-sm font-semibold text-black transition hover:bg-color-codgray hover:text-white sm:w-fit sm:text-base 2xl:text-base">
+                                <span className="whitespace-nowrap text-sm">Entrar</span>
+                            </Link>
+                        )}
                     </div>
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="navbar-burger lg:hidden" onClick={toggleNavOpened}>
+                <button
+                    type="button"
+                    aria-label="Abrir menu"
+                    aria-expanded={isNavOpen}
+                    aria-controls="mobile-navigation"
+                    className="lg:hidden"
+                    onClick={toggleNavOpened}>
                     <svg width="35" height="35" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect className="text-color-studio" width="32" height="32" rx="6" fill="currentColor"></rect>
+                        <rect className="text-color-malachite" width="32" height="32" rx="6" fill="currentColor"></rect>
                         <path
                             className="text-gray-300"
                             d="M7 12H25C25.2652 12 25.5196 11.8946 25.7071 11.7071C25.8946 11.5196 26 11.2652 26 11C26 10.7348 25.8946 10.4804 25.7071 10.2929C25.5196 10.1054 25.2652 10 25 10H7C6.73478 10 6.48043 10.1054 6.29289 10.2929C6.10536 10.4804 6 10.7348 6 11C6 11.2652 6.10536 11.5196 6.29289 11.7071C6.48043 11.8946 6.73478 12 7 12ZM25 15H7C6.73478 15 6.48043 15.1054 6.29289 15.2929C6.10536 15.4804 6 15.7348 6 16C6 16.2652 6.10536 16.5196 6.29289 16.7071C6.48043 16.8946 6.73478 17 7 17H25C25.2652 17 25.5196 16.8946 25.7071 16.7071C25.8946 16.5196 26 16.2652 26 16C26 15.7348 25.8946 15.4804 25.7071 15.2929C25.5196 15.1054 25.2652 15 25 15ZM25 20H7C6.73478 20 6.48043 20.1054 6.29289 20.2929C6.10536 20.4804 6 20.7348 6 21C6 21.2652 6.10536 21.5196 6.29289 21.7071C6.48043 21.8946 6.73478 22 7 22H25C25.2652 22 25.5196 21.8946 25.7071 21.7071C25.8946 21.5196 26 21.2652 26 21C26 20.7348 25.8946 20.4804 25.7071 20.2929C25.5196 20.1054 25.2652 20 25 20Z"
@@ -107,14 +163,16 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
             {/* Mobile Menu Overlay */}
             <div
                 onClick={() => setIsNavOpen(false)}
-                className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 ${
+                className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-200 lg:hidden ${
                     isNavOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
                 }`}
             />
 
             {/* Mobile Menu */}
             <div
-                className={`fixed bottom-0 left-0 top-0 z-50 w-4/6 max-w-xs transform bg-color-codgray transition-transform duration-300 ease-in-out ${
+                id="mobile-navigation"
+                inert={!isNavOpen}
+                className={`fixed inset-y-0 left-0 z-50 w-4/6 max-w-xs bg-color-codgray transition-transform duration-300 ease-in-out lg:hidden ${
                     isNavOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}>
                 <nav className="relative flex h-full flex-col justify-between overflow-y-auto p-6">
@@ -131,7 +189,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                                 <li key={`nav-mobile-${index}`}>
                                     {isLastItem ? (
                                         <Button
-                                            className="bg-color-denim hover:bg-color-denim rounded-md px-6 py-2 text-white"
+                                            className="rounded-lg bg-color-malachite px-6 py-2 text-black hover:bg-color-malachite"
                                             onClick={() => (window.location.href = link)}>
                                             {text}
                                         </Button>
@@ -146,7 +204,7 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                                                 const el = document.getElementById(id)
                                                 if (el) el.scrollIntoView({ behavior: 'smooth' })
                                             }}
-                                            className="block rounded-md px-4 py-3 font-medium text-gray-300 hover:bg-color-studio hover:text-white">
+                                            className="block rounded-md px-4 py-3 font-medium text-gray-300 hover:bg-color-woodsmoke hover:text-white">
                                             {text}
                                         </Link>
                                     )}
@@ -154,6 +212,13 @@ function NavigationHeader({ logo, navs, buttonLink }: NavigationHeaderProps) {
                             )
                         })}
                     </ul>
+
+                    <Link
+                        href={user ? '/dashboard' : '/auth'}
+                        onClick={() => setIsNavOpen(false)}
+                        className="mt-6 rounded-2xl bg-color-malachite px-5 py-3 text-center text-sm font-semibold text-black transition hover:opacity-90">
+                        {user ? 'Meu painel' : 'Entrar'}
+                    </Link>
 
                     {/* Close Button */}
                     <button className="absolute right-4 top-4 p-2" onClick={() => setIsNavOpen(false)}>
