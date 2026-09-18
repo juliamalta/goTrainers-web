@@ -87,7 +87,7 @@ export default function Home() {
                         img: '/images/template2.png',
                         tag: ['Alto Ticket', 'Champagne Gold'],
                         desc: 'Sofisticado, elegante e profissional. Fundo escuro, detalhes dourados e champagne, tipografia refinada, ideal para consultoria VIP de alto valor agregado.',
-                        link: '/templates/premium',
+                        link: '/template2',
                         buttonText: 'Visualizar template',
                     },
                     {

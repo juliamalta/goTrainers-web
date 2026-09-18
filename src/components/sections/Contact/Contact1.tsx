@@ -34,7 +34,7 @@ export function Contact1({ title, desc, link }: Contact3Props) {
 
                         {/* DESCRIÇÃO */}
                         {desc && (
-                            <p className="mt-7 max-w-2xl text-base font-light leading-relaxed text-color-clay md:text-lg">
+                            <p className="mt-7 max-w-2xl text-base font-light leading-relaxed text-color-sisal md:text-lg">
                                 {desc}
                             </p>
                         )}
