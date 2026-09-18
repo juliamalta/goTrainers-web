@@ -227,7 +227,6 @@ function getMediaAlt(
 
 function createInitialData(site: Site | null | undefined, templateImage: string): Template1Data {
     const template1 = site?.template1
-
     const defaults: Template1Data = {
         hero: {
             titlePrimary: 'PROFISSIONALISMO QUE GERA RESULTADOS',
@@ -446,6 +445,8 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     const [publishMessage, setPublishMessage] = React.useState('')
     const [publishError, setPublishError] = React.useState('')
     const [mobilePreviewOpen, setMobilePreviewOpen] = React.useState(false)
+
+    const formRef = React.useRef<HTMLDivElement | null>(null)
 
     const previewScrollRef = React.useRef<HTMLDivElement | null>(null)
     const previewSectionRefs = React.useRef<Array<HTMLDivElement | null>>([])
@@ -807,6 +808,23 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
     // NAVEGAÇÃO
     // ============================================================
 
+    React.useEffect(() => {
+        const timer = window.setTimeout(() => {
+            const element = formRef.current
+
+            if (!element) return
+
+            const top = element.getBoundingClientRect().top + window.scrollY - 16
+
+            window.scrollTo({
+                top: Math.max(0, top),
+                behavior: 'smooth',
+            })
+        }, 50)
+
+        return () => window.clearTimeout(timer)
+    }, [step])
+
     function nextStep() {
         if (step < steps.length - 1) {
             setStep((current) => current + 1)
@@ -818,7 +836,6 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
             setStep((current) => current - 1)
         }
     }
-
     // ============================================================
     // UPLOAD
     // ============================================================
@@ -1442,7 +1459,7 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                         FORMULÁRIO
                     ==================================================== */}
 
-                    <div className="rounded-2xl border border-white/10 bg-color-codgray p-6">
+                    <div ref={formRef} className="scroll-mt-4 rounded-2xl border border-white/10 bg-color-codgray p-6">
                         {/* ==================================================
                             ETAPA 1 — INFORMAÇÕES
                         ================================================== */}
