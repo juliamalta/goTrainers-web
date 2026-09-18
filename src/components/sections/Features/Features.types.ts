@@ -19,3 +19,18 @@ export interface Features2Props {
 export interface featuresData {
     title: string
 }
+
+export interface Features3Props {
+    titlePrimary?: string
+    title?: string | React.ReactNode
+    desc?: string
+    text1?: string
+    text2?: string
+    img?: string
+    features?: features3Data[]
+}
+export interface features3Data {
+    number?: string
+    title: string
+    desc: string
+}

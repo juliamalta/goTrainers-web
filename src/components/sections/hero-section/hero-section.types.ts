@@ -9,6 +9,8 @@ export type HeroProps = {
     desc: string
     button1text: string
     button2text?: string
+    cardTitle?: string
+    cardText?: string
     img?: string
     tag?: tagsData[]
 }

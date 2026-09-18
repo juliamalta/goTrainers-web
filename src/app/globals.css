@@ -472,6 +472,30 @@
         --clay-ash-800: #232d20;
         --clay-ash-900: #142013;
         --clay-ash-950: #080e07;
+
+        --saffron-50: #fefaec;
+        --saffron-100: #fcf1c9;
+        --saffron-200: #f9e28e;
+        --saffron-300: #f5c842; /* color */
+        --saffron-400: #f4b82b;
+        --saffron-500: #ed9813;
+        --saffron-600: #d2730d;
+        --saffron-700: #ae510f;
+        --saffron-800: #8d3f13;
+        --saffron-900: #743413;
+        --saffron-950: #431a05;
+
+        --color-sisal-50: #f9f7f3;
+        --color-sisal-100: #f1ebe3;
+        --color-sisal-200: #dfd3c3; /* color */
+        --color-sisal-300: #cebba3;
+        --color-sisal-400: #b99b7e;
+        --color-sisal-500: #ab8464;
+        --color-sisal-600: #9e7258;
+        --color-sisal-700: #835d4b;
+        --color-sisal-800: #6b4d41;
+        --color-sisal-900: #584036;
+        --color-sisal-950: #2e211c;
     }
     .dark {
         --background: 240 10% 3.9%;

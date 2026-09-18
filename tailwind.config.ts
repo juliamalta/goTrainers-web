@@ -94,6 +94,8 @@ const config: Config = {
                     malachite: 'var(--malachite-500)',
                     woodsmoke: 'var(--woodsmoke-900)',
                     clay: 'var(--clay-ash-300)',
+                    saffron: 'var(--saffron-300)',
+                    sisal: 'var( --color-sisal-200)',
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
