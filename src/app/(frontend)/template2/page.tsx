@@ -1,14 +1,5 @@
-import { HeroSection1 } from '@/components/sections/hero-section'
-
 import { FaStar, FaUsers } from 'react-icons/fa6'
 import { CiTimer } from 'react-icons/ci'
-
-import Cards2 from '@/components/sections/Cards/Card2'
-import Metrics1 from '@/components/sections/Metrics/Metrics1'
-import { Features2 } from '@/components/sections/Features/Features2'
-import { WhatsAppFloat } from '@/components/ui/whatsapp-float'
-import Cards5 from '@/components/sections/Cards/Card5'
-import Contact from '@/components/sections/Contact/Contact'
 import { HeroSection2 } from '@/components/sections/hero-section/hero-section2'
 import Metrics2 from '@/components/sections/Metrics/Metrics2'
 import Cards6 from '@/components/sections/Cards/Card6'

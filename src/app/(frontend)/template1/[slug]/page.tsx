@@ -73,9 +73,23 @@ export default async function SitePage({ params }: PageProps) {
         collection: 'sites',
 
         where: {
-            slug: {
-                equals: slug,
-            },
+            and: [
+                {
+                    slug: {
+                        equals: slug,
+                    },
+                },
+                {
+                    template: {
+                        equals: 'template-1',
+                    },
+                },
+                {
+                    published: {
+                        equals: true,
+                    },
+                },
+            ],
         },
 
         limit: 1,

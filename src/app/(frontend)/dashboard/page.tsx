@@ -1,7 +1,11 @@
 import { getPayload } from 'payload'
+
 import { redirect } from 'next/navigation'
+
 import config from '@/../payload.config'
+
 import { headers } from 'next/headers'
+
 import Cards4 from '@/components/sections/Cards/Card4'
 
 export default async function Dashboard() {
@@ -50,11 +54,11 @@ export default async function Dashboard() {
                         },
                         {
                             title: 'Template 2 — PREMIUM',
-                            img: '/images/templates.png',
+                            img: '/images/template2.png',
                             tag: ['Alto Ticket', 'Champagne Gold'],
                             desc: 'Sofisticado, elegante e profissional. Fundo escuro, detalhes dourados e champagne, tipografia refinada, ideal para consultoria VIP de alto valor agregado.',
-                            disabled: true,
-                            buttonText: 'Em construção',
+                            link: '/dashboard/customize?template=premium',
+                            buttonText: 'Escolher esse template',
                         },
                         {
                             title: 'Template 3 — CLEAN',

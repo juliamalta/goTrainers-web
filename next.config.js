@@ -51,17 +51,6 @@ const nextConfig = {
             },
         ]
     },
-
-    async rewrites() {
-        return {
-            beforeFiles: [
-                {
-                    source: '/personal/:slug',
-                    destination: '/template1/:slug',
-                },
-            ],
-        }
-    },
 }
 
 export default withPayload(nextConfig)

@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import Link from 'next/link'
 
 import Cards2 from '@/components/sections/Cards/Card2'
 import Cards5 from '@/components/sections/Cards/Card5'
@@ -1396,14 +1397,24 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                     CABEÇALHO
                 ======================================================== */}
 
-                <div className="mb-8">
-                    <p className="text-sm font-semibold uppercase text-color-malachite">Vamos começar?</p>
+                <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+                    <div>
+                        <p className="text-sm font-semibold uppercase text-color-malachite">Vamos começar?</p>
 
-                    <h1 className="mt-2 text-3xl font-semibold text-white">Configure seu site</h1>
+                        <h1 className="mt-2 text-3xl font-semibold text-white">Configure seu site</h1>
 
-                    <p className="mt-2 text-sm text-color-clay">
-                        Personalize seu {templateName} e veja o resultado em tempo real.
-                    </p>
+                        <p className="mt-2 text-sm text-color-clay">
+                            Personalize seu {templateName} e veja o resultado em tempo real.
+                        </p>
+                    </div>
+
+                    {!site && (
+                        <Button
+                            asChild
+                            className="bg-color-malachite font-semibold text-black hover:bg-color-malachite hover:text-black hover:brightness-110">
+                            <Link href="/dashboard">Voltar para templates</Link>
+                        </Button>
+                    )}
                 </div>
 
                 {/* ========================================================

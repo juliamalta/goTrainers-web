@@ -1,10 +1,11 @@
 import { headers } from 'next/headers'
-
+import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 
 import config from '@payload-config'
 
 import CustomizeSite from '@/components/dashboard/CustomizeSite'
+import CustomizeSite2 from '@/components/dashboard/CustomizeSite2'
 
 interface CustomizePageProps {
     searchParams: Promise<{
@@ -14,7 +15,6 @@ interface CustomizePageProps {
 
 export default async function CustomizePage({ searchParams }: CustomizePageProps) {
     const params = await searchParams
-
     const template = params.template || 'fitness'
 
     const payload = await getPayload({
@@ -25,6 +25,10 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
         headers: await headers(),
     })
 
+    if (!user) {
+        redirect('/auth/login')
+    }
+
     const templates = {
         fitness: {
             name: 'Template 1 — FITNESS',
@@ -34,7 +38,7 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
 
         premium: {
             name: 'Template 2 — PREMIUM',
-            image: '/images/templates.png',
+            image: '/images/imag2.png',
             value: 'template-2',
         },
 
@@ -45,33 +49,57 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
         },
     }
 
-    const selectedTemplate = templates[template as keyof typeof templates] || templates.fitness
+    const selectedTemplate = templates[template as keyof typeof templates] ?? templates.fitness
 
-    let site = null
+    const sites = await payload.find({
+        collection: 'sites',
 
-    if (user) {
-        const sites = await payload.find({
-            collection: 'sites',
-            where: {
-                user: {
-                    equals: user.id,
-                },
-                template: {
-                    equals: selectedTemplate.value,
-                },
+        where: {
+            user: {
+                equals: user.id,
             },
-            limit: 1,
-            depth: 1,
-        })
+        },
 
-        site = sites.docs[0] || null
+        limit: 1,
+        // As imagens ficam dentro de grupos do template. Carregamos a
+        // relação de Media para exibir o arquivo que o usuário enviou ao reabrir o editor.
+        depth: 2,
+    })
+
+    const site = sites.docs[0] ?? null
+
+    // ============================================================
+    // TEMPLATE 2 — PREMIUM
+    // ============================================================
+
+    if (selectedTemplate.value === 'template-2') {
+        return (
+            <CustomizeSite2
+                templateName={selectedTemplate.name}
+                templateImage={selectedTemplate.image}
+                userName={user.name || ''}
+                site={site}
+            />
+        )
     }
+
+    // ============================================================
+    // TEMPLATE 3 — CLEAN
+    // ============================================================
+
+    if (selectedTemplate.value === 'template-3') {
+        redirect('/dashboard')
+    }
+
+    // ============================================================
+    // TEMPLATE 1 — FITNESS
+    // ============================================================
 
     return (
         <CustomizeSite
             templateName={selectedTemplate.name}
             templateImage={selectedTemplate.image}
-            userName={user?.name || ''}
+            userName={user.name || ''}
             site={site}
         />
     )

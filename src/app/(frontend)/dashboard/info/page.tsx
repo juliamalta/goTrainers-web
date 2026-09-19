@@ -52,6 +52,7 @@ export default function DashboardInfo() {
                 setSite(userSite)
             } catch (err) {
                 console.error(err)
+
                 setError('Não foi possível carregar os dados do seu site.')
             } finally {
                 setLoading(false)
@@ -63,7 +64,14 @@ export default function DashboardInfo() {
 
     const siteUrl = site ? `/personal/${site.slug}` : '/'
 
-    const templateName = site?.template === 'template-1' ? 'Template 1' : site?.template || '—'
+    const templateName =
+        site?.template === 'template-1'
+            ? 'Template 1'
+            : site?.template === 'template-2'
+              ? 'Template 2'
+              : site?.template === 'template-3'
+                ? 'Template 3'
+                : site?.template || '—'
 
     const status = site?.published ? 'Online' : 'Rascunho'
 
@@ -83,7 +91,10 @@ export default function DashboardInfo() {
     function handleEditSite() {
         if (!site) return
 
-        router.push(`/dashboard/customize?template=${site.template}`)
+        const templateParam =
+            site.template === 'template-2' ? 'premium' : site.template === 'template-3' ? 'clean' : 'fitness'
+
+        router.push(`/dashboard/customize?template=${templateParam}`)
     }
 
     async function handleDeleteSite() {
@@ -165,7 +176,9 @@ export default function DashboardInfo() {
                                 />
 
                                 <span
-                                    className={`text-sm ${site?.published ? 'text-color-malachite' : 'text-yellow-500'}`}>
+                                    className={`text-sm ${
+                                        site?.published ? 'text-color-malachite' : 'text-yellow-500'
+                                    }`}>
                                     {loading ? 'Carregando...' : status}
                                 </span>
                             </div>
@@ -210,7 +223,9 @@ export default function DashboardInfo() {
                             <p className="text-xs text-zinc-500">STATUS</p>
 
                             <p
-                                className={`mt-2 font-medium ${site?.published ? 'text-color-malachite' : 'text-yellow-500'}`}>
+                                className={`mt-2 font-medium ${
+                                    site?.published ? 'text-color-malachite' : 'text-yellow-500'
+                                }`}>
                                 {loading ? '—' : status}
                             </p>
                         </div>

@@ -17,9 +17,10 @@ export interface UserMenuProps {
     hasPublishedSite: boolean
     siteUrl?: string
     dashboardHref?: string
+    customizeHref?: string
 }
 
-export default function UserMenu({ user, hasPublishedSite, siteUrl, dashboardHref }: UserMenuProps) {
+export default function UserMenu({ user, hasPublishedSite, siteUrl, dashboardHref, customizeHref }: UserMenuProps) {
     const [open, setOpen] = useState(false)
     const [loggingOut, setLoggingOut] = useState(false)
 
@@ -158,7 +159,7 @@ export default function UserMenu({ user, hasPublishedSite, siteUrl, dashboardHre
 
                         {/* PERSONALIZAR */}
                         <Link
-                            href="/dashboard/customize"
+                            href={customizeHref || '/dashboard/customize'}
                             onClick={() => setOpen(false)}
                             className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white transition hover:bg-color-woodsmoke hover:text-color-malachite">
                             <LayoutDashboard size={17} />

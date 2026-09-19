@@ -3,11 +3,17 @@
 import { ExternalLink, LayoutDashboard } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 import UserMenu, { type UserMenuProps } from './UserMenu'
 
-export default function NavigationHeader2({ user, hasPublishedSite, siteUrl, dashboardHref }: UserMenuProps) {
+export default function NavigationHeader2({ user, hasPublishedSite, siteUrl, dashboardHref, customizeHref }: UserMenuProps) {
     const finalDashboardHref = dashboardHref || (hasPublishedSite ? '/dashboard/info' : '/dashboard')
+    const searchParams = useSearchParams()
+    const selectedTemplate = searchParams.get('template')
+    const currentCustomizeHref = selectedTemplate
+        ? `/dashboard/customize?template=${encodeURIComponent(selectedTemplate)}`
+        : customizeHref || '/dashboard/customize'
 
     return (
         <section className="sticky top-0 z-30 bg-color-codgray">
@@ -39,7 +45,7 @@ export default function NavigationHeader2({ user, hasPublishedSite, siteUrl, das
                         {/* PERSONALIZAR */}
                         <li>
                             <Link
-                                href="/dashboard/customize"
+                                href={currentCustomizeHref}
                                 className="text-base text-white transition hover:text-color-malachite">
                                 Personalizar
                             </Link>
@@ -71,6 +77,7 @@ export default function NavigationHeader2({ user, hasPublishedSite, siteUrl, das
                     hasPublishedSite={hasPublishedSite}
                     siteUrl={siteUrl}
                     dashboardHref={dashboardHref}
+                    customizeHref={currentCustomizeHref}
                 />
             </nav>
         </section>

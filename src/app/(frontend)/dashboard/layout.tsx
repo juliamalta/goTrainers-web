@@ -65,11 +65,18 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
      * → /dashboard
      */
     let dashboardHref = '/dashboard'
+    let customizeHref = '/dashboard/customize'
+
+    if (site?.template === 'template-1') {
+        customizeHref = '/dashboard/customize?template=fitness'
+    } else if (site?.template === 'template-2') {
+        customizeHref = '/dashboard/customize?template=premium'
+    }
 
     if (hasPublishedSite) {
         dashboardHref = '/dashboard/info'
     } else if (site?.template) {
-        dashboardHref = `/dashboard/customize?template=${encodeURIComponent(String(site.template))}`
+        dashboardHref = customizeHref
     }
 
     return (
@@ -82,6 +89,7 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
                 hasPublishedSite={hasPublishedSite}
                 siteUrl={siteUrl}
                 dashboardHref={dashboardHref}
+                customizeHref={customizeHref}
             />
 
             {children}
