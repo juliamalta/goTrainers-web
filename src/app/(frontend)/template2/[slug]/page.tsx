@@ -185,6 +185,7 @@ export default async function Home({ params }: PageProps) {
                             contact.desc ??
                             'Treinamento personalizado, estratégia e acompanhamento exclusivo para quem busca resultados de alta performance sem abrir mão do conforto e discrição.'
                         }
+                        buttontext={contact.buttontext ?? 'COMECE SUA TRANSFORMAÇÃO'}
                         link={contact.link ?? ''}
                     />
                 )}

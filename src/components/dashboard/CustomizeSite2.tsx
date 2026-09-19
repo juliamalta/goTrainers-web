@@ -421,7 +421,12 @@ const SitePreview = React.memo(function SitePreview({ data, heroPreview, aboutPr
                 <Testimonials1 title={data.testimonials.title} testimonial={data.testimonials.cards} />
             )}
 
-            <Contact1 title={data.contact.title} desc={data.contact.desc} link={data.contact.link} />
+            <Contact1
+                title={data.contact.title}
+                desc={data.contact.desc}
+                buttontext={data.contact.buttontext}
+                link={data.contact.link}
+            />
         </div>
     )
 })

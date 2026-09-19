@@ -7,10 +7,14 @@ import { Button } from '@/components/ui/button'
 interface Contact3Props {
     title?: string
     desc?: string
+    buttontext?: string
     link?: string
 }
 
-export function Contact1({ title, desc, link }: Contact3Props) {
+export function Contact1({ title, desc, buttontext, link }: Contact3Props) {
+    const contactLink = link?.trim() || '#contato'
+    const buttonLabel = buttontext?.trim() || 'Falar com o personal'
+
     return (
         <section id="contato" className="bg-[#0C0D0D] px-4 py-16 md:px-6 md:py-24">
             <div className="container mx-auto">
@@ -40,20 +44,18 @@ export function Contact1({ title, desc, link }: Contact3Props) {
                         )}
 
                         {/* BOTÃO */}
-                        {link && (
-                            <Button
-                                asChild
-                                className="hover:bg-color-saffron/90 mt-9 h-14 rounded-2xl bg-color-saffron px-8 text-xs font-semibold uppercase tracking-[0.1em] text-black md:px-10">
-                                <a
-                                    href={link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-3">
-                                    <MessageSquareText size={17} />
-                                    Falar com o personal
-                                </a>
-                            </Button>
-                        )}
+                        <Button
+                            asChild
+                            className="hover:bg-color-saffron/90 mt-9 h-14 rounded-2xl bg-color-saffron px-8 text-xs font-semibold uppercase tracking-[0.1em] text-black md:px-10">
+                            <a
+                                href={contactLink}
+                                target={link?.trim() ? '_blank' : undefined}
+                                rel={link?.trim() ? 'noopener noreferrer' : undefined}
+                                className="flex items-center gap-3">
+                                <MessageSquareText size={17} />
+                                {buttonLabel}
+                            </a>
+                        </Button>
 
                         {/* TEXTO INFERIOR */}
                         <p className="mt-6 text-xs text-white md:text-sm">
