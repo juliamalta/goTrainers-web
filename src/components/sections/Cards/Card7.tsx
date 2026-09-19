@@ -18,7 +18,9 @@ function Card1({ cards, title, desc }: CardSectionProps) {
                             Processo Estruturado
                         </span>
                     </div>
-                    <p className="text-3xl font-semibold tracking-tight text-color-forest sm:text-4xl">{title}</p>
+                    <h2 className="font-serif text-4xl font-normal leading-[1.08] tracking-[-0.025em] text-color-forest sm:text-5xl lg:text-6xl">
+                        {title}
+                    </h2>
 
                     {desc && <p className="mt-4 text-sm leading-6 text-black sm:text-base">{desc}</p>}
                 </div>

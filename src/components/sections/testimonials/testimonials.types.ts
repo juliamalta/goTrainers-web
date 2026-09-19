@@ -1,10 +1,12 @@
-export interface testimonialData {
-    desc: string
+export interface TestimonialData {
     name: string
-    type: string
+    type?: string
+    desc: string
+    rating?: number
+    avatar?: string
 }
 
 export type TestimonialProps = {
     title: string
-    testimonial: testimonialData[]
+    testimonial: TestimonialData[]
 }

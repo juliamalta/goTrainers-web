@@ -99,7 +99,9 @@ export function Forms1({ title, desc }: FormsProps) {
                     </p>
                 </div>
 
-                <h2 className="mt-3 font-serif text-4xl leading-none text-color-forest sm:text-5xl">{title}</h2>
+                <h2 className="mt-3 font-serif text-4xl font-normal leading-[1.08] tracking-[-0.025em] text-color-forest sm:text-5xl lg:text-6xl">
+                    {title}
+                </h2>
 
                 <div className="mt-7 h-1.5 overflow-hidden rounded-full bg-color-softgray">
                     <div

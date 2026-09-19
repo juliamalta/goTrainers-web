@@ -1,3 +1,5 @@
+import React from 'react'
+
 export interface FeaturesProps {
     titlePrimary?: string
     title: string | React.ReactNode
@@ -33,4 +35,5 @@ export interface features3Data {
     number?: string
     title: string
     desc: string
+    icon?: React.JSX.Element
 }
