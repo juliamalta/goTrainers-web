@@ -6,6 +6,18 @@ import config from '../../../../payload.config'
 
 export async function POST(request: NextRequest) {
     try {
+        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+            return NextResponse.json(
+                {
+                    message:
+                        'O armazenamento permanente de imagens não está configurado. Defina BLOB_READ_WRITE_TOKEN antes de enviar uma imagem.',
+                },
+                {
+                    status: 503,
+                }
+            )
+        }
+
         const payload = await getPayload({
             config,
         })

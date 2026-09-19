@@ -22,6 +22,7 @@ export default buildConfig({
     plugins: [
         vercelBlobStorage({
             enabled: true,
+            addRandomSuffix: true,
 
             collections: {
                 media: true,

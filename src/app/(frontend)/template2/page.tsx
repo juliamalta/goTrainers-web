@@ -6,6 +6,7 @@ import Cards6 from '@/components/sections/Cards/Card6'
 import { Features3 } from '@/components/sections/Features/Features3'
 import Testimonials1 from '@/components/sections/testimonials/testimonials1'
 import { Contact1 } from '@/components/sections/Contact/Contact1'
+import heroImage from '../../../../public/images/imag2.png'
 
 export default function Home() {
     return (
@@ -23,7 +24,7 @@ export default function Home() {
                     desc="Metodologia científica individualizada, privacidade absoluta e acompanhamento sob medida para quem valoriza tempo, estética e saúde no mais alto nível."
                     button1text="COMECE SUA TRANSFORMAÇÃO"
                     button2text="CONHEÇA O MÉTODO"
-                    img="/images/imag2.png"
+                    img={heroImage}
                     tag={[
                         {
                             icon: <FaUsers color="#F5C842" size={20} />,

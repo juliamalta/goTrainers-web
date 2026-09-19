@@ -1,4 +1,5 @@
 import type React from 'react'
+import type { StaticImageData } from 'next/image'
 export type tagsData = {
     icon: React.JSX.Element
     text: string
@@ -11,6 +12,6 @@ export type HeroProps = {
     button2text?: string
     cardTitle?: string
     cardText?: string
-    img?: string
+    img?: string | StaticImageData
     tag?: tagsData[]
 }

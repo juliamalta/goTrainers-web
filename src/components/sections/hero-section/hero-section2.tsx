@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 import { HyperText } from '@/components/magicui/hyper'
 import { InteractiveHoverButton } from '@/components/magicui/Interactive-HoverButton'
@@ -19,6 +20,13 @@ export function HeroSection2({
     cardText,
     cardTitle,
 }: HeroProps) {
+    const fallbackImage = '/images/imag2.png'
+    const [imageSrc, setImageSrc] = useState(img ?? fallbackImage)
+
+    useEffect(() => {
+        setImageSrc(img ?? fallbackImage)
+    }, [img])
+
     return (
         <section id="inicio" className="relative mx-auto overflow-hidden px-6 py-20 sm:px-8 sm:py-24 lg:px-12">
             <div className="container relative z-10 mx-auto">
@@ -80,11 +88,12 @@ export function HeroSection2({
                             {/* IMAGEM */}
                             <div className="absolute inset-0 overflow-hidden">
                                 <Image
-                                    src={img!}
+                                    src={imageSrc}
                                     alt="Personal trainer em academia"
                                     fill
                                     priority
                                     className="object-cover object-center"
+                                    onError={() => setImageSrc(fallbackImage)}
                                 />
 
                                 {/* Escurecimento inferior */}
