@@ -70,34 +70,23 @@ export default async function Home({ params }: PageProps) {
     const testimonials = template.testimonials
     const contact = template.contact
 
-    const heroImage =
-        typeof hero?.img === 'object' && hero.img?.url
-            ? hero.img.url
-            : '/images/imag2.png'
+    const heroImage = typeof hero?.img === 'object' && hero.img?.url ? hero.img.url : '/images/imag2.png'
 
-    const aboutImage =
-        typeof about?.img === 'object' && about.img?.url
-            ? about.img.url
-            : '/images/imag3.png'
+    const aboutImage = typeof about?.img === 'object' && about.img?.url ? about.img.url : '/images/imag3.png'
 
     return (
         <main className="min-h-screen bg-[#0C0F0F]">
             <div>
                 {/* HERO */}
                 <HeroSection2
-                    titlePrimary={
-                        hero?.titlePrimary ??
-                        'PERSONAL TRAINING EXCLUSIVO'
-                    }
+                    titlePrimary={hero?.titlePrimary ?? 'PERSONAL TRAINING EXCLUSIVO'}
                     title={
                         <>
-                            {hero?.title ??
-                                'Transformação Física Performance para'}
+                            {hero?.title ?? 'Transformação Física Performance para'}
 
                             <span className="font-medium italic text-color-saffron">
                                 {' '}
-                                {hero?.titleHighlight ??
-                                    'Líderes de Alto Padrão.'}
+                                {hero?.titleHighlight ?? 'Líderes de Alto Padrão.'}
                             </span>
                         </>
                     }
@@ -105,55 +94,25 @@ export default async function Home({ params }: PageProps) {
                         hero?.desc ??
                         'Metodologia científica individualizada, privacidade absoluta e acompanhamento sob medida para quem valoriza tempo, estética e saúde no mais alto nível.'
                     }
-                    button1text={
-                        hero?.button1text ??
-                        'COMECE SUA TRANSFORMAÇÃO'
-                    }
-                    button2text={
-                        hero?.button2text ?? 'CONHEÇA O MÉTODO'
-                    }
+                    button1text={hero?.button1text ?? 'COMECE SUA TRANSFORMAÇÃO'}
+                    button2text={hero?.button2text ?? 'CONHEÇA O MÉTODO'}
                     img={heroImage}
                     tag={[
                         {
-                            icon: (
-                                <FaUsers
-                                    color="#F5C842"
-                                    size={20}
-                                />
-                            ),
-                            text:
-                                hero?.tags?.[0]?.text ??
-                                'Vagas exclusivas',
+                            icon: <FaUsers color="#F5C842" size={20} />,
+                            text: hero?.tags?.[0]?.text ?? 'Vagas exclusivas',
                         },
                         {
-                            icon: (
-                                <FaStar
-                                    color="#F5C842"
-                                    size={20}
-                                />
-                            ),
-                            text:
-                                hero?.tags?.[1]?.text ??
-                                'Apenas 8 clientes ativos',
+                            icon: <FaStar color="#F5C842" size={20} />,
+                            text: hero?.tags?.[1]?.text ?? 'Apenas 8 clientes ativos',
                         },
                         {
-                            icon: (
-                                <CiTimer
-                                    color="#F5C842"
-                                    size={20}
-                                />
-                            ),
-                            text:
-                                hero?.tags?.[2]?.text ??
-                                'Acompanhamento individual',
+                            icon: <CiTimer color="#F5C842" size={20} />,
+                            text: hero?.tags?.[2]?.text ?? 'Acompanhamento individual',
                         },
                     ]}
-                    cardText={
-                        hero?.cardText ?? 'Apenas 8 Clientes Ativos'
-                    }
-                    cardTitle={
-                        hero?.cardTitle ?? 'VAGAS EXCLUSIVAS'
-                    }
+                    cardText={hero?.cardText ?? 'Apenas 8 Clientes Ativos'}
+                    cardTitle={hero?.cardTitle ?? 'VAGAS EXCLUSIVAS'}
                 />
 
                 {/* MÉTRICAS */}
@@ -167,38 +126,25 @@ export default async function Home({ params }: PageProps) {
                 {/* SERVIÇOS */}
                 {services && (
                     <Cards6
-                        title={
-                            services.title ??
-                            'Treinamento pensado para você.'
-                        }
+                        title={services.title ?? 'Treinamento pensado para você.'}
                         desc={
                             services.desc ??
                             'Cada acompanhamento é minuciosamente calibrado para a sua rotina, objetivos biomecânicos e ritmo de vida executivo.'
                         }
-                        cards={(services.cards ?? []).map(
-                            (card, index) => ({
-                                desc: card.desc ?? '',
-                                title: card.title ?? '',
-                                text: card.text ?? '',
-                                price: card.price ?? '',
+                        cards={(services.cards ?? []).map((card, index) => ({
+                            desc: card.desc ?? '',
+                            title: card.title ?? '',
+                            text: card.text ?? '',
+                            price: card.price ?? '',
 
-                                option: (card.option ?? []).map(
-                                    (item) => item.text ?? '',
-                                ),
+                            option: (card.option ?? []).map((item) => item.text ?? ''),
 
-                                link: card.link ?? '',
+                            link: card.link ?? '',
 
-                                iconBgColor:
-                                    index === 0
-                                        ? '#D1FAE5'
-                                        : index === 1
-                                          ? '#CCFBF1'
-                                          : '#DCFCE7',
+                            iconBgColor: index === 0 ? '#D1FAE5' : index === 1 ? '#CCFBF1' : '#DCFCE7',
 
-                                featured:
-                                    card.featured ?? false,
-                            }),
-                        )}
+                            featured: card.featured ?? false,
+                        }))}
                     />
                 )}
 
@@ -206,34 +152,24 @@ export default async function Home({ params }: PageProps) {
                 {about && (
                     <Features3
                         img={aboutImage}
-                        title={
-                            about.title ??
-                            'Experiência, dedicação e compromisso com você'
-                        }
+                        title={about.title ?? 'Experiência, dedicação e compromisso com você'}
                         desc={
                             about.desc ??
                             'Meu objetivo é oferecer um acompanhamento de alto nível, com estratégia, atenção individual e ajustes constantes para alcançar resultados consistentes.'
                         }
-                        features={(about.features ?? []).map(
-                            (feature) => ({
-                                number: feature.number ?? '',
-                                title: feature.title ?? '',
-                                desc: feature.desc ?? '',
-                            }),
-                        )}
+                        features={(about.features ?? []).map((feature) => ({
+                            number: feature.number ?? '',
+                            title: feature.title ?? '',
+                            desc: feature.desc ?? '',
+                        }))}
                     />
                 )}
 
                 {/* DEPOIMENTOS */}
                 {testimonials?.enabled !== false && (
                     <Testimonials1
-                        title={
-                            testimonials?.title ??
-                            'Resultados que falam por si.'
-                        }
-                        testimonial={(
-                            testimonials?.cards ?? []
-                        ).map((testimonial) => ({
+                        title={testimonials?.title ?? 'Resultados que falam por si.'}
+                        testimonial={(testimonials?.cards ?? []).map((testimonial) => ({
                             name: testimonial.name ?? '',
                             desc: testimonial.desc ?? '',
                             type: testimonial.type ?? '',
@@ -244,10 +180,7 @@ export default async function Home({ params }: PageProps) {
                 {/* CONTATO */}
                 {contact && (
                     <Contact1
-                        title={
-                            contact.title ??
-                            'Seu próximo nível começa agora.'
-                        }
+                        title={contact.title ?? 'Seu próximo nível começa agora.'}
                         desc={
                             contact.desc ??
                             'Treinamento personalizado, estratégia e acompanhamento exclusivo para quem busca resultados de alta performance sem abrir mão do conforto e discrição.'

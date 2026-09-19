@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
                       user: {
                           equals: authResult.user.id,
                       },
-            },
+                  },
             limit: 1,
             depth: 2,
         })

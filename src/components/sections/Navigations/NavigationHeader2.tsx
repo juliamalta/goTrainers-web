@@ -7,7 +7,13 @@ import { useSearchParams } from 'next/navigation'
 
 import UserMenu, { type UserMenuProps } from './UserMenu'
 
-export default function NavigationHeader2({ user, hasPublishedSite, siteUrl, dashboardHref, customizeHref }: UserMenuProps) {
+export default function NavigationHeader2({
+    user,
+    hasPublishedSite,
+    siteUrl,
+    dashboardHref,
+    customizeHref,
+}: UserMenuProps) {
     const finalDashboardHref = dashboardHref || (hasPublishedSite ? '/dashboard/info' : '/dashboard')
     const searchParams = useSearchParams()
     const selectedTemplate = searchParams.get('template')

@@ -116,8 +116,7 @@ export const Sites: CollectionConfig = {
             admin: {
                 position: 'sidebar',
                 placeholder: 'Exemplo: lucas-andrade',
-                description:
-                    'Seu endereço ficará parecido com /personal/lucas-andrade',
+                description: 'Seu endereço ficará parecido com /personal/lucas-andrade',
             },
         },
 
@@ -130,8 +129,7 @@ export const Sites: CollectionConfig = {
 
             admin: {
                 position: 'sidebar',
-                description:
-                    'Enquanto estiver desativado, o site ficará apenas como prévia.',
+                description: 'Enquanto estiver desativado, o site ficará apenas como prévia.',
             },
         },
 
@@ -146,8 +144,7 @@ export const Sites: CollectionConfig = {
             label: 'Template 1',
 
             admin: {
-                condition: (_, siblingData) =>
-                    siblingData?.template === 'template-1',
+                condition: (_, siblingData) => siblingData?.template === 'template-1',
             },
 
             fields: [
@@ -162,8 +159,7 @@ export const Sites: CollectionConfig = {
                     label: 'Apresentação',
 
                     admin: {
-                        description:
-                            'Já deixamos essa parte pronta. Altere apenas o que quiser.',
+                        description: 'Já deixamos essa parte pronta. Altere apenas o que quiser.',
                     },
 
                     fields: [
@@ -172,12 +168,10 @@ export const Sites: CollectionConfig = {
                             type: 'text',
                             required: false,
                             label: 'Texto superior',
-                            defaultValue:
-                                'PROFISSIONALISMO QUE GERA RESULTADOS',
+                            defaultValue: 'PROFISSIONALISMO QUE GERA RESULTADOS',
 
                             admin: {
-                                description:
-                                    'Pequeno texto que aparece acima do título principal.',
+                                description: 'Pequeno texto que aparece acima do título principal.',
                             },
                         },
 
@@ -189,8 +183,7 @@ export const Sites: CollectionConfig = {
                             defaultValue: 'Transforme seu objetivo em',
 
                             admin: {
-                                description:
-                                    'Essa será uma das primeiras mensagens vistas no seu site.',
+                                description: 'Essa será uma das primeiras mensagens vistas no seu site.',
                             },
                         },
 
@@ -202,8 +195,7 @@ export const Sites: CollectionConfig = {
                             defaultValue: 'resultados reais.',
 
                             admin: {
-                                description:
-                                    'Essa parte aparece destacada na cor principal do template.',
+                                description: 'Essa parte aparece destacada na cor principal do template.',
                             },
                         },
 
@@ -322,8 +314,7 @@ export const Sites: CollectionConfig = {
                     label: 'Seus serviços',
 
                     admin: {
-                        description:
-                            'Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.',
+                        description: 'Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.',
                     },
 
                     fields: [
@@ -340,8 +331,7 @@ export const Sites: CollectionConfig = {
                             type: 'textarea',
                             required: false,
                             label: 'Descrição',
-                            defaultValue:
-                                'Conheça as soluções que ofereço e escolha a opção ideal para você',
+                            defaultValue: 'Conheça as soluções que ofereço e escolha a opção ideal para você',
                         },
 
                         {
@@ -508,8 +498,7 @@ export const Sites: CollectionConfig = {
                             type: 'text',
                             required: false,
                             label: 'Título',
-                            defaultValue:
-                                'Experiência, dedicação e compromisso com você',
+                            defaultValue: 'Experiência, dedicação e compromisso com você',
                         },
 
                         {
@@ -723,8 +712,7 @@ export const Sites: CollectionConfig = {
                             type: 'textarea',
                             required: false,
                             label: 'Mensagem automática',
-                            defaultValue:
-                                'Olá! Vi seu site e gostaria de saber mais sobre seus serviços.',
+                            defaultValue: 'Olá! Vi seu site e gostaria de saber mais sobre seus serviços.',
                         },
                     ],
                 },
@@ -742,8 +730,7 @@ export const Sites: CollectionConfig = {
             label: 'Template 2 - Premium',
 
             admin: {
-                condition: (_, siblingData) =>
-                    siblingData?.template === 'template-2',
+                condition: (_, siblingData) => siblingData?.template === 'template-2',
             },
 
             fields: [
@@ -758,8 +745,7 @@ export const Sites: CollectionConfig = {
                     label: 'Apresentação',
 
                     admin: {
-                        description:
-                            'Personalize a apresentação principal do seu site.',
+                        description: 'Personalize a apresentação principal do seu site.',
                     },
 
                     fields: [
@@ -776,8 +762,7 @@ export const Sites: CollectionConfig = {
                             type: 'textarea',
                             required: false,
                             label: 'Título principal',
-                            defaultValue:
-                                'Transformação Física Performance para',
+                            defaultValue: 'Transformação Física Performance para',
                         },
 
                         {
@@ -847,8 +832,7 @@ export const Sites: CollectionConfig = {
 
                             admin: {
                                 initCollapsed: false,
-                                description:
-                                    'Os ícones são definidos automaticamente pelo template.',
+                                description: 'Os ícones são definidos automaticamente pelo template.',
                             },
 
                             fields: [
@@ -911,8 +895,7 @@ export const Sites: CollectionConfig = {
 
                     admin: {
                         initCollapsed: false,
-                        description:
-                            'Personalize os quatro números apresentados no site.',
+                        description: 'Personalize os quatro números apresentados no site.',
                     },
 
                     fields: [
@@ -1050,8 +1033,7 @@ export const Sites: CollectionConfig = {
                                     label: 'Categoria',
 
                                     admin: {
-                                        placeholder:
-                                            'Exemplo: MÓDULO PRESENCIAL',
+                                        placeholder: 'Exemplo: MÓDULO PRESENCIAL',
                                     },
                                 },
 
@@ -1076,8 +1058,7 @@ export const Sites: CollectionConfig = {
                                     label: 'Preço',
 
                                     admin: {
-                                        placeholder:
-                                            'Exemplo: R$ 1.490/mês',
+                                        placeholder: 'Exemplo: R$ 1.490/mês',
                                     },
                                 },
 
@@ -1109,8 +1090,7 @@ export const Sites: CollectionConfig = {
                                     label: 'Link do serviço',
 
                                     admin: {
-                                        description:
-                                            'Opcional. Se vazio, você pode usar o WhatsApp principal.',
+                                        description: 'Opcional. Se vazio, você pode usar o WhatsApp principal.',
                                     },
                                 },
 
@@ -1145,8 +1125,7 @@ export const Sites: CollectionConfig = {
                             label: 'Sua foto',
 
                             admin: {
-                                description:
-                                    'Opcional. Se nenhuma foto for enviada, usamos a imagem padrão.',
+                                description: 'Opcional. Se nenhuma foto for enviada, usamos a imagem padrão.',
                             },
                         },
 
@@ -1155,8 +1134,7 @@ export const Sites: CollectionConfig = {
                             type: 'text',
                             required: false,
                             label: 'Título',
-                            defaultValue:
-                                'Experiência, dedicação e compromisso com você',
+                            defaultValue: 'Experiência, dedicação e compromisso com você',
                         },
 
                         {
@@ -1200,8 +1178,7 @@ export const Sites: CollectionConfig = {
 
                             admin: {
                                 initCollapsed: false,
-                                description:
-                                    'Os quatro diferenciais aparecem numerados no Template Premium.',
+                                description: 'Os quatro diferenciais aparecem numerados no Template Premium.',
                             },
 
                             fields: [
@@ -1290,8 +1267,7 @@ export const Sites: CollectionConfig = {
 
                             admin: {
                                 initCollapsed: false,
-                                description:
-                                    'Substitua os exemplos pelos depoimentos reais dos seus clientes.',
+                                description: 'Substitua os exemplos pelos depoimentos reais dos seus clientes.',
                             },
 
                             fields: [
@@ -1316,8 +1292,7 @@ export const Sites: CollectionConfig = {
                                     label: 'Cargo / informação',
 
                                     admin: {
-                                        placeholder:
-                                            'Exemplo: Diretor Executivo & Aluno há 2 anos',
+                                        placeholder: 'Exemplo: Diretor Executivo & Aluno há 2 anos',
                                     },
                                 },
                             ],
@@ -1341,8 +1316,7 @@ export const Sites: CollectionConfig = {
                             type: 'textarea',
                             required: false,
                             label: 'Título',
-                            defaultValue:
-                                'Seu próximo nível começa agora.',
+                            defaultValue: 'Seu próximo nível começa agora.',
                         },
 
                         {
@@ -1369,8 +1343,7 @@ export const Sites: CollectionConfig = {
                             label: 'Link',
 
                             admin: {
-                                description:
-                                    'Opcional. O botão também pode utilizar o WhatsApp principal do site.',
+                                description: 'Opcional. O botão também pode utilizar o WhatsApp principal do site.',
                             },
                         },
                     ],
@@ -1403,8 +1376,7 @@ export const Sites: CollectionConfig = {
 
                             admin: {
                                 placeholder: 'Exemplo: 5531999999999',
-                                description:
-                                    'Digite código do país + DDD + número, sem espaços ou símbolos.',
+                                description: 'Digite código do país + DDD + número, sem espaços ou símbolos.',
                             },
                         },
 
@@ -1413,8 +1385,7 @@ export const Sites: CollectionConfig = {
                             type: 'textarea',
                             required: false,
                             label: 'Mensagem automática',
-                            defaultValue:
-                                'Olá! Gostaria de conhecer seu acompanhamento.',
+                            defaultValue: 'Olá! Gostaria de conhecer seu acompanhamento.',
                         },
                     ],
                 },
