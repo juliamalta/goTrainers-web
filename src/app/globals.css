@@ -6,6 +6,26 @@
     .text-balance {
         text-wrap: balance;
     }
+
+    .method-ticker__track {
+        animation: method-ticker-scroll 28s linear infinite;
+    }
+
+    .method-ticker:hover .method-ticker__track {
+        animation-play-state: paused;
+    }
+
+    @keyframes method-ticker-scroll {
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .method-ticker__track {
+            animation: none;
+        }
+    }
 }
 
 @layer base {
@@ -496,6 +516,12 @@
         --color-sisal-800: #6b4d41;
         --color-sisal-900: #584036;
         --color-sisal-950: #2e211c;
+
+        /* Template clean */
+        --forest: #2d3b2d;
+        --linen: #e8e3d8;
+        --soft-gray: #efefec;
+        --warm-white: #f8f8f5;
     }
     .dark {
         --background: 240 10% 3.9%;

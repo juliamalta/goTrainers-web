@@ -96,6 +96,10 @@ const config: Config = {
                     clay: 'var(--clay-ash-300)',
                     saffron: 'var(--saffron-300)',
                     sisal: 'var( --color-sisal-200)',
+                    forest: 'var(--forest)',
+                    linen: 'var(--linen)',
+                    softgray: 'var(--soft-gray)',
+                    warmwhite: 'var(--warm-white)',
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',

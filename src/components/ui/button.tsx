@@ -22,6 +22,8 @@ const buttonVariants = cva(
                     'rounded-xl border border-white/10 bg-color-woodsmoke text-white hover:border-color-malachite hover:bg-color-codgray hover:text-color-malachite focus-visible:ring-color-malachite',
                 herobuttonsecondary2:
                     'rounded-xl border border-white/10 bg-color-woodsmoke text-white hover:border-color-saffron hover:bg-color-codgray hover:text-color-saffron focus-visible:ring-color-malachite',
+                herobuttonsecondary3:
+                    'rounded-xl border border-white/10 bg-color-softgray text-black hover:border-color-saffron hover:bg-color-codgray hover:text-color-saffron focus-visible:ring-color-malachite',
                 buttoncard:
                     'rounded-xl border border-white/10 bg-color-codgray text-white hover:border-color-malachite hover:bg-color-woodsmoke hover:text-color-malachite focus-visible:ring-color-malachite',
             },

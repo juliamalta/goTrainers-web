@@ -4,6 +4,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 
 import { Media } from './src/collections/Media'
+import { AnamnesisLeads } from './src/collections/AnamnesisLeads'
 import { Sites } from './src/collections/Sites'
 import { Users } from './src/collections/Users'
 
@@ -16,7 +17,7 @@ export default buildConfig({
         url: process.env.DATABASE_URL || '',
     }),
 
-    collections: [Users, Media, Sites],
+    collections: [Users, Media, Sites, AnamnesisLeads],
 
     plugins: [
         vercelBlobStorage({
