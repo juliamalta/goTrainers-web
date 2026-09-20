@@ -45,7 +45,7 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
 
         clean: {
             name: 'Template 3 — CLEAN',
-            image: '/images/templates.png',
+            image: '/images/template3.png',
             value: 'template-3',
         },
     }
