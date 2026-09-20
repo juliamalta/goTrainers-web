@@ -13,7 +13,9 @@ export function HeroSection2({
     title,
     desc,
     button1text,
+    button1url = '#contato',
     button2text,
+    button2url = '#trabalho',
     titlePrimary,
     tag,
     img,
@@ -56,7 +58,7 @@ export function HeroSection2({
                         <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
                             <div className="flex w-full flex-col gap-3 sm:flex-row">
                                 <InteractiveHoverButton
-                                    href="/auth"
+                                    href={button1url}
                                     className="rounded-2xl border-color-saffron bg-color-saffron text-center text-sm text-black hover:text-white">
                                     {button1text}
                                 </InteractiveHoverButton>
@@ -66,7 +68,7 @@ export function HeroSection2({
                                     size="hero"
                                     asChild
                                     className="rounded-2xl text-sm">
-                                    <Link href="#trabalho">{button2text}</Link>
+                                    <Link href={button2url}>{button2text}</Link>
                                 </Button>
                             </div>
                         </div>

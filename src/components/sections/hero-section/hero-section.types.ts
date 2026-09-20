@@ -9,7 +9,9 @@ export type HeroProps = {
     title: string | React.ReactNode
     desc: string
     button1text: string
+    button1url?: string
     button2text?: string
+    button2url?: string
     cardTitle?: string
     cardText?: string
     img?: string | StaticImageData

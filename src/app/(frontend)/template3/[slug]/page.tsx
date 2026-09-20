@@ -36,6 +36,32 @@ type PageProps = {
     }>
 }
 
+function getWhatsAppLink(phone: string, message?: string | null) {
+    const cleanPhone = phone.replace(/\D/g, '')
+    const cleanMessage = message?.trim()
+    const query = cleanMessage ? `?text=${encodeURIComponent(cleanMessage)}` : ''
+
+    return `https://wa.me/${cleanPhone}${query}`
+}
+
+function getButtonLink(value: string | null | undefined, fallback: string, whatsappMessage?: string | null) {
+    const link = value?.trim()
+
+    if (!link) {
+        return fallback
+    }
+
+    if (/^\+?\d[\d\s()-]*$/.test(link)) {
+        return getWhatsAppLink(link, whatsappMessage)
+    }
+
+    if (link.startsWith('wa.me/')) {
+        return `https://${link}`
+    }
+
+    return link
+}
+
 export default async function Home({ params }: PageProps) {
     const { slug } = await params
 
@@ -113,7 +139,10 @@ export default async function Home({ params }: PageProps) {
 
     const whatsappPhone = whatsapp?.phone ?? '5531999999999'
 
-    const whatsappLink = `https://wa.me/${whatsappPhone}`
+    const whatsappLink = getWhatsAppLink(whatsappPhone, whatsapp?.message)
+
+    const heroButton1Link = getButtonLink(hero?.button1url, '#anamnese', whatsapp?.message)
+    const heroButton2Link = getButtonLink(hero?.button2url, '#metodo', whatsapp?.message)
 
     // =====================================================
     // SINTONIA E PROPÓSITO
@@ -191,7 +220,9 @@ export default async function Home({ params }: PageProps) {
                         'Treinos personalizados para construir força, disposição e uma rotina sustentável que realmente funcione na sua vida. Sem extremismos, com precisão biomecânica.'
                     }
                     button1text={hero?.button1text ?? 'COMEÇAR MINHA JORNADA'}
+                    button1url={heroButton1Link}
                     button2text={hero?.button2text ?? 'CONHECER MEU MÉTODO'}
+                    button2url={heroButton2Link}
                     img={heroImage}
                     tag={[
                         {

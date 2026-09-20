@@ -8,7 +8,16 @@ import { InteractiveHoverButton } from '@/components/magicui/Interactive-HoverBu
 import { HeroProps } from '@/components/sections/hero-section/hero-section.types'
 import { Button } from '@/components/ui/button'
 
-export function HeroSection1({ title, desc, button1text, button2text, titlePrimary, tag, img }: HeroProps) {
+export function HeroSection1({
+    title,
+    desc,
+    button1text,
+    button1url = '#contato',
+    button2text,
+    titlePrimary,
+    tag,
+    img,
+}: HeroProps) {
     return (
         <section id="inicio" className="relative mx-auto overflow-hidden px-6 py-20 sm:px-8 sm:py-24 lg:px-12">
             <div className="container relative z-10 mx-auto">
@@ -36,7 +45,7 @@ export function HeroSection1({ title, desc, button1text, button2text, titlePrima
                         <p className="text-md max-w-2xl text-color-clay sm:text-base lg:text-lg">{desc}</p>
 
                         {/* BOTÕES */}
-                        <Link href="/auth" className="w-fit">
+                        <Link href={button1url} className="w-fit">
                             <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
                                 {button1text}
                             </InteractiveHoverButton>

@@ -1,9 +1,8 @@
 'use client'
-import Link from 'next/link'
 import { InteractiveHoverButton } from '@/components/magicui/Interactive-HoverButton'
 import { ContactProps } from '@/components/sections/Contact/Contact.types'
 
-function Contact({ title, text, buttontext }: ContactProps) {
+function Contact({ title, text, buttontext, buttonurl = '#contato' }: ContactProps) {
     return (
         <section>
             <div className="flex flex-col bg-color-codgray py-6 sm:flex-row">
@@ -22,8 +21,10 @@ function Contact({ title, text, buttontext }: ContactProps) {
                     </div>
                     <div className="flex flex-row items-center justify-center gap-4 sm:justify-normal">
                         <div className="justify-end lg:flex">
-                            <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
-                                <Link href="/auth">{buttontext}</Link>
+                            <InteractiveHoverButton
+                                href={buttonurl}
+                                className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
+                                {buttontext}
                             </InteractiveHoverButton>
                         </div>
                     </div>

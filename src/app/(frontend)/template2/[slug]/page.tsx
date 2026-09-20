@@ -10,11 +10,30 @@ import { Features3 } from '@/components/sections/Features/Features3'
 import { HeroSection2 } from '@/components/sections/hero-section/hero-section2'
 import Metrics2 from '@/components/sections/Metrics/Metrics2'
 import Testimonials1 from '@/components/sections/testimonials/testimonials1'
+import { WhatsAppFloat } from '@/components/ui/whatsapp-float'
 
 type PageProps = {
     params: Promise<{
         slug: string
     }>
+}
+
+function getWhatsAppLink(phone: string | null | undefined, message?: string | null) {
+    const cleanPhone = phone?.replace(/\D/g, '') || ''
+    const cleanMessage = message?.trim()
+    const query = cleanMessage ? `?text=${encodeURIComponent(cleanMessage)}` : ''
+
+    return cleanPhone ? `https://wa.me/${cleanPhone}${query}` : '#contato'
+}
+
+function getButtonLink(value: string | null | undefined, fallback: string, message?: string | null) {
+    const link = value?.trim()
+
+    if (!link) return fallback
+    if (/^\+?\d[\d\s()-]*$/.test(link)) return getWhatsAppLink(link, message)
+    if (link.startsWith('wa.me/')) return `https://${link}`
+
+    return link
 }
 
 export default async function Home({ params }: PageProps) {
@@ -69,10 +88,13 @@ export default async function Home({ params }: PageProps) {
     const about = template.about
     const testimonials = template.testimonials
     const contact = template.contact
+    const whatsapp = template.whatsapp
 
     const heroImage = typeof hero?.img === 'object' && hero.img?.url ? hero.img.url : '/images/imag2.png'
 
     const aboutImage = typeof about?.img === 'object' && about.img?.url ? about.img.url : '/images/imag3.png'
+    const whatsappLink = getWhatsAppLink(whatsapp?.phone, whatsapp?.message)
+    const contactLink = getButtonLink(contact?.link, whatsappLink, whatsapp?.message)
 
     return (
         <main className="min-h-screen bg-[#0C0F0F]">
@@ -95,7 +117,9 @@ export default async function Home({ params }: PageProps) {
                         'Metodologia científica individualizada, privacidade absoluta e acompanhamento sob medida para quem valoriza tempo, estética e saúde no mais alto nível.'
                     }
                     button1text={hero?.button1text ?? 'COMECE SUA TRANSFORMAÇÃO'}
+                    button1url={whatsappLink}
                     button2text={hero?.button2text ?? 'CONHEÇA O MÉTODO'}
+                    button2url="#trabalho"
                     img={heroImage}
                     tag={[
                         {
@@ -186,9 +210,11 @@ export default async function Home({ params }: PageProps) {
                             'Treinamento personalizado, estratégia e acompanhamento exclusivo para quem busca resultados de alta performance sem abrir mão do conforto e discrição.'
                         }
                         buttontext={contact.buttontext ?? 'COMECE SUA TRANSFORMAÇÃO'}
-                        link={contact.link ?? ''}
+                        link={contactLink}
                     />
                 )}
+
+                {whatsapp?.enabled !== false && whatsapp?.phone && <WhatsAppFloat phone={whatsapp.phone} />}
             </div>
         </main>
     )

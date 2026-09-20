@@ -71,6 +71,8 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
         customizeHref = '/dashboard/customize?template=fitness'
     } else if (site?.template === 'template-2') {
         customizeHref = '/dashboard/customize?template=premium'
+    } else if (site?.template === 'template-3') {
+        customizeHref = '/dashboard/customize?template=clean'
     }
 
     if (hasPublishedSite) {

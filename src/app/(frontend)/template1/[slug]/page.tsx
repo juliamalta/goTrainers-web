@@ -62,6 +62,24 @@ function getMediaUrl(media: string | Media | null | undefined): string {
     return ''
 }
 
+function getWhatsAppLink(phone: string | null | undefined, message?: string | null) {
+    const cleanPhone = phone?.replace(/\D/g, '') || ''
+    const cleanMessage = message?.trim()
+    const query = cleanMessage ? `?text=${encodeURIComponent(cleanMessage)}` : ''
+
+    return cleanPhone ? `https://wa.me/${cleanPhone}${query}` : '#contato'
+}
+
+function getButtonLink(value: string | null | undefined, fallback: string, message?: string | null) {
+    const link = value?.trim()
+
+    if (!link) return fallback
+    if (/^\+?\d[\d\s()-]*$/.test(link)) return getWhatsAppLink(link, message)
+    if (link.startsWith('wa.me/')) return `https://${link}`
+
+    return link
+}
+
 export default async function SitePage({ params }: PageProps) {
     const { slug } = await params
 
@@ -136,6 +154,10 @@ export default async function SitePage({ params }: PageProps) {
 
     const aboutImage = getMediaUrl(template.about?.img)
 
+    const whatsappLink = getWhatsAppLink(template.whatsapp?.phone, template.whatsapp?.message)
+    const heroButtonLink = getButtonLink(template.hero?.button1url, whatsappLink, template.whatsapp?.message)
+    const contactButtonLink = getButtonLink(template.contact?.buttonurl, whatsappLink, template.whatsapp?.message)
+
     return (
         <main className="min-h-screen bg-[#0C0F0F]">
             <div>
@@ -155,6 +177,7 @@ export default async function SitePage({ params }: PageProps) {
                     }
                     desc={template.hero?.desc || ''}
                     button1text={template.hero?.button1text || ''}
+                    button1url={heroButtonLink}
                     img={heroImage}
                 />
 
@@ -261,6 +284,7 @@ export default async function SitePage({ params }: PageProps) {
                     }
                     text={template.contact?.text || ''}
                     buttontext={template.contact?.buttontext || ''}
+                    buttonurl={contactButtonLink}
                 />
 
                 {/* =====================================================

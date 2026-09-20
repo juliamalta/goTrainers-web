@@ -2,6 +2,7 @@ export interface ContactProps {
     title: string | React.ReactNode
     text: string
     buttontext: string
+    buttonurl?: string
     img?: string
 }
 
