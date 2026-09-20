@@ -17,7 +17,7 @@ const requiredByStep = [
     ['email', 'phone'],
 ] as const
 
-export function Forms1({ title, desc }: FormsProps) {
+export function Forms1({ title, desc, siteId }: FormsProps) {
     const [step, setStep] = useState(0)
     const [submitted, setSubmitted] = useState(false)
     const [error, setError] = useState('')
@@ -74,7 +74,7 @@ export function Forms1({ title, desc }: FormsProps) {
             const response = await fetch('/api/anamnesis', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(values),
+                body: JSON.stringify({ ...values, siteId }),
             })
 
             if (!response.ok) throw new Error('Não foi possível salvar seus dados.')

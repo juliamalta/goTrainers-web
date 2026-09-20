@@ -17,6 +17,16 @@ export const AnamnesisLeads: CollectionConfig = {
 
     fields: [
         {
+            name: 'site',
+            type: 'relationship',
+            relationTo: 'sites',
+            required: true,
+            label: 'Site de origem',
+            admin: {
+                readOnly: true,
+            },
+        },
+        {
             name: 'fullName',
             type: 'text',
             required: true,

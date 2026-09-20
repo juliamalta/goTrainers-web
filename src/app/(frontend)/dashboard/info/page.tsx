@@ -12,6 +12,7 @@ import {
     FiTrash2,
     FiUser,
 } from 'react-icons/fi'
+import { AnamnesisLeadsPanel } from '@/components/dashboard/AnamnesisLeadsPanel'
 
 type Site = {
     id: string
@@ -237,6 +238,8 @@ export default function DashboardInfo() {
                         </div>
                     </div>
                 </section>
+
+                {site?.template === 'template-3' && <AnamnesisLeadsPanel />}
 
                 {/* STATS */}
                 <section className="mb-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

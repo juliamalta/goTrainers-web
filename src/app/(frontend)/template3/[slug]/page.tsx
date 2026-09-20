@@ -328,6 +328,7 @@ export default async function Home({ params }: PageProps) {
                     title={form?.title ?? 'Vamos conhecer você.'}
                     desc={form?.desc ?? 'Conte um pouco sobre suas medidas básicas:'}
                     contact={[]}
+                    siteId={String(site.id)}
                 />
 
                 {/* FUNDAMENTOS CINÉTICOS */}
