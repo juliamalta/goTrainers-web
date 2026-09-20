@@ -1,10 +1,9 @@
-import { getPayload } from 'payload'
-
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import config from '@/../payload.config'
+import { getPayload } from 'payload'
 
-import { headers } from 'next/headers'
+import config from '@/../payload.config'
 
 import Cards4 from '@/components/sections/Cards/Card4'
 
@@ -31,7 +30,7 @@ export default async function Dashboard() {
         limit: 1,
     })
 
-    // Se já escolheu um template, vai para a Dashboard
+    // Se já possui um site, vai para a Dashboard
     if (sites.docs.length > 0) {
         redirect('/dashboard/info')
     }
@@ -65,8 +64,8 @@ export default async function Dashboard() {
                             img: '/images/templates.png',
                             tag: ['Saúde e Postura', 'Clean White'],
                             desc: 'Minimalista, leve e direto ao ponto. Fundo claro, muito espaço em branco, tipografia moderna e foco humanizado no profissional e no bem-estar.',
-                            disabled: true,
-                            buttonText: 'Em construção',
+                            link: '/dashboard/customize?template=clean',
+                            buttonText: 'Escolher esse template',
                         },
                     ]}
                 />

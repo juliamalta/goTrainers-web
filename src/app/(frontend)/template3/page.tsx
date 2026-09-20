@@ -63,10 +63,10 @@ export default function Home() {
                     title="Não é sobre treinar mais"
                     highlightedTitle={
                         <>
-                            É sobre <em className="bg-color-softgray rounded-full px-2 sm:px-3">entender</em> seu corpo,
-                            construir <em className="bg-color-softgray rounded-full px-2 sm:px-3">constância</em> e
-                            transformar <em className="bg-color-softgray rounded-full px-2 sm:px-3">movimento</em> em
-                            parte natural da sua <em className="bg-color-softgray rounded-full px-2 sm:px-3">vida</em>.
+                            É sobre <em className="rounded-full bg-color-softgray px-2 sm:px-3">entender</em> seu corpo,
+                            construir <em className="rounded-full bg-color-softgray px-2 sm:px-3">constância</em> e
+                            transformar <em className="rounded-full bg-color-softgray px-2 sm:px-3">movimento</em> em
+                            parte natural da sua <em className="rounded-full bg-color-softgray px-2 sm:px-3">vida</em>.
                         </>
                     }
                     description="Sem metas irreais que te esgotam na terceira semana. Construímos autonomia, força real e longevidade através de ciência do movimento e empatia."

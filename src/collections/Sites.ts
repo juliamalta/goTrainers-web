@@ -99,6 +99,10 @@ export const Sites: CollectionConfig = {
                     label: 'Template 2',
                     value: 'template-2',
                 },
+                {
+                    label: 'Template 3 - Clean',
+                    value: 'template-3',
+                },
             ],
 
             admin: {
@@ -1380,6 +1384,1015 @@ export const Sites: CollectionConfig = {
                             },
                         },
 
+                        {
+                            name: 'message',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Mensagem automática',
+                            defaultValue: 'Olá! Gostaria de conhecer seu acompanhamento.',
+                        },
+                    ],
+                },
+            ],
+        },
+        // =========================================================
+        // TEMPLATE 3 - CLEAN
+        // =========================================================
+
+        {
+            name: 'template3',
+            type: 'group',
+            required: false,
+            label: 'Template 3 - Clean',
+
+            admin: {
+                condition: (_, siblingData) => siblingData?.template === 'template-3',
+            },
+
+            fields: [
+                // =================================================
+                // HERO
+                // =================================================
+
+                {
+                    name: 'hero',
+                    type: 'group',
+                    required: false,
+                    label: 'Apresentação',
+
+                    admin: {
+                        description: 'Personalize a apresentação principal do Template Clean.',
+                    },
+
+                    fields: [
+                        {
+                            name: 'titlePrimary',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'PERSONAL TRAINER • PERFORMANCE • SAÚDE • WELLNESS',
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Primeira linha do título',
+                            defaultValue: 'Seu corpo pode mais.',
+                        },
+                        {
+                            name: 'titleSecondary',
+                            type: 'text',
+                            required: false,
+                            label: 'Segunda linha do título',
+                            defaultValue: 'Seu treino pode ser',
+                        },
+                        {
+                            name: 'titleHighlight',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto em destaque',
+                            defaultValue: 'diferente.',
+                        },
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Treinos personalizados para construir força, disposição e uma rotina sustentável que realmente funcione na sua vida. Sem extremismos, com precisão biomecânica.',
+                        },
+                        {
+                            name: 'button1text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão principal',
+                            defaultValue: 'COMEÇAR MINHA JORNADA',
+                        },
+                        {
+                            name: 'button1url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link ou número do WhatsApp — botão principal',
+                            defaultValue: '#anamnese',
+                            admin: {
+                                placeholder: 'Ex.: #anamnese, https://... ou 5531999999999',
+                            },
+                        },
+                        {
+                            name: 'button2text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão secundário',
+                            defaultValue: 'CONHECER MEU MÉTODO',
+                        },
+                        {
+                            name: 'button2url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link ou número do WhatsApp — botão secundário',
+                            defaultValue: '#metodo',
+                            admin: {
+                                placeholder: 'Ex.: #metodo, https://... ou 5531999999999',
+                            },
+                        },
+                        {
+                            name: 'img',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false,
+                            label: 'Imagem principal',
+
+                            admin: {
+                                description: 'Opcional. Se nenhuma imagem for enviada, será utilizada a imagem padrão.',
+                            },
+                        },
+
+                        {
+                            name: 'tags',
+                            type: 'array',
+                            required: false,
+                            minRows: 3,
+                            maxRows: 3,
+                            defaultValue: [
+                                { text: '+120 alunos transformados' },
+                                { text: 'Avaliação 4.9' },
+                                { text: 'Online + Presencial' },
+                            ],
+                            admin: {
+                                hidden: true,
+                            },
+                            fields: [
+                                {
+                                    name: 'text',
+                                    type: 'text',
+                                    required: false,
+                                },
+                            ],
+                        },
+
+                        {
+                            name: 'cardTitle',
+                            type: 'text',
+                            required: false,
+                            label: 'Título sobre a imagem',
+                            defaultValue: '100% PERSONALIZADO',
+                        },
+                        {
+                            name: 'cardText',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto sobre a imagem',
+                            defaultValue: '+120 ALUNOS TRANSFORMADOS',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // UMA NOVA FORMA DE TREINAR
+                // =================================================
+
+                {
+                    name: 'about',
+                    type: 'group',
+                    required: false,
+                    label: 'Uma nova forma de treinar',
+
+                    fields: [
+                        {
+                            name: 'eyebrow',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'Uma nova forma de treinar',
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Não é sobre treinar mais',
+                        },
+
+                        {
+                            name: 'highlightedStart',
+                            type: 'text',
+                            required: false,
+                            label: 'Início da frase — antes do 1º destaque',
+                            defaultValue: 'É sobre',
+                        },
+                        {
+                            name: 'highlightedUnderstand',
+                            type: 'text',
+                            required: false,
+                            label: '1ª palavra em destaque — ex.: entender',
+                            defaultValue: 'entender',
+                        },
+                        {
+                            name: 'highlightedConstancy',
+                            type: 'text',
+                            required: false,
+                            label: '2ª palavra em destaque — ex.: constância',
+                            defaultValue: 'constância',
+                        },
+                        {
+                            name: 'highlightedMovement',
+                            type: 'text',
+                            required: false,
+                            label: '3ª palavra em destaque — ex.: movimento',
+                            defaultValue: 'movimento',
+                        },
+                        {
+                            name: 'highlightedLife',
+                            type: 'text',
+                            required: false,
+                            label: '4ª palavra em destaque — ex.: vida',
+                            defaultValue: 'vida',
+                        },
+
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Sem metas irreais que te esgotam na terceira semana. Construímos autonomia, força real e longevidade através de ciência do movimento e empatia.',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // PROCESSO ESTRUTURADO
+                // =================================================
+
+                {
+                    name: 'method',
+                    type: 'group',
+                    required: false,
+                    label: 'Processo estruturado',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Um método pensado para você.',
+                        },
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Não existem duas rotinas iguais. Por isso, seu treino também não deveria ser igual ao de todo mundo.',
+                        },
+
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: true,
+
+                            // NÃO PODE TER MENOS NEM MAIS QUE 4
+                            minRows: 4,
+                            maxRows: 4,
+
+                            label: 'Etapas do processo',
+
+                            defaultValue: [
+                                {
+                                    title: 'Conhecer',
+                                    text: 'Entender sua rotina real, histórico articular, preferências, dores e o tempo efetivo disponível na sua semana.',
+                                },
+                                {
+                                    title: 'Planejar',
+                                    text: 'Criar uma estratégia biomecânica customizada: séries, cargas, intensidade e mobilidade adequadas ao seu momento.',
+                                },
+                                {
+                                    title: 'Acompanhar',
+                                    text: 'Feedback contínuo e ajustes dinâmicos. A vida oscila e o treino precisa se adaptar às suas semanas boas e difíceis.',
+                                },
+                                {
+                                    title: 'Evoluir',
+                                    text: 'Consolidação de força, tônus muscular e postura sustentável. O resultado é consequência da consistência.',
+                                },
+                            ],
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'Existem exatamente quatro etapas. Edite o conteúdo de cada uma.',
+                            },
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Título',
+                                },
+                                {
+                                    name: 'text',
+                                    type: 'textarea',
+                                    required: true,
+                                    label: 'Descrição',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // PERSONALIZAÇÃO
+                // =================================================
+
+                {
+                    name: 'personalization',
+                    type: 'group',
+                    required: false,
+                    label: 'Personalização de verdade',
+
+                    fields: [
+                        {
+                            name: 'eyebrow',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'PERSONALIZAÇÃO DE VERDADE',
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Seu treino ainda não existe.',
+                        },
+                        {
+                            name: 'highlightedTitle',
+                            type: 'text',
+                            required: false,
+                            label: 'Subtítulo',
+                            defaultValue: 'Porque primeiro eu preciso conhecer você.',
+                        },
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Responda algumas perguntas rápidas para eu entender seu momento atual, limitações, histórico e o que realmente faz sentido para sua rotina.',
+                        },
+                        {
+                            name: 'button2text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão',
+                            defaultValue: 'Quero começar minha avaliação',
+                        },
+                        {
+                            name: 'button2url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link do botão',
+                            defaultValue: '#anamnese',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // ANAMNESE
+                // =================================================
+
+                {
+                    name: 'form',
+                    type: 'group',
+                    required: false,
+                    label: 'Anamnese inicial',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Vamos conhecer você.',
+                        },
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue: 'Conte um pouco sobre suas medidas básicas:',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // FUNDAMENTOS CINÉTICOS
+                // =================================================
+
+                {
+                    name: 'features',
+                    type: 'group',
+                    required: false,
+                    label: 'Fundamentos cinéticos',
+
+                    fields: [
+                        {
+                            name: 'img',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false,
+                            label: 'Imagem',
+
+                            admin: {
+                                description: 'Imagem utilizada ao lado dos fundamentos.',
+                            },
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Seu corpo em movimento contínuo.',
+                        },
+
+                        {
+                            name: 'items',
+                            type: 'array',
+                            required: true,
+
+                            // EXATAMENTE 4
+                            minRows: 4,
+                            maxRows: 4,
+
+                            label: 'Fundamentos',
+
+                            defaultValue: [
+                                {
+                                    title: 'Força Sustentável',
+                                    desc: 'A musculatura protege suas articulações, regula o metabolismo e desacelera o envelhecimento ósseo-celular.',
+                                },
+                                {
+                                    title: 'Mobilidade Funcional',
+                                    desc: 'Amplitude e liberdade para sentar, agachar, carregar compras e brincar sem dores articulares nas costas.',
+                                },
+                                {
+                                    title: 'Energia & Disposição',
+                                    desc: 'Treinar não é para cansar seu dia; é para encher seu dia de clareza mental e vitalidade renovada.',
+                                },
+                                {
+                                    title: 'Constância Real',
+                                    desc: 'A rotina que se sustenta ao longo dos anos, respeitando períodos de descanso, trabalho e férias.',
+                                },
+                            ],
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'O Template Clean utiliza exatamente quatro fundamentos.',
+                            },
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Título',
+                                },
+                                {
+                                    name: 'desc',
+                                    type: 'textarea',
+                                    required: true,
+                                    label: 'Descrição',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // CTA INTERMEDIÁRIO
+                // =================================================
+
+                {
+                    name: 'motivation',
+                    type: 'group',
+                    required: false,
+                    label: 'Chamada intermediária',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Você não precisa estar pronto. Só precisa',
+                        },
+                        {
+                            name: 'highlightedTitle',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto em destaque',
+                            defaultValue: 'começar.',
+                        },
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue: 'A evolução acontece a cada sessão executada com consciência e paciência.',
+                        },
+                        {
+                            name: 'button2text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão',
+                            defaultValue: 'DAR O PRIMEIRO PASSO',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // DEPOIMENTOS
+                // =================================================
+
+                {
+                    name: 'testimonials',
+                    type: 'group',
+                    required: false,
+                    label: 'Depoimentos',
+
+                    fields: [
+                        {
+                            name: 'enabled',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: true,
+                            label: 'Mostrar depoimentos',
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Quem treina com o método',
+                        },
+
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: true,
+
+                            // EXATAMENTE 4
+                            minRows: 4,
+                            maxRows: 4,
+
+                            label: 'Depoimentos',
+
+                            defaultValue: [
+                                {
+                                    name: 'Mariana Alves',
+                                    type: 'Aluna há 2 anos',
+                                    desc: 'Eu achava que precisava treinar no limite para ter resultado. Hoje treino com mais consciência, tenho mais força e, principalmente, não sinto mais as dores que faziam parte da minha rotina.',
+                                    rating: 5,
+                                },
+                                {
+                                    name: 'Rafael Martins',
+                                    type: 'Aluno há 1 ano',
+                                    desc: 'O treino se encaixou na minha rotina de verdade. Ganhei disposição para trabalhar, melhor condicionamento e finalmente consegui manter constância sem transformar a academia em uma obrigação.',
+                                    rating: 5,
+                                },
+                                {
+                                    name: 'Camila Ferreira',
+                                    type: 'Aluna há 8 meses',
+                                    desc: 'Comecei buscando mudança estética, mas encontrei muito mais. Hoje me sinto mais forte, tenho mais mobilidade e percebo a diferença da atividade física em praticamente tudo que faço.',
+                                    rating: 5,
+                                },
+                                {
+                                    name: 'Lucas Ribeiro',
+                                    type: 'Aluno há 1 ano e 6 meses',
+                                    desc: 'Pela primeira vez consegui construir uma rotina de treino que não abandono depois de algumas semanas. O acompanhamento e os ajustes fizeram toda a diferença na minha evolução.',
+                                    rating: 5,
+                                },
+                            ],
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'O Template Clean utiliza exatamente quatro depoimentos.',
+                            },
+
+                            fields: [
+                                {
+                                    name: 'name',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Nome',
+                                },
+                                {
+                                    name: 'type',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Informação',
+
+                                    admin: {
+                                        placeholder: 'Exemplo: Aluna há 2 anos',
+                                    },
+                                },
+                                {
+                                    name: 'desc',
+                                    type: 'textarea',
+                                    required: true,
+                                    label: 'Depoimento',
+                                },
+                                {
+                                    name: 'rating',
+                                    type: 'number',
+                                    required: false,
+                                    defaultValue: 5,
+                                    min: 1,
+                                    max: 5,
+                                    label: 'Avaliação',
+                                },
+                                {
+                                    name: 'avatar',
+                                    type: 'upload',
+                                    relationTo: 'media',
+                                    required: false,
+                                    label: 'Foto do aluno',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // SINTONIA E PROPÓSITO
+                // =================================================
+
+                {
+                    name: 'feelings',
+                    type: 'group',
+                    required: false,
+                    label: 'Sintonia e propósito',
+
+                    fields: [
+                        {
+                            name: 'eyebrow',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'SINTONIA E PROPÓSITO',
+                        },
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Como você quer se sentir?',
+                        },
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue: 'Clique nos sentimentos abaixo para descobrir o caminho de treino ideal:',
+                        },
+
+                        {
+                            name: 'defaultFeeling',
+                            type: 'select',
+                            required: false,
+                            label: 'Sentimento selecionado inicialmente',
+                            defaultValue: 'LEVE',
+
+                            options: [
+                                {
+                                    label: 'Forte',
+                                    value: 'FORTE',
+                                },
+                                {
+                                    label: 'Disposto',
+                                    value: 'DISPOSTO',
+                                },
+                                {
+                                    label: 'Confiante',
+                                    value: 'CONFIANTE',
+                                },
+                                {
+                                    label: 'Leve',
+                                    value: 'LEVE',
+                                },
+                                {
+                                    label: 'Ativo',
+                                    value: 'ATIVO',
+                                },
+                                {
+                                    label: 'Saudável',
+                                    value: 'SAUDÁVEL',
+                                },
+                                {
+                                    label: 'Capaz',
+                                    value: 'CAPAZ',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // FORTE
+                        // =========================================
+
+                        {
+                            name: 'forte',
+                            type: 'group',
+                            label: 'FORTE',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE FORTE',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Construir força para realizar as tarefas do dia a dia com mais segurança, autonomia e confiança.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // DISPOSTO
+                        // =========================================
+
+                        {
+                            name: 'disposto',
+                            type: 'group',
+                            label: 'DISPOSTO',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE DISPOSTO',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Recuperar a energia para enfrentar uma rotina intensa sem terminar o dia completamente esgotado.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // CONFIANTE
+                        // =========================================
+
+                        {
+                            name: 'confiante',
+                            type: 'group',
+                            label: 'CONFIANTE',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE CONFIANTE',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Desenvolver consciência corporal e segurança para se movimentar melhor dentro e fora do treino.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // LEVE
+                        // =========================================
+
+                        {
+                            name: 'leve',
+                            type: 'group',
+                            label: 'LEVE',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE LEVE',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Aliviar tensões acumuladas nos ombros e trapézio através de soltura e mobilidade direcionada.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // ATIVO
+                        // =========================================
+
+                        {
+                            name: 'ativo',
+                            type: 'group',
+                            label: 'ATIVO',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE ATIVO',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Manter o corpo em movimento com uma rotina de exercícios possível, prazerosa e consistente.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // SAUDÁVEL
+                        // =========================================
+
+                        {
+                            name: 'saudavel',
+                            type: 'group',
+                            label: 'SAUDÁVEL',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE SAUDÁVEL',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Criar hábitos de movimento que contribuam para sua saúde, bem-estar e qualidade de vida a longo prazo.',
+                                },
+                            ],
+                        },
+
+                        // =========================================
+                        // CAPAZ
+                        // =========================================
+
+                        {
+                            name: 'capaz',
+                            type: 'group',
+                            label: 'CAPAZ',
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                    defaultValue: 'SENTIR-SE CAPAZ',
+                                },
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                    defaultValue:
+                                        'Conquistar mais mobilidade, resistência e independência para fazer o que você gosta sem medo ou limitações.',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // CONTATO
+                // =================================================
+
+                {
+                    name: 'contact',
+                    type: 'group',
+                    required: false,
+                    label: 'Próximo passo',
+
+                    fields: [
+                        {
+                            name: 'eyebrow',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'PRÓXIMO PASSO',
+                        },
+                        {
+                            name: 'title',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Vamos construir uma rotina que realmente funcione para você?',
+                        },
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Preencha a breve anamnese ou mande uma mensagem direta no WhatsApp para alinharmos seu formato ideal.',
+                        },
+                        {
+                            name: 'primaryButtonText',
+                            type: 'text',
+                            required: false,
+                            label: 'Botão da anamnese',
+                            defaultValue: 'PREENCHER ANAMNESE INICIAL',
+                        },
+                        {
+                            name: 'primaryButtonHref',
+                            type: 'text',
+                            required: false,
+                            label: 'Link da anamnese ou número do WhatsApp',
+                            defaultValue: '#anamnese',
+                            admin: {
+                                placeholder: 'Ex.: #anamnese, https://... ou 5531999999999',
+                            },
+                        },
+                        {
+                            name: 'secondaryButtonText',
+                            type: 'text',
+                            required: false,
+                            label: 'Botão do WhatsApp',
+                            defaultValue: 'CONVERSAR NO WHATSAPP',
+                        },
+                        {
+                            name: 'secondaryButtonHref',
+                            type: 'text',
+                            required: false,
+                            label: 'Link ou número do WhatsApp',
+                            defaultValue: '',
+                            admin: {
+                                placeholder: 'Ex.: 5531999999999 ou https://wa.me/...',
+                                description: 'Se ficar vazio, o botão usa o número configurado na seção WhatsApp.',
+                            },
+                        },
+                    ],
+                },
+
+                // =================================================
+                // WHATSAPP
+                // =================================================
+
+                {
+                    name: 'whatsapp',
+                    type: 'group',
+                    required: false,
+                    label: 'WhatsApp',
+
+                    fields: [
+                        {
+                            name: 'enabled',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: true,
+                            label: 'Mostrar WhatsApp',
+                        },
+                        {
+                            name: 'phone',
+                            type: 'text',
+                            required: false,
+                            label: 'Seu WhatsApp',
+
+                            admin: {
+                                placeholder: 'Exemplo: 5531999999999',
+                                description: 'Digite código do país + DDD + número, sem espaços ou símbolos.',
+                            },
+                        },
                         {
                             name: 'message',
                             type: 'textarea',

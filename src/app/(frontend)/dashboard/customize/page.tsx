@@ -6,6 +6,7 @@ import config from '@payload-config'
 
 import CustomizeSite from '@/components/dashboard/CustomizeSite'
 import CustomizeSite2 from '@/components/dashboard/CustomizeSite2'
+import CustomizeSite3 from '@/components/dashboard/CustomizeSite3'
 
 interface CustomizePageProps {
     searchParams: Promise<{
@@ -88,9 +89,15 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
     // ============================================================
 
     if (selectedTemplate.value === 'template-3') {
-        redirect('/dashboard')
+        return (
+            <CustomizeSite3
+                templateName={selectedTemplate.name}
+                templateImage={selectedTemplate.image}
+                userName={user.name || ''}
+                site={site}
+            />
+        )
     }
-
     // ============================================================
     // TEMPLATE 1 — FITNESS
     // ============================================================
