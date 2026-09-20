@@ -13,1147 +13,1148 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-    | 'Pacific/Midway'
-    | 'Pacific/Niue'
-    | 'Pacific/Honolulu'
-    | 'Pacific/Rarotonga'
-    | 'America/Anchorage'
-    | 'Pacific/Gambier'
-    | 'America/Los_Angeles'
-    | 'America/Tijuana'
-    | 'America/Denver'
-    | 'America/Phoenix'
-    | 'America/Chicago'
-    | 'America/Guatemala'
-    | 'America/New_York'
-    | 'America/Bogota'
-    | 'America/Caracas'
-    | 'America/Santiago'
-    | 'America/Buenos_Aires'
-    | 'America/Sao_Paulo'
-    | 'Atlantic/South_Georgia'
-    | 'Atlantic/Azores'
-    | 'Atlantic/Cape_Verde'
-    | 'Europe/London'
-    | 'Europe/Berlin'
-    | 'Africa/Lagos'
-    | 'Europe/Athens'
-    | 'Africa/Cairo'
-    | 'Europe/Moscow'
-    | 'Asia/Riyadh'
-    | 'Asia/Dubai'
-    | 'Asia/Baku'
-    | 'Asia/Karachi'
-    | 'Asia/Tashkent'
-    | 'Asia/Calcutta'
-    | 'Asia/Dhaka'
-    | 'Asia/Almaty'
-    | 'Asia/Jakarta'
-    | 'Asia/Bangkok'
-    | 'Asia/Shanghai'
-    | 'Asia/Singapore'
-    | 'Asia/Tokyo'
-    | 'Asia/Seoul'
-    | 'Australia/Brisbane'
-    | 'Australia/Sydney'
-    | 'Pacific/Guam'
-    | 'Pacific/Noumea'
-    | 'Pacific/Auckland'
-    | 'Pacific/Fiji'
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
-    auth: {
-        users: UserAuthOperations
-    }
-    blocks: {}
-    collections: {
-        users: User
-        media: Media
-        sites: Site
-        'anamnesis-leads': AnamnesisLead
-        'payload-kv': PayloadKv
-        'payload-locked-documents': PayloadLockedDocument
-        'payload-preferences': PayloadPreference
-        'payload-migrations': PayloadMigration
-    }
-    collectionsJoins: {}
-    collectionsSelect: {
-        users: UsersSelect<false> | UsersSelect<true>
-        media: MediaSelect<false> | MediaSelect<true>
-        sites: SitesSelect<false> | SitesSelect<true>
-        'anamnesis-leads': AnamnesisLeadsSelect<false> | AnamnesisLeadsSelect<true>
-        'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>
-        'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>
-        'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>
-        'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>
-    }
-    db: {
-        defaultIDType: string
-    }
-    fallbackLocale: null
-    globals: {}
-    globalsSelect: {}
-    locale: null
-    widgets: {
-        collections: CollectionsWidget
-    }
-    user: User
-    jobs: {
-        tasks: unknown
-        workflows: unknown
-    }
+  auth: {
+    users: UserAuthOperations;
+  };
+  blocks: {};
+  collections: {
+    users: User;
+    media: Media;
+    sites: Site;
+    'anamnesis-leads': AnamnesisLead;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  collectionsJoins: {};
+  collectionsSelect: {
+    users: UsersSelect<false> | UsersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    sites: SitesSelect<false> | SitesSelect<true>;
+    'anamnesis-leads': AnamnesisLeadsSelect<false> | AnamnesisLeadsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+  };
+  db: {
+    defaultIDType: string;
+  };
+  fallbackLocale: null;
+  globals: {};
+  globalsSelect: {};
+  locale: null;
+  widgets: {
+    collections: CollectionsWidget;
+  };
+  user: User;
+  jobs: {
+    tasks: unknown;
+    workflows: unknown;
+  };
 }
 export interface UserAuthOperations {
-    forgotPassword: {
-        email: string
-        password: string
-    }
-    login: {
-        email: string
-        password: string
-    }
-    registerFirstUser: {
-        email: string
-        password: string
-    }
-    unlock: {
-        email: string
-        password: string
-    }
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-    id: string
-    name: string
-    whatsapp: string
-    updatedAt: string
-    createdAt: string
-    email: string
-    resetPasswordToken?: string | null
-    resetPasswordExpiration?: string | null
-    salt?: string | null
-    hash?: string | null
-    loginAttempts?: number | null
-    lockUntil?: string | null
-    sessions?:
-        | {
-              id: string
-              createdAt?: string | null
-              expiresAt: string
-          }[]
-        | null
-    password?: string | null
-    collection: 'users'
+  id: string;
+  name: string;
+  whatsapp: string;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
 export interface Media {
-    id: string
-    alt: string
-    updatedAt: string
-    createdAt: string
-    url?: string | null
-    thumbnailURL?: string | null
-    filename?: string | null
-    mimeType?: string | null
-    filesize?: number | null
-    width?: number | null
-    height?: number | null
-    focalX?: number | null
-    focalY?: number | null
+  id: string;
+  alt: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sites".
  */
 export interface Site {
-    id: string
+  id: string;
+  /**
+   * Nome que será usado para identificar seu site.
+   */
+  name: string;
+  /**
+   * Usuário responsável por este site.
+   */
+  user?: (string | null) | User;
+  template?: ('template-1' | 'template-2' | 'template-3') | null;
+  /**
+   * Seu endereço ficará parecido com /personal/lucas-andrade
+   */
+  slug: string;
+  /**
+   * Enquanto estiver desativado, o site ficará apenas como prévia.
+   */
+  published?: boolean | null;
+  template1?: {
     /**
-     * Nome que será usado para identificar seu site.
+     * Já deixamos essa parte pronta. Altere apenas o que quiser.
      */
-    name: string
+    hero?: {
+      /**
+       * Pequeno texto que aparece acima do título principal.
+       */
+      titlePrimary?: string | null;
+      /**
+       * Essa será uma das primeiras mensagens vistas no seu site.
+       */
+      title?: string | null;
+      /**
+       * Essa parte aparece destacada na cor principal do template.
+       */
+      titleHighlight?: string | null;
+      desc?: string | null;
+      button1text?: string | null;
+      button1url?: string | null;
+      /**
+       * Opcional. Se você não enviar uma foto agora, usamos a imagem padrão do template.
+       */
+      img?: (string | null) | Media;
+    };
     /**
-     * Usuário responsável por este site.
+     * Já deixamos alguns exemplos. Troque apenas pelos números que representem sua experiência.
      */
-    user?: (string | null) | User
-    template?: ('template-1' | 'template-2' | 'template-3') | null
+    metrics?:
+      | {
+          number?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
     /**
-     * Seu endereço ficará parecido com /personal/lucas-andrade
+     * Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.
      */
-    slug: string
+    services?: {
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Os serviços já estão preenchidos. Personalize de acordo com o que você oferece.
+       */
+      cards?:
+        | {
+            title?: string | null;
+            desc?: string | null;
+            text?: string | null;
+            price?: string | null;
+            option?:
+              | {
+                  text?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
+            link?: string | null;
+            featured?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    about?: {
+      img?: (string | null) | Media;
+      title?: string | null;
+      desc?: string | null;
+      features?:
+        | {
+            title?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    testimonials?: {
+      enabled?: boolean | null;
+      title?: string | null;
+      desc?: string | null;
+      cards?:
+        | {
+            name?: string | null;
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    contact?: {
+      title?: string | null;
+      titleHighlight?: string | null;
+      text?: string | null;
+      buttontext?: string | null;
+      buttonurl?: string | null;
+    };
+    whatsapp?: {
+      enabled?: boolean | null;
+      phone?: string | null;
+      message?: string | null;
+    };
+  };
+  template2?: {
     /**
-     * Enquanto estiver desativado, o site ficará apenas como prévia.
+     * Personalize a apresentação principal do seu site.
      */
-    published?: boolean | null
-    template1?: {
-        /**
-         * Já deixamos essa parte pronta. Altere apenas o que quiser.
-         */
-        hero?: {
+    hero?: {
+      titlePrimary?: string | null;
+      title?: string | null;
+      titleHighlight?: string | null;
+      desc?: string | null;
+      button1text?: string | null;
+      button2text?: string | null;
+      /**
+       * Opcional. Se nenhuma foto for enviada, usamos a imagem padrão do Template Premium.
+       */
+      img?: (string | null) | Media;
+      /**
+       * Os ícones são definidos automaticamente pelo template.
+       */
+      tags?:
+        | {
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      cardTitle?: string | null;
+      cardText?: string | null;
+    };
+    /**
+     * Personalize os quatro números apresentados no site.
+     */
+    metrics?:
+      | {
+          number?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    services?: {
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Os três treinamentos já estão preenchidos. Personalize de acordo com o seu serviço.
+       */
+      cards?:
+        | {
+            desc?: string | null;
+            title?: string | null;
+            text?: string | null;
+            price?: string | null;
+            option?:
+              | {
+                  text?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             /**
-             * Pequeno texto que aparece acima do título principal.
+             * Opcional. Se vazio, você pode usar o WhatsApp principal.
              */
-            titlePrimary?: string | null
-            /**
-             * Essa será uma das primeiras mensagens vistas no seu site.
-             */
-            title?: string | null
-            /**
-             * Essa parte aparece destacada na cor principal do template.
-             */
-            titleHighlight?: string | null
-            desc?: string | null
-            button1text?: string | null
-            button1url?: string | null
-            /**
-             * Opcional. Se você não enviar uma foto agora, usamos a imagem padrão do template.
-             */
-            img?: (string | null) | Media
-        }
-        /**
-         * Já deixamos alguns exemplos. Troque apenas pelos números que representem sua experiência.
-         */
-        metrics?:
-            | {
-                  number?: string | null
-                  text?: string | null
-                  id?: string | null
-              }[]
-            | null
-        /**
-         * Criamos três serviços como exemplo. Você pode alterar apenas o que precisar.
-         */
-        services?: {
-            title?: string | null
-            desc?: string | null
-            /**
-             * Os serviços já estão preenchidos. Personalize de acordo com o que você oferece.
-             */
-            cards?:
-                | {
-                      title?: string | null
-                      desc?: string | null
-                      text?: string | null
-                      price?: string | null
-                      option?:
-                          | {
-                                text?: string | null
-                                id?: string | null
-                            }[]
-                          | null
-                      link?: string | null
-                      featured?: boolean | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        about?: {
-            img?: (string | null) | Media
-            title?: string | null
-            desc?: string | null
-            features?:
-                | {
-                      title?: string | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        testimonials?: {
-            enabled?: boolean | null
-            title?: string | null
-            desc?: string | null
-            cards?:
-                | {
-                      name?: string | null
-                      text?: string | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        contact?: {
-            title?: string | null
-            titleHighlight?: string | null
-            text?: string | null
-            buttontext?: string | null
-            buttonurl?: string | null
-        }
-        whatsapp?: {
-            enabled?: boolean | null
-            phone?: string | null
-            message?: string | null
-        }
-    }
-    template2?: {
-        /**
-         * Personalize a apresentação principal do seu site.
-         */
-        hero?: {
-            titlePrimary?: string | null
-            title?: string | null
-            titleHighlight?: string | null
-            desc?: string | null
-            button1text?: string | null
-            button2text?: string | null
-            /**
-             * Opcional. Se nenhuma foto for enviada, usamos a imagem padrão do Template Premium.
-             */
-            img?: (string | null) | Media
-            /**
-             * Os ícones são definidos automaticamente pelo template.
-             */
-            tags?:
-                | {
-                      text?: string | null
-                      id?: string | null
-                  }[]
-                | null
-            cardTitle?: string | null
-            cardText?: string | null
-        }
-        /**
-         * Personalize os quatro números apresentados no site.
-         */
-        metrics?:
-            | {
-                  number?: string | null
-                  text?: string | null
-                  id?: string | null
-              }[]
-            | null
-        services?: {
-            title?: string | null
-            desc?: string | null
-            /**
-             * Os três treinamentos já estão preenchidos. Personalize de acordo com o seu serviço.
-             */
-            cards?:
-                | {
-                      desc?: string | null
-                      title?: string | null
-                      text?: string | null
-                      price?: string | null
-                      option?:
-                          | {
-                                text?: string | null
-                                id?: string | null
-                            }[]
-                          | null
-                      /**
-                       * Opcional. Se vazio, você pode usar o WhatsApp principal.
-                       */
-                      link?: string | null
-                      featured?: boolean | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        about?: {
-            /**
-             * Opcional. Se nenhuma foto for enviada, usamos a imagem padrão.
-             */
-            img?: (string | null) | Media
-            title?: string | null
-            desc?: string | null
-            /**
-             * Os quatro diferenciais aparecem numerados no Template Premium.
-             */
-            features?:
-                | {
-                      number?: string | null
-                      title?: string | null
-                      desc?: string | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        testimonials?: {
-            enabled?: boolean | null
-            title?: string | null
-            /**
-             * Substitua os exemplos pelos depoimentos reais dos seus clientes.
-             */
-            cards?:
-                | {
-                      name?: string | null
-                      desc?: string | null
-                      type?: string | null
-                      id?: string | null
-                  }[]
-                | null
-        }
-        contact?: {
-            title?: string | null
-            desc?: string | null
-            buttontext?: string | null
-            /**
-             * Opcional. O botão também pode utilizar o WhatsApp principal do site.
-             */
-            link?: string | null
-        }
-        whatsapp?: {
-            enabled?: boolean | null
-            /**
-             * Digite código do país + DDD + número, sem espaços ou símbolos.
-             */
-            phone?: string | null
-            message?: string | null
-        }
-    }
-    template3?: {
-        /**
-         * Personalize a apresentação principal do Template Clean.
-         */
-        hero?: {
-            titlePrimary?: string | null
-            title?: string | null
-            titleSecondary?: string | null
-            titleHighlight?: string | null
-            desc?: string | null
-            button1text?: string | null
-            button1url?: string | null
-            button2text?: string | null
-            button2url?: string | null
-            /**
-             * Opcional. Se nenhuma imagem for enviada, será utilizada a imagem padrão.
-             */
-            img?: (string | null) | Media
-            tags?:
-                | {
-                      text?: string | null
-                      id?: string | null
-                  }[]
-                | null
-            cardTitle?: string | null
-            cardText?: string | null
-        }
-        about?: {
-            eyebrow?: string | null
-            title?: string | null
-            highlightedStart?: string | null
-            highlightedUnderstand?: string | null
-            highlightedConstancy?: string | null
-            highlightedMovement?: string | null
-            highlightedLife?: string | null
-            description?: string | null
-        }
-        method: {
-            title?: string | null
-            desc?: string | null
-            /**
-             * Existem exatamente quatro etapas. Edite o conteúdo de cada uma.
-             */
-            cards: {
-                title: string
-                text: string
-                id?: string | null
-            }[]
-        }
-        personalization?: {
-            eyebrow?: string | null
-            title?: string | null
-            highlightedTitle?: string | null
-            description?: string | null
-            button2text?: string | null
-            button2url?: string | null
-        }
-        form?: {
-            title?: string | null
-            desc?: string | null
-        }
-        features: {
-            /**
-             * Imagem utilizada ao lado dos fundamentos.
-             */
-            img?: (string | null) | Media
-            title?: string | null
-            /**
-             * O Template Clean utiliza exatamente quatro fundamentos.
-             */
-            items: {
-                title: string
-                desc: string
-                id?: string | null
-            }[]
-        }
-        motivation?: {
-            title?: string | null
-            highlightedTitle?: string | null
-            description?: string | null
-            button2text?: string | null
-        }
-        testimonials: {
-            enabled?: boolean | null
-            title?: string | null
-            /**
-             * O Template Clean utiliza exatamente quatro depoimentos.
-             */
-            cards: {
-                name: string
-                type: string
-                desc: string
-                rating?: number | null
-                avatar?: (string | null) | Media
-                id?: string | null
-            }[]
-        }
-        feelings?: {
-            eyebrow?: string | null
-            title?: string | null
-            description?: string | null
-            defaultFeeling?: ('FORTE' | 'DISPOSTO' | 'CONFIANTE' | 'LEVE' | 'ATIVO' | 'SAUDÁVEL' | 'CAPAZ') | null
-            forte?: {
-                title?: string | null
-                description?: string | null
-            }
-            disposto?: {
-                title?: string | null
-                description?: string | null
-            }
-            confiante?: {
-                title?: string | null
-                description?: string | null
-            }
-            leve?: {
-                title?: string | null
-                description?: string | null
-            }
-            ativo?: {
-                title?: string | null
-                description?: string | null
-            }
-            saudavel?: {
-                title?: string | null
-                description?: string | null
-            }
-            capaz?: {
-                title?: string | null
-                description?: string | null
-            }
-        }
-        contact?: {
-            eyebrow?: string | null
-            title?: string | null
-            description?: string | null
-            primaryButtonText?: string | null
-            primaryButtonHref?: string | null
-            secondaryButtonText?: string | null
-            /**
-             * Se ficar vazio, o botão usa o número configurado na seção WhatsApp.
-             */
-            secondaryButtonHref?: string | null
-        }
-        whatsapp?: {
-            enabled?: boolean | null
-            /**
-             * Digite código do país + DDD + número, sem espaços ou símbolos.
-             */
-            phone?: string | null
-            message?: string | null
-        }
-    }
-    updatedAt: string
-    createdAt: string
+            link?: string | null;
+            featured?: boolean | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    about?: {
+      /**
+       * Opcional. Se nenhuma foto for enviada, usamos a imagem padrão.
+       */
+      img?: (string | null) | Media;
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Os quatro diferenciais aparecem numerados no Template Premium.
+       */
+      features?:
+        | {
+            number?: string | null;
+            title?: string | null;
+            desc?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    testimonials?: {
+      enabled?: boolean | null;
+      title?: string | null;
+      /**
+       * Substitua os exemplos pelos depoimentos reais dos seus clientes.
+       */
+      cards?:
+        | {
+            name?: string | null;
+            desc?: string | null;
+            type?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+    };
+    contact?: {
+      title?: string | null;
+      desc?: string | null;
+      buttontext?: string | null;
+      /**
+       * Opcional. O botão também pode utilizar o WhatsApp principal do site.
+       */
+      link?: string | null;
+    };
+    whatsapp?: {
+      enabled?: boolean | null;
+      /**
+       * Digite código do país + DDD + número, sem espaços ou símbolos.
+       */
+      phone?: string | null;
+      message?: string | null;
+    };
+  };
+  template3?: {
+    /**
+     * Personalize a apresentação principal do Template Clean.
+     */
+    hero?: {
+      titlePrimary?: string | null;
+      title?: string | null;
+      titleSecondary?: string | null;
+      titleHighlight?: string | null;
+      desc?: string | null;
+      button1text?: string | null;
+      button1url?: string | null;
+      button2text?: string | null;
+      button2url?: string | null;
+      /**
+       * Opcional. Se nenhuma imagem for enviada, será utilizada a imagem padrão.
+       */
+      img?: (string | null) | Media;
+      tags?:
+        | {
+            text?: string | null;
+            id?: string | null;
+          }[]
+        | null;
+      cardTitle?: string | null;
+      cardText?: string | null;
+    };
+    about?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      highlightedStart?: string | null;
+      highlightedUnderstand?: string | null;
+      highlightedConstancy?: string | null;
+      highlightedMovement?: string | null;
+      highlightedLife?: string | null;
+      description?: string | null;
+    };
+    method: {
+      title?: string | null;
+      desc?: string | null;
+      /**
+       * Existem exatamente quatro etapas. Edite o conteúdo de cada uma.
+       */
+      cards: {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[];
+    };
+    personalization?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      highlightedTitle?: string | null;
+      description?: string | null;
+      button2text?: string | null;
+      button2url?: string | null;
+    };
+    form?: {
+      title?: string | null;
+      desc?: string | null;
+    };
+    features: {
+      /**
+       * Imagem utilizada ao lado dos fundamentos.
+       */
+      img?: (string | null) | Media;
+      title?: string | null;
+      /**
+       * O Template Clean utiliza exatamente quatro fundamentos.
+       */
+      items: {
+        title: string;
+        desc: string;
+        id?: string | null;
+      }[];
+    };
+    motivation?: {
+      title?: string | null;
+      highlightedTitle?: string | null;
+      description?: string | null;
+      button2text?: string | null;
+    };
+    testimonials: {
+      enabled?: boolean | null;
+      title?: string | null;
+      /**
+       * O Template Clean utiliza exatamente quatro depoimentos.
+       */
+      cards: {
+        name: string;
+        type: string;
+        desc: string;
+        rating?: number | null;
+        avatar?: (string | null) | Media;
+        id?: string | null;
+      }[];
+    };
+    feelings?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      description?: string | null;
+      defaultFeeling?: ('FORTE' | 'DISPOSTO' | 'CONFIANTE' | 'LEVE' | 'ATIVO' | 'SAUDÁVEL' | 'CAPAZ') | null;
+      forte?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      disposto?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      confiante?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      leve?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      ativo?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      saudavel?: {
+        title?: string | null;
+        description?: string | null;
+      };
+      capaz?: {
+        title?: string | null;
+        description?: string | null;
+      };
+    };
+    contact?: {
+      eyebrow?: string | null;
+      title?: string | null;
+      description?: string | null;
+      primaryButtonText?: string | null;
+      primaryButtonHref?: string | null;
+      secondaryButtonText?: string | null;
+      /**
+       * Se ficar vazio, o botão usa o número configurado na seção WhatsApp.
+       */
+      secondaryButtonHref?: string | null;
+    };
+    whatsapp?: {
+      enabled?: boolean | null;
+      /**
+       * Digite código do país + DDD + número, sem espaços ou símbolos.
+       */
+      phone?: string | null;
+      message?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "anamnesis-leads".
  */
 export interface AnamnesisLead {
-    id: string
-    site: string | Site
-    fullName: string
-    age: string
-    height: string
-    weight: string
-    goal: string
-    routine: string
-    daysPerWeek: string
-    experience: string
-    healthNotes: string
-    email: string
-    phone: string
-    source?: string | null
-    updatedAt: string
-    createdAt: string
+  id: string;
+  site: string | Site;
+  fullName: string;
+  age: string;
+  height: string;
+  weight: string;
+  goal: string;
+  routine: string;
+  daysPerWeek: string;
+  experience: string;
+  healthNotes: string;
+  email: string;
+  phone: string;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-    id: string
-    key: string
-    data:
-        | {
-              [k: string]: unknown
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null
+  id: string;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-    id: string
-    document?:
-        | ({
-              relationTo: 'users'
-              value: string | User
-          } | null)
-        | ({
-              relationTo: 'media'
-              value: string | Media
-          } | null)
-        | ({
-              relationTo: 'sites'
-              value: string | Site
-          } | null)
-        | ({
-              relationTo: 'anamnesis-leads'
-              value: string | AnamnesisLead
-          } | null)
-    globalSlug?: string | null
-    user: {
-        relationTo: 'users'
-        value: string | User
-    }
-    updatedAt: string
-    createdAt: string
+  id: string;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: string | User;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'sites';
+        value: string | Site;
+      } | null)
+    | ({
+        relationTo: 'anamnesis-leads';
+        value: string | AnamnesisLead;
+      } | null);
+  globalSlug?: string | null;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-    id: string
-    user: {
-        relationTo: 'users'
-        value: string | User
-    }
-    key?: string | null
-    value?:
-        | {
-              [k: string]: unknown
-          }
-        | unknown[]
-        | string
-        | number
-        | boolean
-        | null
-    updatedAt: string
-    createdAt: string
+  id: string;
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
+  key?: string | null;
+  value?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-    id: string
-    name?: string | null
-    batch?: number | null
-    updatedAt: string
-    createdAt: string
+  id: string;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-    name?: T
-    whatsapp?: T
-    updatedAt?: T
-    createdAt?: T
-    email?: T
-    resetPasswordToken?: T
-    resetPasswordExpiration?: T
-    salt?: T
-    hash?: T
-    loginAttempts?: T
-    lockUntil?: T
-    sessions?:
-        | T
-        | {
-              id?: T
-              createdAt?: T
-              expiresAt?: T
-          }
+  name?: T;
+  whatsapp?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-    alt?: T
-    updatedAt?: T
-    createdAt?: T
-    url?: T
-    thumbnailURL?: T
-    filename?: T
-    mimeType?: T
-    filesize?: T
-    width?: T
-    height?: T
-    focalX?: T
-    focalY?: T
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "sites_select".
  */
 export interface SitesSelect<T extends boolean = true> {
-    name?: T
-    user?: T
-    template?: T
-    slug?: T
-    published?: T
-    template1?:
-        | T
-        | {
-              hero?:
-                  | T
-                  | {
-                        titlePrimary?: T
-                        title?: T
-                        titleHighlight?: T
-                        desc?: T
-                        button1text?: T
-                        button1url?: T
-                        img?: T
-                    }
-              metrics?:
-                  | T
-                  | {
-                        number?: T
-                        text?: T
-                        id?: T
-                    }
-              services?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  title?: T
-                                  desc?: T
-                                  text?: T
-                                  price?: T
-                                  option?:
-                                      | T
-                                      | {
-                                            text?: T
-                                            id?: T
-                                        }
-                                  link?: T
-                                  featured?: T
-                                  id?: T
-                              }
-                    }
-              about?:
-                  | T
-                  | {
-                        img?: T
-                        title?: T
-                        desc?: T
-                        features?:
-                            | T
-                            | {
-                                  title?: T
-                                  id?: T
-                              }
-                    }
-              testimonials?:
-                  | T
-                  | {
-                        enabled?: T
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  name?: T
-                                  text?: T
-                                  id?: T
-                              }
-                    }
-              contact?:
-                  | T
-                  | {
-                        title?: T
-                        titleHighlight?: T
-                        text?: T
-                        buttontext?: T
-                        buttonurl?: T
-                    }
-              whatsapp?:
-                  | T
-                  | {
-                        enabled?: T
-                        phone?: T
-                        message?: T
-                    }
-          }
-    template2?:
-        | T
-        | {
-              hero?:
-                  | T
-                  | {
-                        titlePrimary?: T
-                        title?: T
-                        titleHighlight?: T
-                        desc?: T
-                        button1text?: T
-                        button2text?: T
-                        img?: T
-                        tags?:
-                            | T
-                            | {
-                                  text?: T
-                                  id?: T
-                              }
-                        cardTitle?: T
-                        cardText?: T
-                    }
-              metrics?:
-                  | T
-                  | {
-                        number?: T
-                        text?: T
-                        id?: T
-                    }
-              services?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  desc?: T
-                                  title?: T
-                                  text?: T
-                                  price?: T
-                                  option?:
-                                      | T
-                                      | {
-                                            text?: T
-                                            id?: T
-                                        }
-                                  link?: T
-                                  featured?: T
-                                  id?: T
-                              }
-                    }
-              about?:
-                  | T
-                  | {
-                        img?: T
-                        title?: T
-                        desc?: T
-                        features?:
-                            | T
-                            | {
-                                  number?: T
-                                  title?: T
-                                  desc?: T
-                                  id?: T
-                              }
-                    }
-              testimonials?:
-                  | T
-                  | {
-                        enabled?: T
-                        title?: T
-                        cards?:
-                            | T
-                            | {
-                                  name?: T
-                                  desc?: T
-                                  type?: T
-                                  id?: T
-                              }
-                    }
-              contact?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        buttontext?: T
-                        link?: T
-                    }
-              whatsapp?:
-                  | T
-                  | {
-                        enabled?: T
-                        phone?: T
-                        message?: T
-                    }
-          }
-    template3?:
-        | T
-        | {
-              hero?:
-                  | T
-                  | {
-                        titlePrimary?: T
-                        title?: T
-                        titleSecondary?: T
-                        titleHighlight?: T
-                        desc?: T
-                        button1text?: T
-                        button1url?: T
-                        button2text?: T
-                        button2url?: T
-                        img?: T
-                        tags?:
-                            | T
-                            | {
-                                  text?: T
-                                  id?: T
-                              }
-                        cardTitle?: T
-                        cardText?: T
-                    }
-              about?:
-                  | T
-                  | {
-                        eyebrow?: T
-                        title?: T
-                        highlightedStart?: T
-                        highlightedUnderstand?: T
-                        highlightedConstancy?: T
-                        highlightedMovement?: T
-                        highlightedLife?: T
-                        description?: T
-                    }
-              method?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                        cards?:
-                            | T
-                            | {
-                                  title?: T
-                                  text?: T
-                                  id?: T
-                              }
-                    }
-              personalization?:
-                  | T
-                  | {
-                        eyebrow?: T
-                        title?: T
-                        highlightedTitle?: T
-                        description?: T
-                        button2text?: T
-                        button2url?: T
-                    }
-              form?:
-                  | T
-                  | {
-                        title?: T
-                        desc?: T
-                    }
+  name?: T;
+  user?: T;
+  template?: T;
+  slug?: T;
+  published?: T;
+  template1?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              titlePrimary?: T;
+              title?: T;
+              titleHighlight?: T;
+              desc?: T;
+              button1text?: T;
+              button1url?: T;
+              img?: T;
+            };
+        metrics?:
+          | T
+          | {
+              number?: T;
+              text?: T;
+              id?: T;
+            };
+        services?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    text?: T;
+                    price?: T;
+                    option?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    link?: T;
+                    featured?: T;
+                    id?: T;
+                  };
+            };
+        about?:
+          | T
+          | {
+              img?: T;
+              title?: T;
+              desc?: T;
               features?:
-                  | T
-                  | {
-                        img?: T
-                        title?: T
-                        items?:
-                            | T
-                            | {
-                                  title?: T
-                                  desc?: T
-                                  id?: T
-                              }
-                    }
-              motivation?:
-                  | T
-                  | {
-                        title?: T
-                        highlightedTitle?: T
-                        description?: T
-                        button2text?: T
-                    }
-              testimonials?:
-                  | T
-                  | {
-                        enabled?: T
-                        title?: T
-                        cards?:
-                            | T
-                            | {
-                                  name?: T
-                                  type?: T
-                                  desc?: T
-                                  rating?: T
-                                  avatar?: T
-                                  id?: T
-                              }
-                    }
-              feelings?:
-                  | T
-                  | {
-                        eyebrow?: T
-                        title?: T
-                        description?: T
-                        defaultFeeling?: T
-                        forte?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        disposto?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        confiante?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        leve?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        ativo?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        saudavel?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                        capaz?:
-                            | T
-                            | {
-                                  title?: T
-                                  description?: T
-                              }
-                    }
-              contact?:
-                  | T
-                  | {
-                        eyebrow?: T
-                        title?: T
-                        description?: T
-                        primaryButtonText?: T
-                        primaryButtonHref?: T
-                        secondaryButtonText?: T
-                        secondaryButtonHref?: T
-                    }
-              whatsapp?:
-                  | T
-                  | {
-                        enabled?: T
-                        phone?: T
-                        message?: T
-                    }
-          }
-    updatedAt?: T
-    createdAt?: T
+                | T
+                | {
+                    title?: T;
+                    id?: T;
+                  };
+            };
+        testimonials?:
+          | T
+          | {
+              enabled?: T;
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    name?: T;
+                    text?: T;
+                    id?: T;
+                  };
+            };
+        contact?:
+          | T
+          | {
+              title?: T;
+              titleHighlight?: T;
+              text?: T;
+              buttontext?: T;
+              buttonurl?: T;
+            };
+        whatsapp?:
+          | T
+          | {
+              enabled?: T;
+              phone?: T;
+              message?: T;
+            };
+      };
+  template2?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              titlePrimary?: T;
+              title?: T;
+              titleHighlight?: T;
+              desc?: T;
+              button1text?: T;
+              button2text?: T;
+              img?: T;
+              tags?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              cardTitle?: T;
+              cardText?: T;
+            };
+        metrics?:
+          | T
+          | {
+              number?: T;
+              text?: T;
+              id?: T;
+            };
+        services?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    desc?: T;
+                    title?: T;
+                    text?: T;
+                    price?: T;
+                    option?:
+                      | T
+                      | {
+                          text?: T;
+                          id?: T;
+                        };
+                    link?: T;
+                    featured?: T;
+                    id?: T;
+                  };
+            };
+        about?:
+          | T
+          | {
+              img?: T;
+              title?: T;
+              desc?: T;
+              features?:
+                | T
+                | {
+                    number?: T;
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+            };
+        testimonials?:
+          | T
+          | {
+              enabled?: T;
+              title?: T;
+              cards?:
+                | T
+                | {
+                    name?: T;
+                    desc?: T;
+                    type?: T;
+                    id?: T;
+                  };
+            };
+        contact?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              buttontext?: T;
+              link?: T;
+            };
+        whatsapp?:
+          | T
+          | {
+              enabled?: T;
+              phone?: T;
+              message?: T;
+            };
+      };
+  template3?:
+    | T
+    | {
+        hero?:
+          | T
+          | {
+              titlePrimary?: T;
+              title?: T;
+              titleSecondary?: T;
+              titleHighlight?: T;
+              desc?: T;
+              button1text?: T;
+              button1url?: T;
+              button2text?: T;
+              button2url?: T;
+              img?: T;
+              tags?:
+                | T
+                | {
+                    text?: T;
+                    id?: T;
+                  };
+              cardTitle?: T;
+              cardText?: T;
+            };
+        about?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              highlightedStart?: T;
+              highlightedUnderstand?: T;
+              highlightedConstancy?: T;
+              highlightedMovement?: T;
+              highlightedLife?: T;
+              description?: T;
+            };
+        method?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    text?: T;
+                    id?: T;
+                  };
+            };
+        personalization?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              highlightedTitle?: T;
+              description?: T;
+              button2text?: T;
+              button2url?: T;
+            };
+        form?:
+          | T
+          | {
+              title?: T;
+              desc?: T;
+            };
+        features?:
+          | T
+          | {
+              img?: T;
+              title?: T;
+              items?:
+                | T
+                | {
+                    title?: T;
+                    desc?: T;
+                    id?: T;
+                  };
+            };
+        motivation?:
+          | T
+          | {
+              title?: T;
+              highlightedTitle?: T;
+              description?: T;
+              button2text?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              enabled?: T;
+              title?: T;
+              cards?:
+                | T
+                | {
+                    name?: T;
+                    type?: T;
+                    desc?: T;
+                    rating?: T;
+                    avatar?: T;
+                    id?: T;
+                  };
+            };
+        feelings?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              defaultFeeling?: T;
+              forte?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              disposto?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              confiante?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              leve?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              ativo?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              saudavel?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+              capaz?:
+                | T
+                | {
+                    title?: T;
+                    description?: T;
+                  };
+            };
+        contact?:
+          | T
+          | {
+              eyebrow?: T;
+              title?: T;
+              description?: T;
+              primaryButtonText?: T;
+              primaryButtonHref?: T;
+              secondaryButtonText?: T;
+              secondaryButtonHref?: T;
+            };
+        whatsapp?:
+          | T
+          | {
+              enabled?: T;
+              phone?: T;
+              message?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "anamnesis-leads_select".
  */
 export interface AnamnesisLeadsSelect<T extends boolean = true> {
-    site?: T
-    fullName?: T
-    age?: T
-    height?: T
-    weight?: T
-    goal?: T
-    routine?: T
-    daysPerWeek?: T
-    experience?: T
-    healthNotes?: T
-    email?: T
-    phone?: T
-    source?: T
-    updatedAt?: T
-    createdAt?: T
+  site?: T;
+  fullName?: T;
+  age?: T;
+  height?: T;
+  weight?: T;
+  goal?: T;
+  routine?: T;
+  daysPerWeek?: T;
+  experience?: T;
+  healthNotes?: T;
+  email?: T;
+  phone?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
-    key?: T
-    data?: T
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents_select".
  */
 export interface PayloadLockedDocumentsSelect<T extends boolean = true> {
-    document?: T
-    globalSlug?: T
-    user?: T
-    updatedAt?: T
-    createdAt?: T
+  document?: T;
+  globalSlug?: T;
+  user?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-preferences_select".
  */
 export interface PayloadPreferencesSelect<T extends boolean = true> {
-    user?: T
-    key?: T
-    value?: T
-    updatedAt?: T
-    createdAt?: T
+  user?: T;
+  key?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-migrations_select".
  */
 export interface PayloadMigrationsSelect<T extends boolean = true> {
-    name?: T
-    batch?: T
-    updatedAt?: T
-    createdAt?: T
+  name?: T;
+  batch?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
-    data?: {
-        [k: string]: unknown
-    }
-    width: 'full'
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
-    [k: string]: unknown
+  [k: string]: unknown;
 }
 
+
 declare module 'payload' {
-    export interface GeneratedTypes extends Config {}
+  export interface GeneratedTypes extends Config {}
 }
