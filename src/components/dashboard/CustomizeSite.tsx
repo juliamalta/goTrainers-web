@@ -499,6 +499,233 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
 
     const [data, setData] = React.useState<Template1Data>(() => createInitialData(site, templateImage))
 
+    // ============================================================
+    // INSTAGRAM IMPORT
+    // ============================================================
+
+    React.useEffect(() => {
+        if (site || typeof window === 'undefined') return
+
+        const params = new URLSearchParams(window.location.search)
+
+        if (params.get('source') !== 'instagram') return
+
+        const rawImport = window.sessionStorage.getItem('instagram-import')
+
+        if (!rawImport) return
+
+        try {
+            const parsed = JSON.parse(rawImport) as {
+                profile?: {
+                    username?: string
+                    name?: string
+                    fullName?: string
+                    biography?: string
+                    profilePicture?: string
+                    profilePicUrl?: string
+                    followersCount?: number
+                    postsCount?: number
+                }
+                username?: string
+                name?: string
+                fullName?: string
+                biography?: string
+                profilePicture?: string
+                profilePicUrl?: string
+                followersCount?: number
+                postsCount?: number
+            }
+
+            // Aceita tanto o formato novo { profile: ... } quanto o formato antigo direto.
+            const profile = parsed.profile ?? parsed
+
+            const importedName = (profile.name || profile.fullName || profile.username || '').trim()
+            const importedUsername = (profile.username || '').trim()
+            const importedBio = (profile.biography || '').trim()
+            const importedImage = (profile.profilePicture || profile.profilePicUrl || '').trim()
+            const followers = typeof profile.followersCount === 'number' ? profile.followersCount : null
+            const posts = typeof profile.postsCount === 'number' ? profile.postsCount : null
+            const firstName = importedName.split(/\s+/)[0] || 'Personal'
+
+            if (importedName) {
+                setSiteName(importedName)
+            }
+
+            if (importedUsername) {
+                const importedSlug = importedUsername
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-|-$/g, '')
+
+                if (importedSlug) {
+                    setSlug(importedSlug)
+                }
+            }
+
+            if (importedImage) {
+                setHeroImagePreview(importedImage)
+                setAboutImagePreview(importedImage)
+                setHeroImageId(null)
+                setAboutImageId(null)
+            }
+
+            const bioLower = importedBio
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+
+            const hasConstancy = bioLower.includes('constancia')
+            const hasPersonalized = bioLower.includes('personalizado') || bioLower.includes('personalizada')
+            const hasWeightLoss = bioLower.includes('emagrec')
+            const hasHypertrophy = bioLower.includes('hipertrof')
+            const hasPerformance = bioLower.includes('performance')
+
+            let focus = 'resultados consistentes'
+            if (hasWeightLoss) focus = 'emagrecimento com estratégia'
+            else if (hasHypertrophy) focus = 'hipertrofia e evolução'
+            else if (hasPerformance) focus = 'performance e evolução'
+            else if (hasConstancy) focus = 'constância e evolução'
+
+            const personalizedText = hasPersonalized
+                ? 'Treino personalizado de acordo com seus objetivos, rotina e nível atual.'
+                : 'Acompanhamento pensado de acordo com seus objetivos, rotina e evolução.'
+
+            setData((current) => ({
+                ...current,
+                hero: {
+                    ...current.hero,
+                    titlePrimary: importedName
+                        ? `${importedName.toUpperCase()} • PERSONAL TRAINER`
+                        : 'TREINAMENTO PERSONALIZADO',
+                    title: 'Transforme seu treino em',
+                    titleHighlight: `${focus}.`,
+                    desc:
+                        importedBio ||
+                        `${personalizedText} Um processo construído para gerar evolução com segurança e consistência.`,
+                    button1text: 'Quero começar',
+                    button1url: '#contato',
+                    img: importedImage || current.hero.img,
+                },
+
+                metrics: [
+                    {
+                        number: followers !== null ? followers.toLocaleString('pt-BR') : '100%',
+                        text: followers !== null ? 'Seguidores no Instagram' : 'Treino personalizado',
+                    },
+                    {
+                        number: posts !== null ? posts.toLocaleString('pt-BR') : '1:1',
+                        text: posts !== null ? 'Conteúdos publicados' : 'Acompanhamento individual',
+                    },
+                    {
+                        number: '3',
+                        text: 'Etapas: avaliação, estratégia e evolução',
+                    },
+                    {
+                        number: '100%',
+                        text: 'Foco em constância e progresso',
+                    },
+                ],
+
+                services: {
+                    ...current.services,
+                    title: `Treinos pensados para a sua evolução`,
+                    desc: `${firstName} trabalha com acompanhamento personalizado para transformar objetivos em um plano de treino possível de seguir no dia a dia.`,
+                    cards: [
+                        {
+                            ...current.services.cards[0],
+                            desc: 'TREINO PERSONALIZADO',
+                            title: 'Personal Training',
+                            text: personalizedText,
+                            price: '',
+                            option: [
+                                'Planejamento individual',
+                                'Treinos adaptados à sua rotina',
+                                'Acompanhamento da evolução',
+                            ],
+                            link: '',
+                            featured: true,
+                        },
+                        {
+                            ...current.services.cards[1],
+                            desc: 'ACOMPANHAMENTO',
+                            title: 'Evolução com constância',
+                            text: `Estratégia de treino com ajustes ao longo do processo para manter sua evolução de forma consistente.`,
+                            price: '',
+                            option: [
+                                'Ajustes de treino',
+                                'Orientação durante o processo',
+                                'Foco em execução e consistência',
+                            ],
+                            link: '',
+                            featured: false,
+                        },
+                        {
+                            ...current.services.cards[2],
+                            desc: 'ESTRATÉGIA',
+                            title: 'Treino para seus objetivos',
+                            text: `Uma abordagem direcionada para ${focus}, respeitando seu momento, sua rotina e seus objetivos.`,
+                            price: '',
+                            option: ['Objetivos bem definidos', 'Progressão planejada', 'Treino adaptável'],
+                            link: '',
+                            featured: false,
+                        },
+                    ],
+                },
+
+                about: {
+                    ...current.about,
+                    img: importedImage || current.about.img,
+                    title: importedName
+                        ? `${importedName}: treino com estratégia e acompanhamento`
+                        : 'Treino com estratégia e acompanhamento',
+                    desc:
+                        importedBio ||
+                        `${personalizedText} A proposta é construir um processo sustentável, com orientação próxima e evolução progressiva.`,
+                    features: [
+                        { title: 'Treino personalizado para seus objetivos' },
+                        { title: 'Planejamento de acordo com sua rotina' },
+                        { title: 'Acompanhamento e ajustes durante o processo' },
+                        { title: 'Foco em constância, segurança e evolução' },
+                    ],
+                },
+
+                // O Instagram não fornece depoimentos reais dos alunos.
+                // Limpamos os exemplos para não publicar testemunhos fictícios.
+                testimonials: {
+                    ...current.testimonials,
+                    title: 'Resultados construídos com acompanhamento',
+                    desc: 'Adicione aqui depoimentos reais dos seus alunos.',
+                    cards: current.testimonials.cards.map(() => ({
+                        name: '',
+                        text: '',
+                    })),
+                },
+
+                contact: {
+                    ...current.contact,
+                    title: 'Pronto para começar sua evolução?',
+                    titleHighlight: `Fale com ${firstName}.`,
+                    text: `Conte seus objetivos e descubra como um acompanhamento personalizado pode ajudar você a construir ${focus}.`,
+                    buttontext: 'Quero começar',
+                    buttonurl: '',
+                },
+
+                whatsapp: {
+                    ...current.whatsapp,
+                    enabled: true,
+                    message: `Olá, ${firstName}! Vi seu site e gostaria de saber mais sobre o acompanhamento personalizado.`,
+                },
+            }))
+
+            console.log('DADOS DO INSTAGRAM APLICADOS AO TEMPLATE FITNESS:', profile)
+        } catch (error) {
+            console.error('Não foi possível aplicar os dados do Instagram ao Template 1:', error)
+        }
+    }, [site])
+
     React.useEffect(() => {
         if (!mobilePreviewOpen) return
 

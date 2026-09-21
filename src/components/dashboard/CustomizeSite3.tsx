@@ -769,6 +769,183 @@ export default function CustomizeSite3({ templateName, userName, site }: Customi
     const [data, setData] = React.useState<Template3Data>(() => createInitialData(site))
 
     // ============================================================
+    // INSTAGRAM IMPORT — PREENCHE TODO O TEMPLATE CLEAN
+    // ============================================================
+
+    React.useEffect(() => {
+        if (site || typeof window === 'undefined') return
+
+        const params = new URLSearchParams(window.location.search)
+        if (params.get('source') !== 'instagram') return
+
+        const rawImport = window.sessionStorage.getItem('instagram-import')
+        if (!rawImport) return
+
+        try {
+            const imported = JSON.parse(rawImport) as {
+                profile?: {
+                    username?: string
+                    name?: string
+                    biography?: string
+                    profilePicture?: string
+                    profilePicUrl?: string
+                    followersCount?: number
+                    postsCount?: number
+                }
+                template?: string
+                importedAt?: number
+            }
+
+            const profile = imported.profile
+            if (!profile) return
+
+            const name = profile.name?.trim() || 'Personal Trainer'
+            const username = profile.username?.trim() || ''
+            const bio = profile.biography?.trim() || ''
+            const image = (profile.profilePicture || profile.profilePicUrl)?.trim() || ''
+            const followers = profile.followersCount
+
+            setSiteName(name)
+
+            if (username) {
+                setSlug(
+                    username
+                        .toLowerCase()
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
+                        .replace(/[^a-z0-9]+/g, '-')
+                        .replace(/-+/g, '-')
+                        .replace(/^-|-$/g, '')
+                )
+            }
+
+            // O Apify fornece os dados do perfil. A partir deles, o GoTrainers
+            // cria uma primeira versão editável das demais seções do template.
+            setData((current) => ({
+                ...current,
+                hero: {
+                    ...current.hero,
+                    titlePrimary: `${name.toUpperCase()} • PERSONAL TRAINER`,
+                    title: 'Treino feito para você.',
+                    titleSecondary: 'Evolução construída com',
+                    titleHighlight: 'constância.',
+                    desc:
+                        bio ||
+                        `Acompanhamento personalizado com ${name}, respeitando sua rotina, seus objetivos e o seu momento.`,
+                    ...(image ? { img: image } : {}),
+                    cardTitle: 'TREINO PERSONALIZADO',
+                    cardText:
+                        typeof followers === 'number'
+                            ? `${followers.toLocaleString('pt-BR')} SEGUIDORES NO INSTAGRAM`
+                            : 'ACOMPANHAMENTO INDIVIDUAL',
+                },
+                about: {
+                    ...current.about,
+                    eyebrow: `CONHEÇA ${name.toUpperCase()}`,
+                    title: 'Treino personalizado para a sua realidade',
+                    highlightedStart: 'Com',
+                    highlightedUnderstand: 'estratégia',
+                    highlightedConstancy: 'constância',
+                    highlightedMovement: 'movimento',
+                    highlightedLife: 'resultado',
+                    description:
+                        bio ||
+                        `O trabalho de ${name} parte da sua rotina e dos seus objetivos para construir um processo de treino possível, individual e consistente.`,
+                },
+                method: {
+                    ...current.method,
+                    title: 'Um acompanhamento pensado para você.',
+                    desc: 'Cada pessoa tem uma rotina, um histórico e um objetivo. Por isso, o processo começa entendendo você antes de definir o treino.',
+                    cards: [
+                        {
+                            title: 'Avaliar',
+                            text: 'Entender seu momento atual, sua rotina, histórico, objetivos e necessidades.',
+                        },
+                        {
+                            title: 'Planejar',
+                            text: 'Organizar uma estratégia de treino personalizada e compatível com a sua realidade.',
+                        },
+                        {
+                            title: 'Acompanhar',
+                            text: 'Observar sua evolução e ajustar o planejamento sempre que for necessário.',
+                        },
+                        {
+                            title: 'Evoluir',
+                            text: 'Construir resultados por meio de consistência, progressão e continuidade.',
+                        },
+                    ],
+                },
+                personalization: {
+                    ...current.personalization,
+                    eyebrow: 'TREINO PERSONALIZADO',
+                    title: 'Seu treino precisa fazer sentido para você.',
+                    highlightedTitle: 'Primeiro, vamos entender sua rotina e seus objetivos.',
+                    description: `Responda algumas perguntas para ${name} conhecer seu momento atual e preparar um acompanhamento mais alinhado ao que você precisa.`,
+                    button2text: 'Quero começar minha avaliação',
+                },
+                form: {
+                    ...current.form,
+                    title: 'Conte um pouco sobre você.',
+                    desc: 'Essas informações ajudam a entender seu ponto de partida e seus objetivos.',
+                },
+                features: {
+                    ...current.features,
+                    title: 'Os pilares para uma evolução consistente.',
+                    items: [
+                        {
+                            title: 'Treino Individual',
+                            desc: 'Planejamento construído de acordo com seus objetivos, rotina e nível atual.',
+                        },
+                        {
+                            title: 'Progressão',
+                            desc: 'Evolução gradual do treino para continuar avançando com estratégia.',
+                        },
+                        {
+                            title: 'Acompanhamento',
+                            desc: 'Ajustes ao longo do processo para o treino continuar fazendo sentido para você.',
+                        },
+                        {
+                            title: 'Constância',
+                            desc: 'Uma rotina possível de manter para transformar esforço em resultado ao longo do tempo.',
+                        },
+                    ],
+                },
+                motivation: {
+                    ...current.motivation,
+                    title: 'Resultado não depende de milagre.',
+                    highlightedTitle: 'Depende de constância.',
+                    description: 'Comece com um plano que respeite seu momento e evolua passo a passo.',
+                    button2text: 'COMEÇAR AGORA',
+                },
+                feelings: {
+                    ...current.feelings,
+                    eyebrow: 'SEU OBJETIVO, SEU PROCESSO',
+                    title: 'Como você quer se sentir?',
+                    description:
+                        'Escolha o que você busca e veja como um acompanhamento personalizado pode ajudar nesse processo.',
+                },
+                contact: {
+                    ...current.contact,
+                    eyebrow: 'PRÓXIMO PASSO',
+                    title: `Vamos começar seu acompanhamento com ${name}?`,
+                    description:
+                        'Preencha a avaliação inicial ou entre em contato para conversar sobre seus objetivos e encontrar o formato ideal para você.',
+                    primaryButtonText: 'PREENCHER AVALIAÇÃO INICIAL',
+                    secondaryButtonText: 'CONVERSAR NO WHATSAPP',
+                },
+                whatsapp: {
+                    ...current.whatsapp,
+                    message: `Olá, ${name}! Conheci seu trabalho e gostaria de saber mais sobre o acompanhamento personalizado.`,
+                },
+            }))
+
+            console.log('INSTAGRAM APLICADO A TODAS AS SEÇÕES DO TEMPLATE CLEAN:', profile)
+        } catch (error) {
+            console.error('Não foi possível aplicar os dados do Instagram:', error)
+        }
+    }, [site])
+
+    // ============================================================
     // IMAGES
     // ============================================================
 

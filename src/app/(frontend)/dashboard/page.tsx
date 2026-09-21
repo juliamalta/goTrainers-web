@@ -48,7 +48,7 @@ export default async function Dashboard() {
                             img: '/images/template1.png',
                             tag: ['Alta Energia', 'Neon Green'],
                             desc: 'Moderno, energético e impactante. Fundo escuro, verde neon, grandes imagens, CTAs fortes, visual de academia e foco total em resultados.',
-                            link: '/dashboard/customize?template=fitness',
+                            link: '/dashboard/create?template=fitness',
                             buttonText: 'Escolher esse template',
                         },
                         {
@@ -56,7 +56,7 @@ export default async function Dashboard() {
                             img: '/images/template2.png',
                             tag: ['Alto Ticket', 'Champagne Gold'],
                             desc: 'Sofisticado, elegante e profissional. Fundo escuro, detalhes dourados e champagne, tipografia refinada, ideal para consultoria VIP de alto valor agregado.',
-                            link: '/dashboard/customize?template=premium',
+                            link: '/dashboard/create?template=premium',
                             buttonText: 'Escolher esse template',
                         },
                         {
@@ -64,7 +64,7 @@ export default async function Dashboard() {
                             img: '/images/template3.png',
                             tag: ['Saúde e Postura', 'Clean White'],
                             desc: 'Minimalista, leve e direto ao ponto. Fundo claro, muito espaço em branco, tipografia moderna e foco humanizado no profissional e no bem-estar.',
-                            link: '/dashboard/customize?template=clean',
+                            link: '/dashboard/create?template=clean',
                             buttonText: 'Escolher esse template',
                         },
                     ]}
