@@ -30,7 +30,7 @@ function Contact3({
                 <div className="mt-10 flex w-full flex-col justify-center gap-4 sm:w-auto sm:flex-row">
                     <InteractiveHoverButton
                         href={primaryButtonHref}
-                        className="rounded-2xl border-color-forest bg-white text-xs text-black hover:text-white">
+                        className="rounded-2xl border-color-forest bg-white text-xs text-black hover:text-black">
                         {primaryButtonText}
                     </InteractiveHoverButton>
                     <Button variant="herobuttonsecondary3" size="hero" asChild className="rounded-2xl text-xs">

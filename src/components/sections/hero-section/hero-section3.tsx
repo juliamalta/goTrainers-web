@@ -49,7 +49,7 @@ export function HeroSection3({
                         <p className="text-md max-w-2xl text-black sm:text-base lg:text-lg">{desc}</p>
 
                         <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
-                            <div className="flex w-full flex-col gap-3 sm:flex-row">
+                            <div className="flex w-full flex-col gap-3 md:flex-col lg:flex-row">
                                 <InteractiveHoverButton
                                     href={button1url}
                                     className="rounded-2xl border-color-forest bg-color-forest text-center text-sm text-white hover:text-white">

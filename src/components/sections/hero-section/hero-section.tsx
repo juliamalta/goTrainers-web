@@ -30,7 +30,7 @@ export function HeroSection({ title, desc, button1text, button2text, titlePrimar
                     </HyperText>
                 </div>
 
-                <h1 className="font-regular w-full text-3xl text-white md:text-6xl lg:w-2/3">{title}</h1>
+                <h1 className="font-regular w-full text-3xl text-white sm:text-6xl lg:w-2/3">{title}</h1>
 
                 <p className="text-md text-color-clay sm:text-base lg:w-2/5">{desc}</p>
 

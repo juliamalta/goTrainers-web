@@ -30,9 +30,8 @@ export default function Home() {
                     titlePrimary="PERSONAL TRAINER • PERFORMANCE • SAÚDE • WELLNESS"
                     title={
                         <>
-                            Seu corpo pode mais.
-                            <br />
-                            Seu treino pode ser <span className="font-medium italic">diferente.</span>
+                            Seu corpo pode mais. Seu treino pode ser{' '}
+                            <span className="font-medium italic">diferente.</span>
                         </>
                     }
                     desc="Treinos personalizados para construir força, disposição e uma rotina sustentável que realmente funcione na sua vida. Sem extremismos, com precisão biomecânica."

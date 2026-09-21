@@ -210,7 +210,6 @@ export default async function Home({ params }: PageProps) {
                     title={
                         <>
                             {hero?.title ?? 'Seu corpo pode mais.'}
-                            <br />
                             {hero?.titleSecondary ?? 'Seu treino pode ser'}{' '}
                             <span className="font-medium italic">{hero?.titleHighlight ?? 'diferente.'}</span>
                         </>

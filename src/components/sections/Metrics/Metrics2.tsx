@@ -6,7 +6,7 @@ function Metrics2({ metrics }: MetricsProps) {
     return (
         <section id="Metrics" className="border-y border-white/10 bg-[#0C0F0F] py-16 md:py-20">
             <div className="container mx-auto px-4">
-                <div className="grid grid-cols-2 md:grid-cols-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 2xl:gap-16">
                     {metrics.map((metric, index) => (
                         <div key={index} className="flex flex-col px-4 py-6">
                             <div className="flex">

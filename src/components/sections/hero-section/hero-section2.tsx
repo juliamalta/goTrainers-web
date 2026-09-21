@@ -23,6 +23,7 @@ export function HeroSection2({
     cardTitle,
 }: HeroProps) {
     const fallbackImage = '/images/imag2.png'
+
     const [imageSrc, setImageSrc] = useState(img ?? fallbackImage)
 
     useEffect(() => {
@@ -30,93 +31,106 @@ export function HeroSection2({
     }, [img])
 
     return (
-        <section id="inicio" className="relative mx-auto overflow-hidden px-6 py-20 sm:px-8 sm:py-24 lg:px-12">
+        <section
+            id="inicio"
+            className="relative mx-auto overflow-hidden px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:px-12 lg:py-24">
             <div className="container relative z-10 mx-auto">
-                <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-                    {/* CONTEÚDO ESQUERDO */}
-                    <div className="flex flex-col gap-6">
-                        {/* TAG */}
-                        <div className="flex">
-                            <HyperText
-                                key={titlePrimary}
-                                style={{
-                                    backgroundColor: 'color-mix(in srgb, var(--saffron-300) 10%, transparent)',
-                                }}
-                                className="rounded-2xl px-4 text-base font-semibold text-color-saffron">
-                                {titlePrimary}
-                            </HyperText>
-                        </div>
+                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                    {/* CONTEÚDO */}
+                    <div className="flex min-w-0 flex-col items-center gap-5 text-center sm:gap-6 lg:items-start lg:text-left">
+                        {/* TAG SUPERIOR */}
+                        {titlePrimary && (
+                            <div className="flex max-w-full">
+                                <HyperText
+                                    key={titlePrimary}
+                                    style={{
+                                        backgroundColor: 'color-mix(in srgb, var(--saffron-300) 10%, transparent)',
+                                    }}
+                                    className="max-w-full rounded-2xl px-3 py-1 text-sm font-semibold text-color-saffron sm:px-4 sm:text-base">
+                                    {titlePrimary}
+                                </HyperText>
+                            </div>
+                        )}
 
                         {/* TÍTULO */}
-                        <h1 className="font-regular w-full text-4xl leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                        <h1 className="w-full max-w-3xl text-4xl font-normal leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl">
                             {title}
                         </h1>
 
                         {/* DESCRIÇÃO */}
-                        <p className="text-md max-w-2xl text-color-sisal sm:text-base lg:text-lg">{desc}</p>
+                        <p className="max-w-2xl text-sm leading-relaxed text-color-sisal sm:text-base lg:text-lg">
+                            {desc}
+                        </p>
 
-                        <div className="flex w-full flex-col gap-3 sm:flex-row lg:gap-5">
-                            <div className="flex w-full flex-col gap-3 sm:flex-row">
-                                <InteractiveHoverButton
-                                    href={button1url}
-                                    className="rounded-2xl border-color-saffron bg-color-saffron text-center text-sm text-black hover:text-white">
-                                    {button1text}
-                                </InteractiveHoverButton>
+                        {/* BOTÕES */}
+                        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center lg:justify-start lg:gap-4">
+                            <InteractiveHoverButton
+                                href={button1url}
+                                className="w-full rounded-2xl border-color-saffron bg-color-saffron text-center text-sm text-black hover:text-white sm:w-auto">
+                                {button1text}
+                            </InteractiveHoverButton>
 
+                            {button2text && (
                                 <Button
                                     variant="herobuttonsecondary2"
                                     size="hero"
                                     asChild
-                                    className="rounded-2xl text-sm">
+                                    className="w-full rounded-2xl text-sm sm:w-auto">
                                     <Link href={button2url}>{button2text}</Link>
                                 </Button>
-                            </div>
+                            )}
                         </div>
-                        <div className="flex w-full flex-col gap-8 sm:flex-row">
-                            {tag!.map((tags, index) => (
-                                <div key={index} className="flex items-center gap-2">
-                                    {tags.icon}
 
-                                    <p className="text-md text-white">{tags.text}</p>
-                                </div>
-                            ))}
-                        </div>
+                        {/* TAGS */}
+                        {tag && tag.length > 0 && (
+                            <div className="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-3 pt-2 lg:justify-start">
+                                {tag.map((tags, index) => (
+                                    <div key={index} className="flex shrink-0 items-center gap-2">
+                                        {tags.icon}
+
+                                        <p className="text-sm text-white sm:text-base">{tags.text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* IMAGEM DIREITA */}
-                    {/* IMAGEM DIREITA */}
-                    <div className="relative flex justify-center lg:justify-end">
-                        <div className="relative h-[420px] w-full max-w-[440px] sm:h-[500px] lg:h-[560px]">
-                            {/* IMAGEM */}
+                    {/* IMAGEM */}
+                    <div className="relative flex w-full justify-center lg:justify-end">
+                        <div className="relative h-[380px] w-full max-w-[440px] sm:h-[480px] md:h-[520px] lg:h-[560px]">
+                            {/* FOTO */}
                             <div className="absolute inset-0 overflow-hidden">
                                 <Image
                                     src={imageSrc}
                                     alt="Personal trainer em academia"
                                     fill
                                     priority
+                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 440px, 440px"
                                     className="object-cover object-center"
                                     onError={() => setImageSrc(fallbackImage)}
                                 />
 
-                                {/* Escurecimento inferior */}
                                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                             </div>
 
                             {/* CARD INFERIOR */}
-                            <div className="absolute bottom-5 left-5 right-5 z-20 flex items-center justify-between bg-[#1c1c1c] px-5 py-4 shadow-xl">
-                                <div className="flex items-center gap-3">
-                                    {/* Quadrado dourado */}
-                                    <div className="h-2.5 w-2.5 shrink-0 bg-[var(--saffron-300)]" />
+                            {(cardTitle || cardText) && (
+                                <div className="absolute bottom-3 left-3 right-3 z-20 bg-[#1c1c1c] px-4 py-3 shadow-xl sm:bottom-5 sm:left-5 sm:right-5 sm:px-5 sm:py-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-2.5 w-2.5 shrink-0 bg-[var(--saffron-300)]" />
 
-                                    <div>
-                                        <p className="text-xs font-bold uppercase tracking-wide text-[var(--saffron-300)]">
-                                            {cardTitle}
-                                        </p>
+                                        <div className="min-w-0">
+                                            <p className="text-[10px] font-bold uppercase tracking-wide text-[var(--saffron-300)] sm:text-xs">
+                                                {cardTitle}
+                                            </p>
 
-                                        <p className="mt-0.5 text-xs font-medium text-white/60">{cardText}</p>
+                                            <p className="mt-0.5 text-[11px] font-medium leading-relaxed text-white/60 sm:text-xs">
+                                                {cardText}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

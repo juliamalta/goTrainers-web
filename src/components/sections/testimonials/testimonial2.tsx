@@ -59,7 +59,7 @@ function Testimonials2({ testimonial, title }: TestimonialProps) {
                                         </p>
 
                                         {card.avatar && (
-                                            <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-full sm:h-28 sm:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36">
+                                            <div className="relative mx-auto h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-full sm:h-28 sm:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36">
                                                 <Image
                                                     src={card.avatar}
                                                     alt={card.name}
@@ -72,10 +72,14 @@ function Testimonials2({ testimonial, title }: TestimonialProps) {
                                     </div>
 
                                     {/* CLIENTE */}
-                                    <div className="mt-auto">
-                                        <p className="text-sm font-semibold text-black">{card.name}</p>
+                                    <div className="mx-auto mt-auto w-full">
+                                        <p className="text-center text-sm font-semibold lg:text-left">{card.name}</p>
 
-                                        {card.type && <p className="mt-1 text-sm text-color-forest">{card.type}</p>}
+                                        {card.type && (
+                                            <p className="mt-1 text-center text-sm text-color-forest lg:text-left">
+                                                {card.type}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </CarouselItem>

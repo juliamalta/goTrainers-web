@@ -25,7 +25,7 @@ export function HeroSection1({
                     {/* CONTEÚDO ESQUERDO */}
                     <div className="flex flex-col gap-6">
                         {/* TAG */}
-                        <div className="flex">
+                        <div className="lg:items-left flex items-center justify-center lg:justify-start">
                             <HyperText
                                 key={titlePrimary}
                                 style={{
@@ -37,16 +37,18 @@ export function HeroSection1({
                         </div>
 
                         {/* TÍTULO */}
-                        <h1 className="font-regular w-full text-4xl leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                        <h1 className="font-regular w-full text-4xl leading-[1.05] text-white sm:text-5xl md:text-center md:text-6xl lg:text-left lg:text-5xl 2xl:text-7xl">
                             {title}
                         </h1>
 
                         {/* DESCRIÇÃO */}
-                        <p className="text-md max-w-2xl text-color-clay sm:text-base lg:text-lg">{desc}</p>
+                        <p className="text-md max-w-2xl text-color-clay sm:text-base md:text-center lg:text-left lg:text-lg">
+                            {desc}
+                        </p>
 
                         {/* BOTÕES */}
-                        <Link href={button1url} className="w-fit">
-                            <InteractiveHoverButton className="rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
+                        <Link href={button1url} className="mx-auto w-full md:w-2/3 lg:mx-0 lg:w-fit">
+                            <InteractiveHoverButton className="w-full rounded-2xl border-color-malachite bg-color-malachite text-center text-sm text-black hover:text-white">
                                 {button1text}
                             </InteractiveHoverButton>
                         </Link>
