@@ -604,14 +604,14 @@ export default function CustomizeSite2({ templateName, templateImage, userName, 
             const name = String(profile.name || profile.username || '').trim()
             const username = String(profile.username || '').trim()
             const biography = String(profile.biography || '').trim()
-            const followers = Number(profile.followersCount || 0)
-            const posts = Number(profile.postsCount || 0)
+            const followers = typeof profile.followersCount === 'number' ? profile.followersCount : null
+            const posts = typeof profile.postsCount === 'number' ? profile.postsCount : null
 
             if (name) setSiteName(name)
             if (username) setSlug(username)
 
-            const followerLabel = followers > 0 ? followers.toLocaleString('pt-BR') : 'Perfil ativo'
-            const postLabel = posts > 0 ? posts.toLocaleString('pt-BR') : 'Conteúdo'
+            const followerLabel = followers !== null ? followers.toLocaleString('pt-BR') : ''
+            const postLabel = posts !== null ? posts.toLocaleString('pt-BR') : ''
 
             setData((current) => ({
                 ...current,
@@ -620,132 +620,128 @@ export default function CustomizeSite2({ templateName, templateImage, userName, 
                     titlePrimary: name ? `${name.toUpperCase()} • PERSONAL TRAINER` : 'PERSONAL TRAINING',
                     title: name ? `Treinamento personalizado com ${name}` : 'Treinamento personalizado para',
                     titleHighlight: 'evoluir com estratégia.',
-                    desc:
-                        biography ||
-                        'Acompanhamento personalizado para transformar seus objetivos em uma rotina de treino consistente e sustentável.',
+                    desc: biography || current.hero.desc,
                     button1text: 'COMECE SUA EVOLUÇÃO',
                     button2text: 'CONHEÇA O ACOMPANHAMENTO',
                     tags: [
-                        username ? `@${username}` : 'Atendimento personalizado',
-                        followers > 0 ? `${followerLabel} seguidores` : 'Acompanhamento individual',
-                        'Treino com estratégia',
+                        username ? `@${username}` : current.hero.tags[0],
+                        followers !== null ? `${followerLabel} seguidores` : current.hero.tags[1],
+                        current.hero.tags[2],
                     ],
                     cardTitle: 'ACOMPANHAMENTO PERSONALIZADO',
                     cardText: 'Treino pensado para seus objetivos e sua rotina.',
                 },
-                metrics: [
-                    {
-                        number: followers > 0 ? followerLabel : '1:1',
-                        text:
-                            followers > 0
-                                ? 'pessoas acompanham este trabalho no Instagram.'
-                                : 'acompanhamento individual e próximo.',
-                    },
-                    {
-                        number: posts > 0 ? postLabel : '100%',
-                        text:
-                            posts > 0
-                                ? 'publicações compartilhando rotina, treino e conteúdo.'
-                                : 'planejamento direcionado aos seus objetivos.',
-                    },
-                    {
-                        number: '1:1',
-                        text: 'atenção individual para adaptar o treino à sua realidade.',
-                    },
-                    {
-                        number: '360°',
-                        text: 'visão de rotina, constância, evolução e qualidade de movimento.',
-                    },
-                ],
-                services: {
-                    ...current.services,
-                    title: 'Um acompanhamento feito para você.',
-                    desc: biography
-                        ? `A proposta de ${name || 'este profissional'} parte do que já comunica no Instagram e transforma isso em um acompanhamento estruturado para sua rotina e objetivos.`
-                        : 'Escolha a forma de acompanhamento que melhor combina com sua rotina e seus objetivos.',
-                    cards: [
-                        {
-                            ...current.services.cards[0],
-                            desc: 'TREINO PRESENCIAL',
-                            title: 'Personal Training',
-                            text: 'Sessões presenciais com orientação individual, atenção à execução e progressão de acordo com seus objetivos.',
-                            price: '',
-                            option: ['Treino individualizado', 'Acompanhamento da execução', 'Progressão planejada'],
-                        },
-                        {
-                            ...current.services.cards[1],
-                            desc: 'ACOMPANHAMENTO COMPLETO',
-                            title: 'Plano Personalizado',
-                            text: 'Planejamento de treino adaptado à sua rotina, com acompanhamento e ajustes para manter consistência na evolução.',
-                            price: '',
-                            option: [
-                                'Planejamento personalizado',
-                                'Ajustes conforme evolução',
-                                'Contato para acompanhamento',
-                            ],
-                            featured: true,
-                        },
-                        {
-                            ...current.services.cards[2],
-                            desc: 'CONSULTORIA ONLINE',
-                            title: 'Treino à Distância',
-                            text: 'Uma opção para quem quer orientação profissional e liberdade para treinar onde estiver.',
-                            price: '',
-                            option: ['Prescrição de treino', 'Orientações de execução', 'Acompanhamento remoto'],
-                        },
-                    ],
-                },
-                about: {
-                    ...current.about,
-                    title: name ? `Conheça ${name}` : 'Conheça seu personal trainer',
-                    desc:
-                        biography ||
-                        'Acompanhamento profissional com atenção individual, estratégia e constância para construir uma evolução sustentável.',
-                    features: [
-                        {
-                            number: '01',
-                            title: 'Estratégia Personalizada',
-                            desc: 'O treino é organizado de acordo com seus objetivos, rotina e momento atual.',
-                        },
-                        {
-                            number: '02',
-                            title: 'Acompanhamento Individual',
-                            desc: 'Orientação próxima para melhorar execução, segurança e consistência.',
-                        },
-                        {
-                            number: '03',
-                            title: 'Evolução Progressiva',
-                            desc: 'O planejamento evolui junto com você, respeitando seu ritmo e seus resultados.',
-                        },
-                        {
-                            number: '04',
-                            title: 'Ajustes Contínuos',
-                            desc: 'Mudanças no treino podem ser feitas conforme sua evolução e necessidades.',
-                        },
-                    ],
-                },
-                // O Instagram não fornece depoimentos reais de clientes.
-                // Desativamos esta seção para não publicar testemunhos inventados.
-                testimonials: {
-                    ...current.testimonials,
-                    enabled: false,
-                    title: 'Resultados de quem já começou.',
-                },
+                metrics: current.metrics.map((metric, index) => {
+                    if (index === 0 && followers !== null) {
+                        return {
+                            number: followerLabel,
+                            text: 'pessoas acompanham este trabalho no Instagram.',
+                        }
+                    }
+
+                    if (index === 1 && posts !== null) {
+                        return {
+                            number: postLabel,
+                            text: 'publicações compartilhando rotina, treino e conteúdo.',
+                        }
+                    }
+
+                    return metric
+                }),
+                services: biography
+                    ? {
+                          ...current.services,
+                          title: 'Um acompanhamento feito para você.',
+                          desc: biography
+                              ? `A proposta de ${name || 'este profissional'} parte do que já comunica no Instagram e transforma isso em um acompanhamento estruturado para sua rotina e objetivos.`
+                              : 'Escolha a forma de acompanhamento que melhor combina com sua rotina e seus objetivos.',
+                          cards: [
+                              {
+                                  ...current.services.cards[0],
+                                  desc: 'TREINO PRESENCIAL',
+                                  title: 'Personal Training',
+                                  text: 'Sessões presenciais com orientação individual, atenção à execução e progressão de acordo com seus objetivos.',
+                                  option: [
+                                      'Treino individualizado',
+                                      'Acompanhamento da execução',
+                                      'Progressão planejada',
+                                  ],
+                              },
+                              {
+                                  ...current.services.cards[1],
+                                  desc: 'ACOMPANHAMENTO COMPLETO',
+                                  title: 'Plano Personalizado',
+                                  text: 'Planejamento de treino adaptado à sua rotina, com acompanhamento e ajustes para manter consistência na evolução.',
+                                  option: [
+                                      'Planejamento personalizado',
+                                      'Ajustes conforme evolução',
+                                      'Contato para acompanhamento',
+                                  ],
+                                  featured: true,
+                              },
+                              {
+                                  ...current.services.cards[2],
+                                  desc: 'CONSULTORIA ONLINE',
+                                  title: 'Treino à Distância',
+                                  text: 'Uma opção para quem quer orientação profissional e liberdade para treinar onde estiver.',
+                                  option: ['Prescrição de treino', 'Orientações de execução', 'Acompanhamento remoto'],
+                              },
+                          ],
+                      }
+                    : current.services,
+                about:
+                    biography || name
+                        ? {
+                              ...current.about,
+                              title: name ? `Conheça ${name}` : 'Conheça seu personal trainer',
+                              desc:
+                                  biography ||
+                                  'Acompanhamento profissional com atenção individual, estratégia e constância para construir uma evolução sustentável.',
+                              features: [
+                                  {
+                                      number: '01',
+                                      title: 'Estratégia Personalizada',
+                                      desc: 'O treino é organizado de acordo com seus objetivos, rotina e momento atual.',
+                                  },
+                                  {
+                                      number: '02',
+                                      title: 'Acompanhamento Individual',
+                                      desc: 'Orientação próxima para melhorar execução, segurança e consistência.',
+                                  },
+                                  {
+                                      number: '03',
+                                      title: 'Evolução Progressiva',
+                                      desc: 'O planejamento evolui junto com você, respeitando seu ritmo e seus resultados.',
+                                  },
+                                  {
+                                      number: '04',
+                                      title: 'Ajustes Contínuos',
+                                      desc: 'Mudanças no treino podem ser feitas conforme sua evolução e necessidades.',
+                                  },
+                              ],
+                          }
+                        : current.about,
+                // O Instagram não fornece depoimentos.
+                // Sem dados importados, mantemos exatamente o padrão do template.
+                testimonials: current.testimonials,
                 contact: {
                     ...current.contact,
-                    title: name ? `Comece sua evolução com ${name}.` : 'Seu próximo passo começa agora.',
-                    desc: 'Entre em contato para conhecer as opções de acompanhamento e encontrar a melhor forma de começar.',
-                    buttontext: 'QUERO COMEÇAR',
+                    ...(name ? { title: `Comece sua evolução com ${name}.` } : {}),
+                    ...(biography
+                        ? {
+                              desc: 'Entre em contato para conhecer as opções de acompanhamento e encontrar a melhor forma de começar.',
+                          }
+                        : {}),
                 },
-                whatsapp: {
-                    ...current.whatsapp,
-                    message: name
-                        ? `Olá, ${name}! Conheci seu trabalho e gostaria de saber mais sobre o acompanhamento.`
-                        : 'Olá! Gostaria de saber mais sobre o acompanhamento.',
-                },
+                whatsapp: name
+                    ? {
+                          ...current.whatsapp,
+                          message: `Olá, ${name}! Conheci seu trabalho e gostaria de saber mais sobre o acompanhamento.`,
+                      }
+                    : current.whatsapp,
             }))
 
-            const picture = String(profile.profilePicture || '').trim()
+            const picture = String(profile.profilePicture || profile.profilePicUrl || '').trim()
             if (picture) {
                 setHeroPreview(picture)
                 setAboutPreview(picture)
