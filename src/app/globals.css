@@ -522,6 +522,13 @@
         --linen: #e8e3d8;
         --soft-gray: #efefec;
         --warm-white: #f8f8f5;
+
+        /* Brand colors alternate palette */
+        --dusty-rose: #b85b69;
+        --burgundy: #4a192c;
+        --forest-green: #1b4d3e;
+        --ivory: #faf8f5;
+        --neutral-gray: #68706d;
     }
     .dark {
         --background: 240 10% 3.9%;

@@ -4,6 +4,13 @@ export type tagsData = {
     icon: React.JSX.Element
     text: string
 }
+export type heroOffer = {
+    label: string
+    originalPrice: string
+    price: string
+    suffix: string
+    savings: string
+}
 export type HeroProps = {
     titlePrimary: string
     title: string | React.ReactNode
@@ -16,4 +23,5 @@ export type HeroProps = {
     cardText?: string
     img?: string | StaticImageData
     tag?: tagsData[]
+    offer?: heroOffer
 }

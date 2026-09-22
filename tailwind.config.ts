@@ -100,6 +100,11 @@ const config: Config = {
                     linen: 'var(--linen)',
                     softgray: 'var(--soft-gray)',
                     warmwhite: 'var(--warm-white)',
+                    dustyRose: 'var(--dusty-rose)',
+                    burgundy: 'var(--burgundy)',
+                    forestGreen: 'var(--forest-green)',
+                    ivory: 'var(--ivory)',
+                    neutralGray: 'var(--neutral-gray)',
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',

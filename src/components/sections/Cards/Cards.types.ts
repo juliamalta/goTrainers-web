@@ -28,5 +28,9 @@ export interface CardSectionProps {
     desc?: string
     buttonText?: string
     img?: string
+    button1url?: string
+    button1text?: string
+    cardTitle?: string
+    cardText?: string
     cards?: CardData[]
 }
