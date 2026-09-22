@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 function CardPlan3({ text, title, desc, featured, price, option, link }: CardProps) {
     return (
         <div
-            className={`relative flex h-[500px] w-full flex-col rounded-xl bg-white shadow-sm transition-transform hover:scale-105 ${
-                featured ? '' : 'border border-transparent'
+            className={`relative flex h-[500px] w-full flex-col rounded-xl bg-white p-4 shadow-sm transition-transform hover:scale-105 ${
+                featured ? 'border-2 border-color-dustyRose' : 'border border-transparent'
             }`}>
             {/* DESTAQUE */}
             {featured && (
