@@ -98,6 +98,14 @@ export default function Home() {
                         link: '/template3',
                         buttonText: 'Visualizar template',
                     },
+                    {
+                        title: 'Template 4 — VENDAS',
+                        img: '/images/template4.png',
+                        tag: ['Alta Conversão', 'Foco em Vendas'],
+                        desc: 'Estratégico, persuasivo e orientado à conversão. Destaca benefícios, ofertas, resultados e chamadas para ação para transformar visitantes em novos clientes.',
+                        link: '/template4',
+                        buttonText: 'Visualizar template',
+                    },
                 ]}
             />
             <Contact
