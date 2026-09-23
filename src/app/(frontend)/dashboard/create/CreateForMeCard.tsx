@@ -48,7 +48,8 @@ export function CreateForMeCard({ template }: { template: string }) {
                 </div>
                 <h2 className="text-2xl font-semibold">Converse com nossa equipe</h2>
                 <p className="mt-3 flex-1 text-zinc-400">
-                    Escolha o template ideal para você. Deixe seus dados de contato e nossa equipe entrará em contato para preparar seu site.
+                    Escolha o template ideal para você. Deixe seus dados de contato e nossa equipe entrará em contato
+                    para preparar seu site.
                 </p>
                 <button
                     type="button"
