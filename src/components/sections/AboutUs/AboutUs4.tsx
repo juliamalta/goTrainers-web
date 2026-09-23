@@ -33,7 +33,7 @@ function AboutUs4({ title, description, paragraphs = [], cards, img, imgTitle, i
                     </div>
 
                     <div className="mt-8 grid grid-cols-1 gap-4 2xl:grid-cols-3">
-                        {cards.map((card, index) => (
+                        {cards!.map((card, index) => (
                             <div
                                 key={`${card.title}-${index}`}
                                 className="flex flex-col items-start rounded-2xl border border-color-ivory bg-color-ivory p-5 sm:p-6">

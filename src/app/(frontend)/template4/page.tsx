@@ -16,6 +16,7 @@ import Cards6 from '@/components/sections/Cards/Card6'
 import Cards9 from '@/components/sections/Cards/Card9'
 import AboutUs4 from '@/components/sections/AboutUs/AboutUs4'
 import about from '../../../../public/images/pessoa4.png'
+import Contact4 from '@/components/sections/Contact/Contact4'
 const resultsData = [
     {
         beforeLabel: 'Antes (sedentária)',
@@ -25,8 +26,8 @@ const resultsData = [
         afterTitle: '−7kg de gordura',
         afterText: 'Postura corrigida',
         name: 'Camila Vasconcelos, 34 anos',
-        beforeImage: '/images/pessoa4.png',
-        afterImage: '/images/imag2.png',
+        beforeImage: '/images/results4-before.png',
+        afterImage: '/images/results4-after.png',
         quote: 'Tinha medo de me machucar treinando em casa, mas os vídeos deram total segurança. Hoje não sinto mais dores nas costas!',
         objective: 'Tonificação e Saúde',
         plan: 'Plano Trimestral',
@@ -42,18 +43,6 @@ const resultsData = [
         quote: 'Trabalhava o dia inteiro e achava que precisava de 2 horas na academia. A Ju montou treinos objetivos que transformaram meu hábito em energia.',
         objective: 'Definição e Rotina',
         plan: 'Plano Bimestral',
-    },
-    {
-        beforeLabel: 'Antes (pós-parto)',
-        beforeTitle: 'Diástase leve',
-        beforeText: 'Autoestima abalada',
-        afterLabel: 'Depois (6 meses)',
-        afterTitle: 'Core recuperado',
-        afterText: 'Autoestima renovada',
-        name: 'Beatriz Silveira, 38 anos',
-        quote: 'Após minha segunda gestação, sentia meu corpo fraco. O olhar técnico da Ju sobre respiração e fortalecimento profundo fez toda a diferença no meu retorno.',
-        objective: 'Fortalecimento pós-parto',
-        plan: 'Plano Trimestral',
     },
 ]
 
@@ -262,6 +251,15 @@ export default function Home() {
                             description: 'Avaliação física e prescrição de exercícios.',
                         },
                     ]}
+                />
+                <Contact4
+                    eyebrow="VAGAS LIMITADAS PARA ACOMPANHAMENTO"
+                    title="Pronta para começar sua transformação?"
+                    description="Você não precisa de horas na academia nem de métodos radicais. Precisa apenas de um plano feito para o seu corpo e do suporte certo para não desistir."
+                    primaryButtonText="Quero iniciar meu treinamento"
+                    primaryButtonHref="#anamnese"
+                    secondaryButtonText="Falar no WhatsApp"
+                    secondaryButtonHref="https://wa.me/5531999999999"
                 />
             </div>
         </main>

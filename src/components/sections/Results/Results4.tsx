@@ -41,7 +41,7 @@ function ComparisonPanel({
 }) {
     return (
         <div
-            className={`relative flex min-h-[200px] flex-1 overflow-hidden rounded-xl border ${
+            className={`relative flex min-h-[500px] flex-col justify-between overflow-hidden rounded-xl border ${
                 image ? 'p-0' : 'p-3'
             } ${after ? 'border-color-dustyRose/30 bg-[#fff1f3]' : 'border-transparent bg-[#e8e6e5]'}`}>
             {image ? (
@@ -59,13 +59,13 @@ function ComparisonPanel({
             ) : (
                 <>
                     <p
-                        className={`text-center text-[10px] font-semibold uppercase tracking-wide ${after ? 'text-color-dustyRose' : 'text-color-neutralGray'}`}>
+                        className={`items-center justify-center text-center text-sm font-semibold uppercase tracking-wide ${after ? 'text-color-dustyRose' : 'text-color-neutralGray'}`}>
                         {label}
                     </p>
                     <div
-                        className={`mt-2 flex w-full flex-1 flex-col items-center justify-center rounded-lg px-3 py-4 text-center ${after ? 'bg-[#ffd9df]' : 'bg-[#d8d6d5]'}`}>
+                        className={`mx-auto flex flex-col items-center justify-center rounded-lg px-3 py-4 text-center`}>
                         <Icon
-                            className={`mb-2 size-7 ${after ? 'text-color-dustyRose' : 'text-color-neutralGray'}`}
+                            className={`mb-2 flex size-7 ${after ? 'text-color-dustyRose' : 'text-color-neutralGray'}`}
                             strokeWidth={1.8}
                         />
                         <p
@@ -102,7 +102,7 @@ export default function Results4({ results }: Results4Props) {
                     </p>
                 </div>
 
-                <div className="mt-14 grid gap-6 lg:grid-cols-3">
+                <div className="mt-14 grid gap-6 lg:grid-cols-2">
                     {results.map((result, index) => {
                         const BeforeIcon = beforeIcons[index % beforeIcons.length]
                         const AfterIcon = afterIcons[index % afterIcons.length]
@@ -110,7 +110,7 @@ export default function Results4({ results }: Results4Props) {
                         return (
                             <article
                                 key={result.name}
-                                className="group relative flex h-full min-h-[240px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white p-px transition-all duration-300 hover:-translate-y-2">
+                                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white p-px transition-all duration-300 hover:-translate-y-2">
                                 <div className="grid grid-cols-2 gap-2 p-4 sm:gap-3 sm:p-5">
                                     <ComparisonPanel
                                         label={result.beforeLabel}

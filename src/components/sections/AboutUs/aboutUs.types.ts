@@ -16,5 +16,5 @@ export interface AboutUsProps {
     img?: string | StaticImageData
     imgTitle?: string
     imgDesc?: string
-    cards: AboutUsCard[]
+    cards?: AboutUsCard[]
 }
