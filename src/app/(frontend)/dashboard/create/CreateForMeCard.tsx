@@ -43,7 +43,7 @@ export function CreateForMeCard({ template }: { template: string }) {
                 <div className="absolute right-5 top-5 rounded-full bg-green-500/15 px-3 py-1 text-xs font-bold text-green-400">
                     PERSONALIZADO
                 </div>
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rouFnded-2xl bg-green-500/10 text-green-400">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500/10 text-green-400">
                     <BriefcaseBusiness className="h-6 w-6" />
                 </div>
                 <h2 className="text-2xl font-semibold">Converse com nossa equipe</h2>
