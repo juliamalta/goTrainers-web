@@ -43,12 +43,12 @@ export function CreateForMeCard({ template }: { template: string }) {
                 <div className="absolute right-5 top-5 rounded-full bg-green-500/15 px-3 py-1 text-xs font-bold text-green-400">
                     PERSONALIZADO
                 </div>
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-green-500/10 text-green-400">
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rouFnded-2xl bg-green-500/10 text-green-400">
                     <BriefcaseBusiness className="h-6 w-6" />
                 </div>
-                <h2 className="text-2xl font-semibold">Criamos para você</h2>
+                <h2 className="text-2xl font-semibold">Converse com nossa equipe</h2>
                 <p className="mt-3 flex-1 text-zinc-400">
-                    Escolha um template e nossa equipe cria seu site para você. É só deixar seus contatos.
+                    Escolha o template ideal para você. Deixe seus dados de contato e nossa equipe entrará em contato para preparar seu site.
                 </p>
                 <button
                     type="button"
@@ -88,7 +88,7 @@ export function CreateForMeCard({ template }: { template: string }) {
                             </div>
                         ) : (
                             <>
-                                <h2 className="pr-8 text-2xl font-semibold">Vamos criar seu site</h2>
+                                <h2 className="pr-8 text-2xl font-semibold">Converse com nossa equipe</h2>
                                 <p className="mt-2 text-sm leading-6 text-zinc-400">
                                     Preencha seus dados e entraremos em contato para entender o que você precisa.
                                 </p>
