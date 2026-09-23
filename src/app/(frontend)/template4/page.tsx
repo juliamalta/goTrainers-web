@@ -14,7 +14,8 @@ import Card8 from '@/components/sections/Cards/Card8'
 import Results4 from '@/components/sections/Results/Results4'
 import Cards6 from '@/components/sections/Cards/Card6'
 import Cards9 from '@/components/sections/Cards/Card9'
-
+import AboutUs4 from '@/components/sections/AboutUs/AboutUs4'
+import about from '../../../../public/images/pessoa4.png'
 const resultsData = [
     {
         beforeLabel: 'Antes (sedentária)',
@@ -234,6 +235,31 @@ export default function Home() {
                             link: 'https://wa.me/5531999999999?text=Olá!%20Tenho%20interesse%20na%20Consultoria%20Remota%20Elite',
                             iconBgColor: '#DCFCE7',
                             featured: false,
+                        },
+                    ]}
+                />
+                <AboutUs4
+                    title="Conheça Camila Ribeiro"
+                    description="Treinadora pessoal que ajuda você a conquistar mais força, disposição e confiança."
+                    imgTitle="REGISTRO PROFISSIONAL ATIVO"
+                    imgDesc="CREF 032253G/MG"
+                    img={about}
+                    paragraphs={[
+                        'Há mais de 9 anos, ajudo mulheres a conquistar saúde, força e disposição por meio do exercício físico.',
+                        'Cada treino é pensado para respeitar sua rotina e acompanhar sua evolução.',
+                    ]}
+                    cards={[
+                        {
+                            title: 'Pós-graduação',
+                            description: 'Bases fisiológicas do treinamento físico.',
+                        },
+                        {
+                            title: 'Especialização',
+                            description: 'Treinamento de força para mulheres.',
+                        },
+                        {
+                            title: 'Certificação',
+                            description: 'Avaliação física e prescrição de exercícios.',
                         },
                     ]}
                 />
