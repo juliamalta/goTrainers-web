@@ -5,6 +5,7 @@ import { buildConfig } from 'payload'
 
 import { Media } from './src/collections/Media'
 import { AnamnesisLeads } from './src/collections/AnamnesisLeads'
+import { SiteCreationRequests } from './src/collections/SiteCreationRequests'
 import { Sites } from './src/collections/Sites'
 import { Users } from './src/collections/Users'
 
@@ -17,7 +18,7 @@ export default buildConfig({
         url: process.env.DATABASE_URL || '',
     }),
 
-    collections: [Users, Media, Sites, AnamnesisLeads],
+    collections: [Users, Media, Sites, AnamnesisLeads, SiteCreationRequests],
 
     plugins: [
         vercelBlobStorage({

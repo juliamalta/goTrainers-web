@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import { Instagram, PencilLine, Sparkles } from 'lucide-react'
+import { CreateForMeCard } from './CreateForMeCard'
 
 import config from '@payload-config'
 
@@ -43,7 +44,7 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
                         GoTrainers
                     </div>
 
-                    <h1 className="text-3xl font-bold md:text-5xl">Como você quer criar seu site?</h1>
+                    <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Como você quer criar seu site?</h1>
 
                     <p className="mt-4 text-base text-zinc-400 md:text-lg">
                         Escolha como deseja adicionar suas informações. Você poderá revisar e personalizar tudo antes de
@@ -51,9 +52,9 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
                     </p>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                     {/* MANUAL */}
-                    <div className="flex flex-col rounded-3xl border border-zinc-800 bg-zinc-900 p-7">
+                    <div className="flex h-full min-h-[302px] flex-col rounded-3xl border border-zinc-800 bg-zinc-900 p-7">
                         <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-zinc-800">
                             <PencilLine className="h-6 w-6" />
                         </div>
@@ -72,7 +73,7 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
                     </div>
 
                     {/* INSTAGRAM PLUS */}
-                    <div className="relative flex flex-col overflow-hidden rounded-3xl border border-green-500/40 bg-zinc-900 p-7">
+                    <div className="relative flex h-full min-h-[302px] flex-col overflow-hidden rounded-3xl border border-green-500/40 bg-zinc-900 p-7">
                         <div className="absolute right-5 top-5 rounded-full bg-green-500 px-3 py-1 text-xs font-bold text-black">
                             PLUS
                         </div>
@@ -94,6 +95,8 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
                             Usar meu Instagram
                         </Link>
                     </div>
+
+                    <CreateForMeCard template={template} />
                 </div>
             </div>
         </main>
