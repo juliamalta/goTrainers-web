@@ -1,0 +1,9 @@
+{
+    "name": "GoTrainers",
+    "short_name": "GoTrainers",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0b0f0e",
+    "theme_color": "#0b0f0e",
+    "icons": []
+}
