@@ -900,6 +900,20 @@ export default function CustomizeSite2({ templateName, templateImage, userName, 
         return String(json.doc.id)
     }
 
+    async function uploadFromUrl(url: string, alt: string) {
+        const formData = new FormData()
+        formData.append('sourceUrl', url)
+        formData.append('alt', alt || 'Imagem importada do Instagram')
+        const response = await fetch('/api/upload-media', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+        })
+        const json = await response.json().catch(() => null)
+        if (!response.ok || !json?.doc?.id) throw new Error(json?.message || 'Erro ao salvar a imagem importada.')
+        return String(json.doc.id)
+    }
+
     async function defaultFile(url: string, name: string) {
         const response = await fetch(url, {
             cache: 'no-store',
@@ -998,6 +1012,10 @@ export default function CustomizeSite2({ templateName, templateImage, userName, 
                 heroMediaId = await upload(heroFile, 'Imagem principal do site')
             }
 
+            if (!heroMediaId && /^https:\/\//.test(heroPreview)) {
+                heroMediaId = await uploadFromUrl(heroPreview, 'Imagem principal do site')
+            }
+
             if (!heroMediaId) {
                 heroMediaId = await upload(
                     await defaultFile(templateImage || '/images/imag2.png', 'template-2-hero.png'),
@@ -1007,6 +1025,10 @@ export default function CustomizeSite2({ templateName, templateImage, userName, 
 
             if (aboutFile) {
                 aboutMediaId = await upload(aboutFile, 'Foto sobre o profissional')
+            }
+
+            if (!aboutMediaId && /^https:\/\//.test(aboutPreview)) {
+                aboutMediaId = await uploadFromUrl(aboutPreview, 'Foto sobre o profissional')
             }
 
             if (!aboutMediaId) {

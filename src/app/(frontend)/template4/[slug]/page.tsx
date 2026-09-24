@@ -53,6 +53,26 @@ function getButtonLink(value: string | null | undefined, fallback: string, whats
     return link
 }
 
+function getMediaUrl(media: unknown, fallback: string) {
+    if (typeof media === 'object' && media && 'url' in media && typeof media.url === 'string' && media.url) {
+        return media.url
+    }
+
+    if (typeof media === 'string' && (media.startsWith('/') || /^https?:\/\//.test(media))) {
+        return media
+    }
+
+    return fallback
+}
+
+function getOptionText(option: unknown) {
+    if (typeof option === 'string') return option
+    if (typeof option === 'object' && option && 'text' in option && typeof option.text === 'string') {
+        return option.text
+    }
+    return ''
+}
+
 // =====================================================
 // PAGE
 // =====================================================
@@ -124,9 +144,9 @@ export default async function Home({ params }: PageProps) {
     // IMAGENS
     // =====================================================
 
-    const heroImage = typeof hero?.img === 'object' && hero.img?.url ? hero.img.url : '/images/pessoa4.png'
+    const heroImage = getMediaUrl(hero?.img, '/images/pessoa4.png')
 
-    const aboutImage = typeof about?.img === 'object' && about.img?.url ? about.img.url : '/images/pessoa4.png'
+    const aboutImage = getMediaUrl(about?.img, '/images/pessoa4.png')
 
     // =====================================================
     // WHATSAPP
@@ -316,7 +336,7 @@ export default async function Home({ params }: PageProps) {
                         text: card.text ?? '',
                         price: card.price ?? '',
 
-                        option: card.option?.map((option) => option.text ?? '') ?? [],
+                        option: card.option?.map(getOptionText) ?? [],
 
                         link: getButtonLink(card.link, whatsappLink, whatsapp?.message),
 

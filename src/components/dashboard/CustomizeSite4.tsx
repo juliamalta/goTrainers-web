@@ -640,6 +640,16 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
         return String(json.doc.id)
     }
 
+    async function uploadFromUrl(url: string, alt: string) {
+        const fd = new FormData()
+        fd.append('sourceUrl', url)
+        fd.append('alt', alt || 'Imagem importada do Instagram')
+        const res = await fetch('/api/upload-media', { method: 'POST', credentials: 'include', body: fd })
+        const json = await res.json().catch(() => null)
+        if (!res.ok || !json?.doc?.id) throw new Error(json?.message || 'Erro ao salvar a imagem importada.')
+        return String(json.doc.id)
+    }
+
     async function defaultImageFile() {
         const res = await fetch(TEMPLATE4_DEFAULT_IMAGE, { cache: 'no-store' })
         if (!res.ok) throw new Error('Não foi possível carregar a imagem padrão.')
@@ -690,10 +700,12 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
 
             let hId = heroId
             if (heroFile) hId = await upload(heroFile, heroAlt)
+            if (!hId && /^https:\/\//.test(data.hero.img)) hId = await uploadFromUrl(data.hero.img, heroAlt)
             if (!hId) hId = await upload(await defaultImageFile(), heroAlt)
 
             let aId = aboutId
             if (aboutFile) aId = await upload(aboutFile, aboutAlt)
+            if (!aId && /^https:\/\//.test(data.about.img)) aId = await uploadFromUrl(data.about.img, aboutAlt)
             if (!aId) aId = hId
 
             const results = []

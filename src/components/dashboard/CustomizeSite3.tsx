@@ -1458,6 +1458,22 @@ export default function CustomizeSite3({ templateName, userName, site }: Customi
         return String(result.doc.id)
     }
 
+    async function uploadMediaFromUrl(url: string, alt: string): Promise<string> {
+        const formData = new FormData()
+        formData.append('sourceUrl', url)
+        formData.append('alt', alt.trim() || 'Imagem importada do Instagram')
+        const response = await fetch('/api/upload-media', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+        })
+        const result = await response.json().catch(() => null)
+        if (!response.ok || !result?.doc?.id) {
+            throw new Error(result?.message || 'NÃ£o foi possÃ­vel salvar a imagem importada.')
+        }
+        return String(result.doc.id)
+    }
+
     async function createDefaultImageFile(url: string, filename: string) {
         const response = await fetch(url, {
             cache: 'no-store',
@@ -1619,6 +1635,10 @@ export default function CustomizeSite3({ templateName, userName, site }: Customi
 
             if (heroImageFile) {
                 finalHeroId = await uploadMedia(heroImageFile, heroImageAlt)
+            }
+
+            if (!finalHeroId && /^https:\/\//.test(data.hero.img)) {
+                finalHeroId = await uploadMediaFromUrl(data.hero.img, heroImageAlt)
             }
 
             if (!finalHeroId) {

@@ -1133,6 +1133,23 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
         return String(result.doc.id)
     }
 
+    async function uploadMediaFromUrl(url: string, alt: string): Promise<string> {
+        const formData = new FormData()
+        formData.append('sourceUrl', url)
+        formData.append('alt', alt.trim() || 'Imagem importada do Instagram')
+
+        const response = await fetch('/api/upload-media', {
+            method: 'POST',
+            credentials: 'include',
+            body: formData,
+        })
+        const result = await response.json().catch(() => null)
+        if (!response.ok || !result?.doc?.id) {
+            throw new Error(result?.message || 'NÃ£o foi possÃ­vel salvar a imagem importada.')
+        }
+        return String(result.doc.id)
+    }
+
     async function createTemplateImageFile(): Promise<File> {
         const imageResponse = await fetch(templateImage, {
             method: 'GET',
@@ -1404,6 +1421,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 // Usuário não escolheu uma imagem nova.
                 // Mantém a mídia que já está salva.
                 heroMediaId = heroImageId
+            } else if (/^https:\/\//.test(data.hero.img)) {
+                heroMediaId = await uploadMediaFromUrl(data.hero.img, heroImageAlt)
+                setHeroImageId(heroMediaId)
             } else {
                 // Site novo sem imagem.
                 const existingHeroMediaId = getMediaId(existingSite?.template1?.hero?.img)
@@ -1430,6 +1450,9 @@ export default function CustomizeSite({ templateName, templateImage, userName, s
                 // Usuário não escolheu uma imagem nova.
                 // Mantém a mídia que já está salva.
                 aboutMediaId = aboutImageId
+            } else if (/^https:\/\//.test(data.about.img)) {
+                aboutMediaId = await uploadMediaFromUrl(data.about.img, aboutImageAlt)
+                setAboutImageId(aboutMediaId)
             } else {
                 const existingAboutMediaId = getMediaId(existingSite?.template1?.about?.img)
 
