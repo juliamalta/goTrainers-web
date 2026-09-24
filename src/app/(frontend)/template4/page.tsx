@@ -138,46 +138,7 @@ export default function Home() {
                     cardText="“Assinando qualquer plano, você participa de uma aula online em grupo por mês para tirar dúvidas, melhorar a execução e manter a motivação.”"
                     cardTitle="Encontro Mensal em Grupo ao Vivo"
                 />
-                <Results4 results={resultsData} />
-                {/*
-                        {
-                            beforeLabel: 'Antes (sedentária)',
-                            beforeTitle: 'Dores nas costas',
-                            beforeText: 'Baixa disposição',
-                            afterLabel: 'Depois (4 meses)',
-                            afterTitle: '−7kg de gordura',
-                            afterText: 'Postura corrigida',
-                            name: 'Camila Vasconcelos, 34 anos',
-                            quote: 'Tinha medo de me machucar treinando em casa, mas os vídeos deram total segurança. Hoje não sinto mais dores nas costas!',
-                            objective: 'Tonificação e Saúde',
-                            plan: 'Plano Trimestral',
-                        },
-                        {
-                            beforeLabel: 'Antes (rotina corrida)',
-                            beforeTitle: 'Sem tempo',
-                            beforeText: 'Desistia sempre',
-                            afterLabel: 'Depois (3 meses)',
-                            afterTitle: 'Treinos de 35 min',
-                            afterText: 'Constância de 12 semanas',
-                            name: 'Mariana Toledo, 29 anos',
-                            quote: 'Trabalhava o dia inteiro e achava que precisava de 2 horas na academia. A Ju montou treinos objetivos que transformaram meu hábito em energia.',
-                            objective: 'Definição e Rotina',
-                            plan: 'Plano Bimestral',
-                        },
-                        {
-                            beforeLabel: 'Antes (pós-parto)',
-                            beforeTitle: 'Diástase leve',
-                            beforeText: 'Autoestima abalada',
-                            afterLabel: 'Depois (6 meses)',
-                            afterTitle: 'Core recuperado',
-                            afterText: 'Autoestima renovada',
-                            name: 'Beatriz Silveira, 38 anos',
-                            quote: 'Após minha segunda gestação, sentia meu corpo fraco. O olhar técnico da Ju sobre respiração e fortalecimento profundo fez toda a diferença no meu retorno.',
-                            objective: 'Fortalecimento pós-parto',
-                            plan: 'Plano Trimestral',
-                        },
-                    ]}
-                */}
+                {resultsData ? <Results4 results={resultsData} /> : null}
                 <Cards9
                     title="Treinamento pensado para você."
                     desc="Cada acompanhamento é minuciosamente calibrado para a sua rotina, objetivos biomecânicos e ritmo de vida executivo."

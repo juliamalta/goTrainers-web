@@ -297,7 +297,7 @@ function initial(site: Site | null | undefined): Data {
             cards: d.method.cards.map((x, i) => ({ ...x, ...(t.method?.cards?.[i] || {}) })),
         },
         results: {
-            cards: (t.results?.cards?.length ? t.results.cards : d.results.cards).slice(0, 2).map((x: any) => ({
+            cards: (t.results?.cards ?? d.results.cards).slice(0, 2).map((x: any) => ({
                 beforeLabel: x.beforeLabel ?? '',
                 beforeTitle: x.beforeTitle ?? '',
                 beforeText: x.beforeText ?? '',
@@ -679,7 +679,7 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
         if (!cleanSlug) return setError('Digite um slug válido.')
         if (data.metrics.length !== 4) return setError('São necessárias exatamente 4 métricas.')
         if (data.method.cards.length !== 3) return setError('São necessários exatamente 3 cards no Como funciona.')
-        if (data.results.cards.length < 1 || data.results.cards.length > 2) return setError('Use 1 ou 2 resultados.')
+        if (data.results.cards.length > 2) return setError('Use no máximo 2 resultados.')
         if (data.services.cards.length > 3) return setError('Use no máximo 3 treinamentos.')
 
         setPublishing(true)
@@ -865,7 +865,7 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
                 ref={(el) => {
                     previewSectionRefs.current[3] = el
                 }}>
-                <Results4 results={data.results.cards} />
+                {data.results.cards.length > 0 && <Results4 results={data.results.cards} />}
             </div>
             <div
                 ref={(el) => {
@@ -1147,7 +1147,7 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
                         )}
 
                         {step === 4 && (
-                            <Step title="Resultados" desc="Mínimo 1 e máximo 2 resultados.">
+                            <Step title="Resultados" desc="Opcional. Adicione no máximo 2 resultados.">
                                 {data.results.cards.length < 2 && (
                                     <Small
                                         onClick={() =>
@@ -1176,16 +1176,14 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
                                 )}
                                 {data.results.cards.map((r, i) => (
                                     <Box key={i} title={`Resultado ${i + 1}`}>
-                                        {data.results.cards.length > 1 && (
-                                            <Danger
-                                                onClick={() =>
-                                                    patch('results', {
-                                                        cards: data.results.cards.filter((_, x) => x !== i),
-                                                    })
-                                                }>
-                                                Remover resultado
-                                            </Danger>
-                                        )}
+                                        <Danger
+                                            onClick={() =>
+                                                patch('results', {
+                                                    cards: data.results.cards.filter((_, x) => x !== i),
+                                                })
+                                            }>
+                                            Remover resultado
+                                        </Danger>
                                         <Field
                                             label="Antes — identificação"
                                             value={r.beforeLabel}

@@ -2829,9 +2829,9 @@ export const Sites: CollectionConfig = {
                         {
                             name: 'cards',
                             type: 'array',
-                            required: true,
+                            required: false,
 
-                            minRows: 1,
+                            minRows: 0,
                             maxRows: 2,
 
                             label: 'Resultados',

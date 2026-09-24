@@ -19,7 +19,14 @@ function Cards9({ cards, title, desc }: CardSectionProps) {
                 </div>
 
                 {/* Cards */}
-                <div className="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
+                <div
+                    className={`grid w-full grid-cols-1 gap-8 ${
+                        cards?.length === 2
+                            ? 'lg:grid-cols-2'
+                            : cards?.length === 3
+                              ? 'lg:grid-cols-3'
+                              : 'lg:grid-cols-1'
+                    }`}>
                     {cards?.map((card, index) => (
                         <CardPlan3
                             key={index}

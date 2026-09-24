@@ -617,25 +617,27 @@ export interface Site {
       cardTitle?: string | null;
       cardText?: string | null;
     };
-    results: {
+    results?: {
       /**
        * Adicione um ou dois resultados. O template não permite mais de dois.
        */
-      cards: {
-        beforeLabel?: string | null;
-        beforeTitle?: string | null;
-        beforeText?: string | null;
-        beforeImage?: (string | null) | Media;
-        afterLabel?: string | null;
-        afterTitle?: string | null;
-        afterText?: string | null;
-        afterImage?: (string | null) | Media;
-        name: string;
-        quote?: string | null;
-        objective?: string | null;
-        plan?: string | null;
-        id?: string | null;
-      }[];
+      cards?:
+        | {
+            beforeLabel?: string | null;
+            beforeTitle?: string | null;
+            beforeText?: string | null;
+            beforeImage?: (string | null) | Media;
+            afterLabel?: string | null;
+            afterTitle?: string | null;
+            afterText?: string | null;
+            afterImage?: (string | null) | Media;
+            name: string;
+            quote?: string | null;
+            objective?: string | null;
+            plan?: string | null;
+            id?: string | null;
+          }[]
+        | null;
     };
     services?: {
       title?: string | null;
