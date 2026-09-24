@@ -366,6 +366,8 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
     const [mobilePreview, setMobilePreview] = React.useState(false)
 
     const previewScrollRef = React.useRef<HTMLDivElement | null>(null)
+    const desktopPreviewViewportRef = React.useRef<HTMLDivElement | null>(null)
+    const [desktopPreviewScale, setDesktopPreviewScale] = React.useState(1)
     const previewSectionRefs = React.useRef<Array<HTMLDivElement | null>>([])
 
     const [heroFile, setHeroFile] = React.useState<File | null>(null)
@@ -811,6 +813,23 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
 
         return () => window.clearTimeout(timer)
     }, [step, previewIndexForStep])
+
+    React.useEffect(() => {
+        const viewport = desktopPreviewViewportRef.current
+        if (!viewport) return
+
+        const updateScale = () => {
+            const width = viewport.clientWidth
+            if (!width) return
+            setDesktopPreviewScale(Math.min(1, width / 1440))
+        }
+
+        updateScale()
+        const observer = new ResizeObserver(updateScale)
+        observer.observe(viewport)
+
+        return () => observer.disconnect()
+    }, [])
 
     const wa = `https://wa.me/${data.whatsapp.phone.replace(/\D/g, '')}${data.whatsapp.message ? `?text=${encodeURIComponent(data.whatsapp.message)}` : ''}`
 
@@ -1495,16 +1514,18 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
                         </div>
                     </div>
 
-                    <div className="hidden xl:block">
+                    <div ref={desktopPreviewViewportRef} className="hidden min-w-0 xl:block">
                         <div
                             ref={previewScrollRef}
-                            className="sticky top-4 h-[82vh] overflow-y-auto rounded-2xl border border-white/10 bg-black">
-                            <Preview />
+                            className="sticky top-4 h-[82vh] overflow-y-auto overflow-x-hidden rounded-2xl border border-white/10 bg-black">
+                            <div className="w-[1440px] origin-top-left" style={{ zoom: desktopPreviewScale }}>
+                                <Preview />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-color-codgray p-3 md:hidden">
+                <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-color-codgray p-3 xl:hidden">
                     <Button
                         type="button"
                         onClick={() => setMobilePreview(true)}
@@ -1515,11 +1536,11 @@ export default function CustomizeSite4({ templateName, userName, site }: Props) 
             </div>
 
             {mobilePreview && (
-                <div className="fixed inset-0 z-50 flex flex-col bg-black md:hidden">
-                    <div className="flex-1 overflow-y-auto">
+                <div className="fixed inset-0 z-50 flex flex-col bg-black xl:hidden">
+                    <div ref={previewScrollRef} className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
                         <Preview />
                     </div>
-                    <div className="bg-color-codgray p-3">
+                    <div className="shrink-0 border-t border-white/10 bg-color-codgray p-3">
                         <Button
                             type="button"
                             onClick={() => setMobilePreview(false)}
