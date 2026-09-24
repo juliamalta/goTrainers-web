@@ -93,7 +93,13 @@ export default function DashboardInfo() {
         if (!site) return
 
         const templateParam =
-            site.template === 'template-2' ? 'premium' : site.template === 'template-3' ? 'clean' : 'fitness'
+            site.template === 'template-2'
+                ? 'premium'
+                : site.template === 'template-3'
+                  ? 'clean'
+                  : site.template === 'template-4'
+                    ? 'feminino'
+                    : 'fitness'
 
         router.push(`/dashboard/customize?template=${templateParam}`)
     }

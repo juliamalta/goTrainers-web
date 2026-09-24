@@ -22,7 +22,9 @@ export default buildConfig({
 
     plugins: [
         vercelBlobStorage({
-            enabled: true,
+            // Use o armazenamento local durante o desenvolvimento. No deploy,
+            // o Blob assume o controle quando o token estiver configurado.
+            enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
             addRandomSuffix: true,
 
             collections: {

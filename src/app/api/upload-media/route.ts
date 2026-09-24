@@ -6,7 +6,7 @@ import config from '../../../../payload.config'
 
 export async function POST(request: NextRequest) {
     try {
-        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+        if (!process.env.BLOB_READ_WRITE_TOKEN && process.env.NODE_ENV === 'production') {
             return NextResponse.json(
                 {
                     message:

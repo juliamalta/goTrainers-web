@@ -115,7 +115,11 @@ type Data = {
 
 const TEMPLATE4_DEFAULT_IMAGE = '/images/pessoa4.png'
 
-const mediaUrl = (m: Media | undefined, fallback = '') => (typeof m === 'object' && m?.url ? m.url : fallback)
+const mediaUrl = (m: Media | undefined, fallback = '') => {
+    if (typeof m === 'string' && (m.startsWith('/') || /^https?:\/\//.test(m))) return m
+    if (typeof m === 'object' && m?.url) return m.url
+    return fallback
+}
 
 const mediaId = (m: Media | undefined) => (!m ? null : typeof m === 'string' ? m : m.id ? String(m.id) : null)
 
