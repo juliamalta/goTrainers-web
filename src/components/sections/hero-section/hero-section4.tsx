@@ -110,7 +110,7 @@ export function HeroSection4({
 
                         {/* TAGS */}
                         {tag && tag.length > 0 && (
-                            <div className="flex gap-8">
+                            <div className="flex flex-col gap-8 md:flex-row">
                                 {tag.map((tags, index) => (
                                     <div key={index} className="flex shrink-0 items-center gap-2">
                                         {tags.icon}
