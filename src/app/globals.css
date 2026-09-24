@@ -529,6 +529,101 @@
         --forest-green: #1b4d3e;
         --ivory: #faf8f5;
         --neutral-gray: #68706d;
+
+        /* Template 5 - personal trainer */
+        --template5-background: #07090a;
+        --template5-surface: #111416;
+        --template5-surface-raised: #171a1d;
+        --template5-surface-muted: #202428;
+        --template5-border: #2b3034;
+        --template5-border-strong: #454b50;
+        --template5-text: #f5f7f7;
+        --template5-text-muted: #a4aaad;
+        --template5-text-subtle: #70777b;
+        --template5-lime: #c8ff00;
+        --template5-lime-bright: #d8ff00;
+        --template5-lime-dark: #8eb800;
+        --template5-lime-soft: #efffb3;
+        --template5-lime-wash: #1e2800;
+        --template5-violet: #7064ff;
+        --template5-violet-soft: #a59dff;
+        --template5-orange: #ff7548;
+        --template5-blue: #65a9ff;
+        --template5-whatsapp: #baff00;
+        --template5-success: #9ee600;
+        --template5-highlight-text: #000000;
+    }
+
+    [data-template5-theme='white'] {
+        --template5-background: #f7f8f5;
+        --template5-surface: #ffffff;
+        --template5-surface-raised: #eef0eb;
+        --template5-surface-muted: #e3e6e1;
+        --template5-border: #d4d8d1;
+        --template5-border-strong: #b8beb4;
+        --template5-text: #111512;
+        --template5-text-muted: #59605b;
+        --template5-text-subtle: #737b75;
+        --template5-lime: #202522;
+        --template5-lime-bright: #111512;
+        --template5-lime-dark: #080b09;
+        --template5-lime-soft: #dfe5de;
+        --template5-lime-wash: #e8ece6;
+        --template5-highlight-text: #ffffff;
+    }
+
+    [data-template5-theme='feminine'] {
+        --template5-background: #fff6fa;
+        --template5-surface: #ffffff;
+        --template5-surface-raised: #fce8f0;
+        --template5-surface-muted: #f7d4e1;
+        --template5-border: #e8bacb;
+        --template5-border-strong: #d993af;
+        --template5-text: #431d30;
+        --template5-text-muted: #805267;
+        --template5-text-subtle: #9c7183;
+        --template5-lime: #ee5d96;
+        --template5-lime-bright: #ff77aa;
+        --template5-lime-dark: #b9366b;
+        --template5-lime-soft: #ffd4e4;
+        --template5-lime-wash: #fde8f0;
+        --template5-highlight-text: #000000;
+    }
+
+    [data-template5-theme='blue'] {
+        --template5-background: #07111f;
+        --template5-surface: #101e31;
+        --template5-surface-raised: #172942;
+        --template5-surface-muted: #203653;
+        --template5-border: #2c4563;
+        --template5-border-strong: #52759d;
+        --template5-text: #f2f7ff;
+        --template5-text-muted: #a9bad0;
+        --template5-text-subtle: #7d94ae;
+        --template5-lime: #58b8ff;
+        --template5-lime-bright: #81c9ff;
+        --template5-lime-dark: #237bb8;
+        --template5-lime-soft: #c5e9ff;
+        --template5-lime-wash: #102d47;
+        --template5-highlight-text: #07111f;
+    }
+
+    [data-template5-theme='sunset'] {
+        --template5-background: #17100d;
+        --template5-surface: #241815;
+        --template5-surface-raised: #33211b;
+        --template5-surface-muted: #442a21;
+        --template5-border: #634036;
+        --template5-border-strong: #9b6049;
+        --template5-text: #fff7f0;
+        --template5-text-muted: #d4b3a4;
+        --template5-text-subtle: #aa8879;
+        --template5-lime: #ff9b54;
+        --template5-lime-bright: #ffb477;
+        --template5-lime-dark: #c8632d;
+        --template5-lime-soft: #ffe0c8;
+        --template5-lime-wash: #3b2117;
+        --template5-highlight-text: #17100d;
     }
     .dark {
         --background: 240 10% 3.9%;
