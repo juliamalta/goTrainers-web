@@ -7,7 +7,14 @@ function AboutUs4({ title, description, paragraphs = [], cards, img, imgTitle, i
         <section id="metodo" className="bg-white px-6 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28">
             <div className="container flex flex-col items-center gap-10 lg:flex-row">
                 <div className="relative w-full max-w-md overflow-hidden rounded-2xl bg-color-ivory shadow-sm">
-                    <Image src={img!} alt="personal" className="w-full object-cover object-top" />
+                    <Image
+                        src={img!}
+                        alt="personal"
+                        width={1672}
+                        height={941}
+                        sizes="(min-width: 1024px) 28rem, 100vw"
+                        className="h-auto w-full object-cover object-top"
+                    />
                     <div className="absolute inset-x-3 bottom-3 rounded-xl bg-color-burgundy px-4 py-4 text-center text-white shadow-lg sm:inset-x-4 sm:bottom-4">
                         <p className="text-xs font-bold tracking-wide sm:text-sm">{imgTitle}</p>
                         <p className="mt-1 text-xs font-semibold sm:text-sm">{imgDesc}</p>

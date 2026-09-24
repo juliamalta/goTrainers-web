@@ -29,7 +29,7 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
         redirect('/auth/login')
     }
 
-    const validTemplates = ['fitness', 'premium', 'clean']
+    const validTemplates = ['fitness', 'premium', 'clean', 'feminino']
 
     if (!validTemplates.includes(template)) {
         redirect('/dashboard')

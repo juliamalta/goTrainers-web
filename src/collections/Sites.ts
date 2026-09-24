@@ -103,6 +103,10 @@ export const Sites: CollectionConfig = {
                     label: 'Template 3 - Clean',
                     value: 'template-3',
                 },
+                {
+                    label: 'Template 4 - Vendas',
+                    value: 'template-4',
+                },
             ],
 
             admin: {
@@ -2399,6 +2403,969 @@ export const Sites: CollectionConfig = {
                             required: false,
                             label: 'Mensagem automática',
                             defaultValue: 'Olá! Gostaria de conhecer seu acompanhamento.',
+                        },
+                    ],
+                },
+            ],
+        },
+        // =========================================================
+        // TEMPLATE 4 - FEMININO
+        // =========================================================
+
+        {
+            name: 'template4',
+            type: 'group',
+            required: false,
+            label: 'Template 4 - Feminino',
+
+            admin: {
+                condition: (_, siblingData) => siblingData?.template === 'template-4',
+            },
+
+            fields: [
+                // =================================================
+                // HERO
+                // =================================================
+
+                {
+                    name: 'hero',
+                    type: 'group',
+                    required: false,
+                    label: 'Apresentação',
+
+                    admin: {
+                        description: 'Personalize a apresentação principal do Template Feminino.',
+                    },
+
+                    fields: [
+                        {
+                            name: 'titlePrimary',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'TREINAMENTO FEMININO',
+                        },
+
+                        {
+                            name: 'title',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Título principal',
+                            defaultValue: 'Treinamento feminino para você se sentir mais',
+                        },
+
+                        {
+                            name: 'titleHighlight',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto em destaque',
+                            defaultValue: 'forte, saudável',
+                        },
+
+                        {
+                            name: 'titleSecondary',
+                            type: 'text',
+                            required: false,
+                            label: 'Final do título',
+                            defaultValue: 'e confiante.',
+                        },
+
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Metodologia baseada na fisiologia feminina, planejada para a sua rotina real — seja em casa ou na academia. Conquiste definição, postura e vitalidade com acompanhamento próximo e profissional.',
+                        },
+
+                        {
+                            name: 'button1text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão principal',
+                            defaultValue: 'Quero começar agora',
+                        },
+
+                        {
+                            name: 'button1url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link do botão principal',
+                            defaultValue: '',
+                            admin: {
+                                placeholder: 'Ex.: 5531999999999, https://... ou #contato',
+                            },
+                        },
+
+                        {
+                            name: 'button2text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão secundário',
+                            defaultValue: 'Conhecer o programa',
+                        },
+
+                        {
+                            name: 'button2url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link do botão secundário',
+                            defaultValue: '#programa',
+                        },
+
+                        // =========================================
+                        // OFERTA
+                        // =========================================
+
+                        {
+                            name: 'offer',
+                            type: 'group',
+                            required: false,
+                            label: 'Oferta',
+
+                            fields: [
+                                {
+                                    name: 'label',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Texto superior',
+                                    defaultValue: 'Apenas nesta turma',
+                                },
+
+                                {
+                                    name: 'originalPrice',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Preço anterior',
+                                    defaultValue: 'De R$ 270',
+                                },
+
+                                {
+                                    name: 'price',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Preço atual',
+                                    defaultValue: 'R$ 100',
+                                },
+
+                                {
+                                    name: 'suffix',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Complemento do preço',
+                                    defaultValue: '/mês no plano inicial',
+                                },
+
+                                {
+                                    name: 'savings',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Texto da economia',
+                                    defaultValue:
+                                        'Economize R$ 170 e garanta suporte individual diretamente com a Juliana.',
+                                },
+                            ],
+                        },
+
+                        {
+                            name: 'img',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false,
+                            label: 'Sua foto',
+
+                            admin: {
+                                description:
+                                    'Opcional. Se nenhuma foto for enviada, será utilizada a imagem padrão do template.',
+                            },
+                        },
+
+                        // =========================================
+                        // TAGS - EXATAMENTE 3
+                        // =========================================
+
+                        {
+                            name: 'tags',
+                            type: 'array',
+                            required: true,
+                            minRows: 3,
+                            maxRows: 3,
+                            label: 'Destaques',
+
+                            defaultValue: [
+                                {
+                                    text: 'Treino 100% personalizado',
+                                },
+                                {
+                                    text: 'Acompanhamento online',
+                                },
+                                {
+                                    text: 'Vídeos explicativos em HD',
+                                },
+                            ],
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'O Template Feminino utiliza exatamente três destaques.',
+                            },
+
+                            fields: [
+                                {
+                                    name: 'text',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Texto',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // MÉTRICAS
+                // EXATAMENTE 4
+                // =================================================
+
+                {
+                    name: 'metrics',
+                    type: 'array',
+                    required: true,
+
+                    minRows: 4,
+                    maxRows: 4,
+
+                    label: 'Seus números',
+
+                    defaultValue: [
+                        {
+                            number: '+9 Anos',
+                            title: 'DE EXPERIÊNCIA',
+                            text: 'Presencial e Consultoria Online',
+                        },
+                        {
+                            number: '100%',
+                            title: 'TREINOS PERSONALIZADOS',
+                            text: 'Fisiologia e rotina individual',
+                        },
+                        {
+                            number: 'Direto',
+                            title: 'ACOMPANHAMENTO ONLINE',
+                            text: 'Feedback e ajustes semanais',
+                        },
+                        {
+                            number: 'Para Você',
+                            title: 'TODOS OS NÍVEIS',
+                            text: 'Iniciante, intermediária e avançada',
+                        },
+                    ],
+
+                    admin: {
+                        initCollapsed: false,
+                        description: 'O Template Feminino utiliza exatamente quatro métricas.',
+                    },
+
+                    fields: [
+                        {
+                            name: 'number',
+                            type: 'text',
+                            required: true,
+                            label: 'Número / destaque',
+                        },
+
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: true,
+                            label: 'Título',
+                        },
+
+                        {
+                            name: 'text',
+                            type: 'text',
+                            required: true,
+                            label: 'Descrição',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // CARD 8 - COMO FUNCIONA
+                // EXATAMENTE 3 CARDS
+                // =================================================
+
+                {
+                    name: 'method',
+                    type: 'group',
+                    required: false,
+                    label: 'Como funciona',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Como funciona',
+                        },
+
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Um acompanhamento personalizado, pensado para seus objetivos, sua rotina e seu nível de condicionamento.',
+                        },
+
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: true,
+
+                            minRows: 3,
+                            maxRows: 3,
+
+                            label: 'Etapas',
+
+                            defaultValue: [
+                                {
+                                    number: '01',
+                                    title: 'Conte seus objetivos',
+                                    text: 'Você preenche uma anamnese detalhada sobre seu histórico, dores, nível de condicionamento, rotina diária e tempo disponível para treinar.',
+                                },
+                                {
+                                    number: '02',
+                                    title: 'Receba seu treino personalizado',
+                                    text: 'Desenvolvo seu plano exclusivo de treino, em casa ou na academia, com vídeos demonstrativos de cada movimento e orientações posturais claras.',
+                                },
+                                {
+                                    number: '03',
+                                    title: 'Evolua com acompanhamento',
+                                    text: 'Tiramos dúvidas, você pode enviar vídeos executando os exercícios para correção de postura e fazemos ajustes contínuos para manter sua motivação em alta.',
+                                },
+                            ],
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'O Template Feminino utiliza exatamente três etapas.',
+                            },
+
+                            fields: [
+                                {
+                                    name: 'number',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Número',
+                                },
+
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Título',
+                                },
+
+                                {
+                                    name: 'text',
+                                    type: 'textarea',
+                                    required: true,
+                                    label: 'Descrição',
+                                },
+                            ],
+                        },
+
+                        {
+                            name: 'button1text',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão',
+                            defaultValue: 'Garantir minha vaga bonus',
+                        },
+
+                        {
+                            name: 'button1url',
+                            type: 'text',
+                            required: false,
+                            label: 'Link ou WhatsApp',
+                            defaultValue: '',
+                        },
+
+                        {
+                            name: 'cardTitle',
+                            type: 'text',
+                            required: false,
+                            label: 'Título do destaque',
+                            defaultValue: 'Encontro Mensal em Grupo ao Vivo',
+                        },
+
+                        {
+                            name: 'cardText',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição do destaque',
+                            defaultValue:
+                                'Assinando qualquer plano, você participa de uma aula online em grupo por mês para tirar dúvidas, melhorar a execução e manter a motivação.',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // RESULTADOS
+                // MÍNIMO 1 / MÁXIMO 2
+                // =================================================
+
+                {
+                    name: 'results',
+                    type: 'group',
+                    required: false,
+                    label: 'Resultados de alunas',
+
+                    fields: [
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: true,
+
+                            minRows: 1,
+                            maxRows: 2,
+
+                            label: 'Resultados',
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'Adicione um ou dois resultados. O template não permite mais de dois.',
+                            },
+
+                            defaultValue: [
+                                {
+                                    beforeLabel: 'Antes (sedentária)',
+                                    beforeTitle: 'Dores nas costas',
+                                    beforeText: 'Baixa disposição',
+
+                                    afterLabel: 'Depois (4 meses)',
+                                    afterTitle: '−7kg de gordura',
+                                    afterText: 'Postura corrigida',
+
+                                    name: 'Camila Vasconcelos, 34 anos',
+
+                                    quote: 'Tinha medo de me machucar treinando em casa, mas os vídeos deram total segurança. Hoje não sinto mais dores nas costas!',
+
+                                    objective: 'Tonificação e Saúde',
+                                    plan: 'Plano Trimestral',
+                                },
+
+                                {
+                                    beforeLabel: 'Antes (rotina corrida)',
+                                    beforeTitle: 'Sem tempo',
+                                    beforeText: 'Desistia sempre',
+
+                                    afterLabel: 'Depois (3 meses)',
+                                    afterTitle: 'Treinos de 35 min',
+                                    afterText: 'Constância de 12 semanas',
+
+                                    name: 'Mariana Toledo, 29 anos',
+
+                                    quote: 'Trabalhava o dia inteiro e achava que precisava de 2 horas na academia. A Ju montou treinos objetivos que transformaram meu hábito em energia.',
+
+                                    objective: 'Definição e Rotina',
+                                    plan: 'Plano Bimestral',
+                                },
+                            ],
+
+                            fields: [
+                                {
+                                    name: 'beforeLabel',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Antes — identificação',
+                                },
+
+                                {
+                                    name: 'beforeTitle',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Antes — título',
+                                },
+
+                                {
+                                    name: 'beforeText',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Antes — descrição',
+                                },
+
+                                {
+                                    name: 'beforeImage',
+                                    type: 'upload',
+                                    relationTo: 'media',
+                                    required: false,
+                                    label: 'Foto antes',
+                                },
+
+                                {
+                                    name: 'afterLabel',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Depois — identificação',
+                                },
+
+                                {
+                                    name: 'afterTitle',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Depois — título',
+                                },
+
+                                {
+                                    name: 'afterText',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Depois — descrição',
+                                },
+
+                                {
+                                    name: 'afterImage',
+                                    type: 'upload',
+                                    relationTo: 'media',
+                                    required: false,
+                                    label: 'Foto depois',
+                                },
+
+                                {
+                                    name: 'name',
+                                    type: 'text',
+                                    required: true,
+                                    label: 'Nome da aluna',
+                                },
+
+                                {
+                                    name: 'quote',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Depoimento',
+                                },
+
+                                {
+                                    name: 'objective',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Objetivo',
+                                },
+
+                                {
+                                    name: 'plan',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Plano',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // CARD 9 - TREINAMENTOS
+                // MÁXIMO 3
+                // =================================================
+
+                {
+                    name: 'services',
+                    type: 'group',
+                    required: false,
+                    label: 'Treinamentos',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Treinamento pensado para você.',
+                        },
+
+                        {
+                            name: 'desc',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Cada acompanhamento é minuciosamente calibrado para a sua rotina, objetivos biomecânicos e ritmo de vida executivo.',
+                        },
+
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: false,
+
+                            maxRows: 3,
+
+                            label: 'Treinamentos',
+
+                            admin: {
+                                initCollapsed: false,
+                                description: 'Você pode cadastrar até três treinamentos.',
+                            },
+
+                            defaultValue: [
+                                {
+                                    desc: 'MÓDULO PRESENCIAL',
+                                    title: 'Performance Privativa',
+                                    text: 'Sessões 100% presenciais em estúdio privativo selecionado ou no conforto do seu condomínio.',
+                                    price: 'R$ 1.490/mês',
+                                    option: [
+                                        {
+                                            text: 'Avaliação postural tridimensional completa',
+                                        },
+                                        {
+                                            text: 'Periodização sob medida',
+                                        },
+                                        {
+                                            text: 'Suporte contínuo',
+                                        },
+                                    ],
+                                    link: '',
+                                    iconBgColor: '#D1FAE5',
+                                    featured: false,
+                                },
+
+                                {
+                                    desc: 'CONCIERGE TOTAL',
+                                    title: 'Concierge Executivo Full',
+                                    text: 'Atendimento híbrido de máxima conveniência e acompanhamento completo.',
+                                    price: 'R$ 2.990/mês',
+                                    option: [
+                                        {
+                                            text: 'Alinhamento com médico e nutricionista',
+                                        },
+                                        {
+                                            text: 'Planejamento de treinos',
+                                        },
+                                        {
+                                            text: 'Monitoramento contínuo',
+                                        },
+                                        {
+                                            text: 'Atendimento prioritário',
+                                        },
+                                    ],
+                                    link: '',
+                                    iconBgColor: '#CCFBF1',
+                                    featured: true,
+                                },
+
+                                {
+                                    desc: 'MÓDULO REMOTO',
+                                    title: 'Consultoria Remota Elite',
+                                    text: 'Prescrição estratégica remota para quem treina com autonomia.',
+                                    price: 'R$ 890/mês',
+                                    option: [
+                                        {
+                                            text: 'Análise postural em vídeo',
+                                        },
+                                        {
+                                            text: 'Ajustes e progressão',
+                                        },
+                                        {
+                                            text: 'Canal via WhatsApp',
+                                        },
+                                    ],
+                                    link: '',
+                                    iconBgColor: '#DCFCE7',
+                                    featured: false,
+                                },
+                            ],
+
+                            fields: [
+                                {
+                                    name: 'desc',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Categoria',
+                                },
+
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Nome do treinamento',
+                                },
+
+                                {
+                                    name: 'text',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                },
+
+                                {
+                                    name: 'price',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Preço',
+                                },
+
+                                {
+                                    name: 'option',
+                                    type: 'array',
+                                    required: false,
+                                    maxRows: 4,
+                                    label: 'O que está incluso',
+
+                                    fields: [
+                                        {
+                                            name: 'text',
+                                            type: 'text',
+                                            required: false,
+                                            label: 'Benefício',
+                                        },
+                                    ],
+                                },
+
+                                {
+                                    name: 'link',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Link',
+                                },
+
+                                {
+                                    name: 'iconBgColor',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Cor do ícone',
+                                    defaultValue: '#F5E7EA',
+                                },
+
+                                {
+                                    name: 'featured',
+                                    type: 'checkbox',
+                                    required: false,
+                                    defaultValue: false,
+                                    label: 'Destacar treinamento',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // SOBRE
+                // =================================================
+
+                {
+                    name: 'about',
+                    type: 'group',
+                    required: false,
+                    label: 'Sobre você',
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Conheça Camila Ribeiro',
+                        },
+
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Treinadora pessoal que ajuda você a conquistar mais força, disposição e confiança.',
+                        },
+
+                        {
+                            name: 'imgTitle',
+                            type: 'text',
+                            required: false,
+                            label: 'Título sobre a imagem',
+                            defaultValue: 'REGISTRO PROFISSIONAL ATIVO',
+                        },
+
+                        {
+                            name: 'imgDesc',
+                            type: 'text',
+                            required: false,
+                            label: 'Registro profissional',
+                            defaultValue: 'CREF 032253G/MG',
+                        },
+
+                        {
+                            name: 'img',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false,
+                            label: 'Sua foto',
+                        },
+
+                        {
+                            name: 'paragraphs',
+                            type: 'array',
+                            required: false,
+                            maxRows: 2,
+                            label: 'Textos',
+
+                            defaultValue: [
+                                {
+                                    text: 'Há mais de 9 anos, ajudo mulheres a conquistar saúde, força e disposição por meio do exercício físico.',
+                                },
+                                {
+                                    text: 'Cada treino é pensado para respeitar sua rotina e acompanhar sua evolução.',
+                                },
+                            ],
+
+                            fields: [
+                                {
+                                    name: 'text',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Texto',
+                                },
+                            ],
+                        },
+
+                        {
+                            name: 'cards',
+                            type: 'array',
+                            required: false,
+                            maxRows: 3,
+                            label: 'Formações',
+
+                            defaultValue: [
+                                {
+                                    title: 'Pós-graduação',
+                                    description: 'Bases fisiológicas do treinamento físico.',
+                                },
+                                {
+                                    title: 'Especialização',
+                                    description: 'Treinamento de força para mulheres.',
+                                },
+                                {
+                                    title: 'Certificação',
+                                    description: 'Avaliação física e prescrição de exercícios.',
+                                },
+                            ],
+
+                            fields: [
+                                {
+                                    name: 'title',
+                                    type: 'text',
+                                    required: false,
+                                    label: 'Título',
+                                },
+
+                                {
+                                    name: 'description',
+                                    type: 'textarea',
+                                    required: false,
+                                    label: 'Descrição',
+                                },
+                            ],
+                        },
+                    ],
+                },
+
+                // =================================================
+                // CONTATO
+                // =================================================
+
+                {
+                    name: 'contact',
+                    type: 'group',
+                    required: false,
+                    label: 'Contato',
+
+                    fields: [
+                        {
+                            name: 'eyebrow',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'VAGAS LIMITADAS PARA ACOMPANHAMENTO',
+                        },
+
+                        {
+                            name: 'title',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Título',
+                            defaultValue: 'Pronta para começar sua transformação?',
+                        },
+
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Você não precisa de horas na academia nem de métodos radicais. Precisa apenas de um plano feito para o seu corpo e do suporte certo para não desistir.',
+                        },
+
+                        {
+                            name: 'primaryButtonText',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão principal',
+                            defaultValue: 'Quero iniciar meu treinamento',
+                        },
+
+                        {
+                            name: 'primaryButtonHref',
+                            type: 'text',
+                            required: false,
+                            label: 'Link do botão principal',
+                            defaultValue: '#anamnese',
+                        },
+
+                        {
+                            name: 'secondaryButtonText',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto do botão WhatsApp',
+                            defaultValue: 'Falar no WhatsApp',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // WHATSAPP
+                // =================================================
+
+                {
+                    name: 'whatsapp',
+                    type: 'group',
+                    required: false,
+                    label: 'WhatsApp',
+
+                    fields: [
+                        {
+                            name: 'enabled',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: true,
+                            label: 'Mostrar WhatsApp',
+                        },
+
+                        {
+                            name: 'phone',
+                            type: 'text',
+                            required: false,
+                            label: 'Seu WhatsApp',
+
+                            admin: {
+                                placeholder: 'Exemplo: 5531999999999',
+                                description: 'Digite código do país + DDD + número, sem espaços ou símbolos.',
+                            },
+                        },
+
+                        {
+                            name: 'message',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Mensagem automática',
+                            defaultValue: 'Olá! Vi seu site e gostaria de saber mais sobre seu treinamento.',
                         },
                     ],
                 },

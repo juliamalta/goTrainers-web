@@ -67,6 +67,14 @@ export default async function Dashboard() {
                             link: '/dashboard/create?template=clean',
                             buttonText: 'Escolher esse template',
                         },
+                        {
+                            title: 'Template 4 — VENDAS',
+                            img: '/images/template4.png',
+                            tag: ['Dusty Rose', 'Alta Conversão', 'Foco em Vendas'],
+                            desc: 'Estratégico, persuasivo e orientado à conversão. Destaca benefícios, ofertas, resultados e chamadas para ação para transformar visitantes em novos clientes.',
+                            link: '/dashboard/create?template=feminino',
+                            buttonText: 'Escolher esse template',
+                        },
                     ]}
                 />
             </div>
