@@ -8,6 +8,7 @@ import CustomizeSite from '@/components/dashboard/CustomizeSite'
 import CustomizeSite2 from '@/components/dashboard/CustomizeSite2'
 import CustomizeSite3 from '@/components/dashboard/CustomizeSite3'
 import CustomizeSite4 from '@/components/dashboard/CustomizeSite4'
+import CustomizeSite5 from '@/components/dashboard/CustomizeSite5'
 
 interface CustomizePageProps {
     searchParams: Promise<{
@@ -54,9 +55,15 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
             image: '/images/template4.png',
             value: 'template-4',
         },
+        'template-5': {
+            name: 'Template 5 — Link na Bio',
+            image: '/images/template5.png',
+            value: 'template-5',
+        },
     }
 
-    const selectedTemplate = templates[template as keyof typeof templates] ?? templates.fitness
+    const templateKey = template === 'linkInbio' ? 'template-5' : template
+    const selectedTemplate = templates[templateKey as keyof typeof templates] ?? templates.fitness
 
     const sites = await payload.find({
         collection: 'sites',
@@ -74,6 +81,18 @@ export default async function CustomizePage({ searchParams }: CustomizePageProps
     })
 
     const site = sites.docs[0] ?? null
+
+    if (selectedTemplate.value === 'template-5') {
+        return (
+            <CustomizeSite5
+                key={site?.id ?? 'new-template-5'}
+                templateName={selectedTemplate.name}
+                templateImage={selectedTemplate.image}
+                userName={user.name || ''}
+                site={site}
+            />
+        )
+    }
 
     // ============================================================
     // TEMPLATE 2 — PREMIUM

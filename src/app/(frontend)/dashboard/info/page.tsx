@@ -72,7 +72,9 @@ export default function DashboardInfo() {
               ? 'Template 2'
               : site?.template === 'template-3'
                 ? 'Template 3'
-                : site?.template || '—'
+                : site?.template === 'template-5'
+                  ? 'Template 5 — Link na Bio'
+                  : site?.template || '—'
 
     const status = site?.published ? 'Online' : 'Rascunho'
 
@@ -99,7 +101,9 @@ export default function DashboardInfo() {
                   ? 'clean'
                   : site.template === 'template-4'
                     ? 'feminino'
-                    : 'fitness'
+                    : site.template === 'template-5'
+                      ? 'template-5'
+                      : 'fitness'
 
         router.push(`/dashboard/customize?template=${templateParam}`)
     }

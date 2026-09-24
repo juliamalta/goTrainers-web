@@ -107,6 +107,10 @@ export const Sites: CollectionConfig = {
                     label: 'Template 4 - Vendas',
                     value: 'template-4',
                 },
+                {
+                    label: 'Template 5 - Link na Bio',
+                    value: 'template-5',
+                },
             ],
 
             admin: {
@@ -3366,6 +3370,261 @@ export const Sites: CollectionConfig = {
                             required: false,
                             label: 'Mensagem automática',
                             defaultValue: 'Olá! Vi seu site e gostaria de saber mais sobre seu treinamento.',
+                        },
+                    ],
+                },
+            ],
+        },
+        // =========================================================
+        // TEMPLATE 5 - LINK NA BIO
+        // =========================================================
+
+        {
+            name: 'template5',
+            type: 'group',
+            required: false,
+            label: 'Template 5 - Link na Bio',
+
+            admin: {
+                condition: (_, siblingData) => siblingData?.template === 'template-5',
+            },
+
+            fields: [
+                // =================================================
+                // TEMA
+                // =================================================
+
+                {
+                    name: 'theme',
+                    type: 'select',
+                    required: false,
+                    label: 'Tema',
+                    defaultValue: 'neon',
+
+                    options: [
+                        {
+                            label: 'Neon',
+                            value: 'neon',
+                        },
+                        {
+                            label: 'White',
+                            value: 'white',
+                        },
+                        {
+                            label: 'Feminino',
+                            value: 'feminine',
+                        },
+                        {
+                            label: 'Azul',
+                            value: 'blue',
+                        },
+                        {
+                            label: 'Sunset',
+                            value: 'sunset',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // PERFIL
+                // =================================================
+
+                {
+                    name: 'hero',
+                    type: 'group',
+                    required: false,
+                    label: 'Perfil',
+
+                    fields: [
+                        {
+                            name: 'titlePrimary',
+                            type: 'text',
+                            required: false,
+                            label: 'Texto superior',
+                            defaultValue: 'Vagas abertas para consultoria',
+                        },
+
+                        {
+                            name: 'profileName',
+                            type: 'text',
+                            required: false,
+                            label: 'Nome',
+                            defaultValue: 'Alex Andrade',
+                        },
+
+                        {
+                            name: 'profileUsername',
+                            type: 'text',
+                            required: false,
+                            label: 'Usuário',
+                            defaultValue: '@AlexAndrade',
+                        },
+
+                        {
+                            name: 'profileDescription',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+                            defaultValue:
+                                'Ajudo você a transformar seu corpo através de treino personalizado, biomecânica inteligente e acompanhamento profissional diário.',
+                        },
+
+                        {
+                            name: 'profileImage',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false,
+                            label: 'Foto de perfil',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // REDES SOCIAIS
+                // =================================================
+
+                {
+                    name: 'socialLinks',
+                    type: 'array',
+                    required: false,
+                    maxRows: 5,
+                    label: 'Redes sociais',
+
+                    fields: [
+                        {
+                            name: 'type',
+                            type: 'select',
+                            required: false,
+                            label: 'Rede social',
+
+                            options: [
+                                {
+                                    label: 'Instagram',
+                                    value: 'instagram',
+                                },
+                                {
+                                    label: 'WhatsApp',
+                                    value: 'whatsapp',
+                                },
+                                {
+                                    label: 'TikTok',
+                                    value: 'tiktok',
+                                },
+                                {
+                                    label: 'YouTube',
+                                    value: 'youtube',
+                                },
+                                {
+                                    label: 'Facebook',
+                                    value: 'facebook',
+                                },
+                            ],
+                        },
+
+                        {
+                            name: 'label',
+                            type: 'text',
+                            required: false,
+                            label: 'Nome',
+                        },
+
+                        {
+                            name: 'href',
+                            type: 'text',
+                            required: false,
+                            label: 'Link',
+                        },
+                    ],
+                },
+
+                // =================================================
+                // LINKS / CARDS
+                // =================================================
+
+                {
+                    name: 'cards',
+                    type: 'array',
+                    required: false,
+
+                    // PODE PREENCHER ATÉ 6
+                    maxRows: 6,
+
+                    label: 'Links',
+
+                    admin: {
+                        initCollapsed: false,
+                        description:
+                            'Adicione até 6 links para seus serviços, WhatsApp, consultoria, avaliação ou outras páginas.',
+                    },
+
+                    fields: [
+                        {
+                            name: 'title',
+                            type: 'text',
+                            required: false,
+                            label: 'Título',
+
+                            admin: {
+                                placeholder: 'Ex.: Falar comigo no WhatsApp',
+                            },
+                        },
+
+                        {
+                            name: 'description',
+                            type: 'textarea',
+                            required: false,
+                            label: 'Descrição',
+
+                            admin: {
+                                placeholder: 'Ex.: Atendimento direto e resposta rápida',
+                            },
+                        },
+
+                        {
+                            name: 'href',
+                            type: 'text',
+                            required: false,
+                            label: 'Link',
+
+                            admin: {
+                                placeholder: 'Ex.: https://wa.me/5531999999999',
+                            },
+                        },
+
+                        {
+                            name: 'type',
+                            type: 'select',
+                            required: false,
+                            label: 'Tipo',
+
+                            options: [
+                                {
+                                    label: 'Link normal',
+                                    value: 'link',
+                                },
+                                {
+                                    label: 'WhatsApp',
+                                    value: 'whatsapp',
+                                },
+                            ],
+
+                            defaultValue: 'link',
+                        },
+
+                        {
+                            name: 'highlighted',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: false,
+                            label: 'Destacar card',
+                        },
+
+                        {
+                            name: 'mostPopular',
+                            type: 'checkbox',
+                            required: false,
+                            defaultValue: false,
+                            label: 'Mostrar como mais popular',
                         },
                     ],
                 },

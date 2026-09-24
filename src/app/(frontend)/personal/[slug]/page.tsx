@@ -7,6 +7,7 @@ import Template1Page from '@/app/(frontend)/template1/[slug]/page'
 import Template2Page from '@/app/(frontend)/template2/[slug]/page'
 import Template3Page from '@/app/(frontend)/template3/[slug]/page'
 import Template4Page from '@/app/(frontend)/template4/[slug]/page'
+import Template5Page from '@/app/(frontend)/template5/[slug]/page'
 
 interface PageProps {
     params: Promise<{
@@ -59,6 +60,9 @@ export default async function PersonalPage({ params }: PageProps) {
 
         case 'template-4':
             return <Template4Page params={Promise.resolve({ slug })} />
+
+        case 'template-5':
+            return <Template5Page params={Promise.resolve({ slug })} />
 
         default:
             notFound()

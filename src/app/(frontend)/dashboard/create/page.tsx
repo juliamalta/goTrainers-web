@@ -29,6 +29,10 @@ export default async function CreatePage({ searchParams }: CreatePageProps) {
         redirect('/auth/login')
     }
 
+    if (template === 'template-5' || template === 'linkInbio') {
+        redirect('/dashboard/customize?template=template-5')
+    }
+
     const validTemplates = ['fitness', 'premium', 'clean', 'feminino']
 
     if (!validTemplates.includes(template)) {

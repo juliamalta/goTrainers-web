@@ -75,6 +75,14 @@ export default async function Dashboard() {
                             link: '/dashboard/create?template=feminino',
                             buttonText: 'Escolher esse template',
                         },
+                        {
+                            title: 'Template 5 — Link na bio',
+                            img: '/images/template5.png',
+                            tag: ['Links Essenciais', 'Contato Rápido'],
+                            desc: 'Simples, moderno e direto. Reúne seus principais links, redes sociais, WhatsApp e formas de contato em um só lugar para facilitar a conexão com seus clientes.',
+                            link: '/dashboard/create?template=linkInbio',
+                            buttonText: 'Escolher esse template',
+                        },
                     ]}
                 />
             </div>

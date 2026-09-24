@@ -106,6 +106,14 @@ export default function Home() {
                         link: '/template4',
                         buttonText: 'Visualizar template',
                     },
+                    {
+                        title: 'Template 5 — LINK NA BIO',
+                        img: '/images/template5.png',
+                        tag: ['Links Essenciais', 'Contato Rápido'],
+                        desc: 'Simples, moderno e direto. Reúne seus principais links, redes sociais, WhatsApp e formas de contato em um só lugar para facilitar a conexão com seus clientes.',
+                        link: '/template5',
+                        buttonText: 'Visualizar template',
+                    },
                 ]}
             />
             <Contact

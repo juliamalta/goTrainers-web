@@ -75,6 +75,8 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
         customizeHref = '/dashboard/customize?template=clean'
     } else if (site?.template === 'template-4') {
         customizeHref = '/dashboard/customize?template=feminino'
+    } else if (site?.template === 'template-5') {
+        customizeHref = '/dashboard/customize?template=template-5'
     }
 
     if (hasPublishedSite) {
