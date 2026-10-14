@@ -1,9 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createHmac } from 'crypto'
-import { getPayload } from 'payload'
 import config from '@payload-config'
+import { createHmac } from 'crypto'
+import { NextRequest, NextResponse } from 'next/server'
+import { getPayload } from 'payload'
 
-const TOKEN_SECRET = process.env.PAYLOAD_SECRET || 'dev-reset-password-secret'
+const tokenSecret = process.env.PAYLOAD_SECRET
+
+if (process.env.NODE_ENV === 'production' && (!tokenSecret || tokenSecret.length < 32)) {
+    throw new Error('PAYLOAD_SECRET must be configured with at least 32 characters in production.')
+}
+
+// Development-only fallback. Production fails closed above instead of signing
+// reset tokens with a predictable secret.
+const TOKEN_SECRET = tokenSecret || 'dev-reset-password-secret'
 
 function createToken(email: string) {
     const expires = Date.now() + 15 * 60 * 1000

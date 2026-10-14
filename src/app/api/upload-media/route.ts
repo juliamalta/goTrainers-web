@@ -1,8 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server'
-
 import { getPayload } from 'payload'
 
 import config from '../../../../payload.config'
+
+const MAX_IMAGE_REDIRECTS = 3
+
+function isAllowedImageUrl(value: URL) {
+    const host = value.hostname.toLowerCase()
+
+    return (
+        value.protocol === 'https:' &&
+        !value.username &&
+        !value.password &&
+        (!value.port || value.port === '443') &&
+        (host === 'instagram.com' ||
+            host.endsWith('.instagram.com') ||
+            host.endsWith('.cdninstagram.com') ||
+            host.endsWith('.fbcdn.net'))
+    )
+}
+
+async function fetchAllowedImage(url: URL) {
+    let currentUrl = url
+
+    for (let redirectCount = 0; redirectCount <= MAX_IMAGE_REDIRECTS; redirectCount += 1) {
+        const response = await fetch(currentUrl, { redirect: 'manual' })
+
+        if (response.status < 300 || response.status >= 400) {
+            return response
+        }
+
+        const location = response.headers.get('location')
+        if (!location || redirectCount === MAX_IMAGE_REDIRECTS) {
+            throw new Error('A URL da imagem possui redirecionamentos inválidos ou excessivos.')
+        }
+
+        const redirectedUrl = new URL(location, currentUrl)
+        if (!isAllowedImageUrl(redirectedUrl)) {
+            throw new Error('O redirecionamento da imagem aponta para um domínio não permitido.')
+        }
+
+        currentUrl = redirectedUrl
+    }
+
+    throw new Error('Não foi possível validar a URL da imagem.')
+}
 
 export async function POST(request: NextRequest) {
     try {
@@ -77,18 +119,11 @@ export async function POST(request: NextRequest) {
                 return NextResponse.json({ message: 'A imagem precisa usar uma URL HTTPS.' }, { status: 400 })
             }
 
-            const host = parsedUrl.hostname.toLowerCase()
-            const isInstagramImage =
-                host === 'instagram.com' ||
-                host.endsWith('.instagram.com') ||
-                host.endsWith('.cdninstagram.com') ||
-                host.endsWith('.fbcdn.net')
-
-            if (!isInstagramImage) {
+            if (!isAllowedImageUrl(parsedUrl)) {
                 return NextResponse.json({ message: 'A imagem precisa vir do Instagram.' }, { status: 400 })
             }
 
-            const imageResponse = await fetch(parsedUrl, { redirect: 'follow' })
+            const imageResponse = await fetchAllowedImage(parsedUrl)
             if (!imageResponse.ok) {
                 return NextResponse.json({ message: 'NÃ£o foi possÃ­vel baixar a imagem importada.' }, { status: 400 })
             }
